@@ -1,0 +1,52 @@
+max hit general formula
+
+prayer boosts
+
+black mask
+salve amulet
+viggs
+obsidian armor
+
+max hit:
+	ranged/melee:
+		0.5 + A*(B+64)/640
+		A:
+			boosted strength
+			apply prayer
+			add stance
+			apply void
+		B:
+			ranged/melee strength bonus				
+
+		after:
+			apply black mask/salve
+		
+
+	Magic:
+		if slayerdart, trident, salamandar, sang:
+			calc max hit
+		else if spell: lookup table
+		apply charge, and or chaos gauntlet bonus
+		
+		apply magic dmg % bonus (including salve, void)
+		apply black mask
+		apply tome of fire
+		
+		
+		
+
+accuracy:
+	A*(B+64)
+	A:
+		boosted level
+		apply prayer
+		stance bonus
+		check void
+
+	B:
+		bonus
+
+	Afterward:
+		black mask or salve bonus
+		arclight/twisted bow/ smoke staff(?) / torag's set
+
