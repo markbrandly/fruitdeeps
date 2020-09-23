@@ -50,3 +50,9 @@ accuracy:
 		black mask or salve bonus
 		arclight/twisted bow/ smoke staff(?) / torag's set
 
+
+
+import algorithm:
+check if image exists in database
+if image doesn't exist, create image
+get image id

@@ -13,13 +13,13 @@ export class DefenderTableDisplay extends Component {
 							<td>
 								<div class='stat-wrap'>
 									<img src="https://oldschool.runescape.wiki/images/8/8f/Combat_icon.png?93d63" />
-									{this.props.monster.cb}
+									{this.props.monster.combat}
 								</div>
 							</td>
 							<td>
 								<div class='stat-wrap'>
 									<img src="https://oldschool.runescape.wiki/images/9/96/Hitpoints_icon.png?a4819" />
-									{this.props.monster.hitpoints}
+									{this.props.monster.stats.hitpoints}
 								</div>
 							</td>
 						</tr>
@@ -27,13 +27,13 @@ export class DefenderTableDisplay extends Component {
 							<td>
 								<div class='stat-wrap'>
 									<img src="https://oldschool.runescape.wiki/images/b/b7/Defence_icon.png?ca0cd" />
-									{this.props.monster.defence}
+									{this.props.monster.stats.def}
 								</div>
 							</td>
 							<td>
 								<div class='stat-wrap'>
 									<img src="https://oldschool.runescape.wiki/images/5/5c/Magic_icon.png?334cf" />
-									{this.props.monster.magic}
+									{this.props.monster.stats.mage}
 								</div>
 							</td>
 						</tr>
@@ -42,11 +42,11 @@ export class DefenderTableDisplay extends Component {
 				<div>
 					<h3>Defence bonus</h3>
 					<table class='bonus-table'>
-						<BonusRow bonusName="Stab" bonusValue={this.props.monster.bonuses.stabDefence} />
-						<BonusRow bonusName="Slash" bonusValue={this.props.monster.bonuses.slashDefence} />
-						<BonusRow bonusName="Crush" bonusValue={this.props.monster.bonuses.crushDefence} />
-						<BonusRow bonusName="Magic" bonusValue={this.props.monster.bonuses.magicDefence} />
-						<BonusRow bonusName="Range" bonusValue={this.props.monster.bonuses.rangedDefence} />
+						<BonusRow bonusName="Stab" bonusValue={this.props.monster.stats.dstab} />
+						<BonusRow bonusName="Slash" bonusValue={this.props.monster.stats.dslash} />
+						<BonusRow bonusName="Crush" bonusValue={this.props.monster.stats.dcrush} />
+						<BonusRow bonusName="Magic" bonusValue={this.props.monster.stats.dmagic} />
+						<BonusRow bonusName="Range" bonusValue={this.props.monster.stats.drange} />
 					</table>
 				</div>
 			</div>

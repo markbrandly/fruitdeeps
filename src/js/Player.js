@@ -1,8 +1,15 @@
+//Player.js defines the player model that is used for all calculations
+//The Player constructor accepts a serialized version of the Player object
+//Player.serialize() exports a serialized version of the object
+//Notes:
+//  Player.bonuses and Player.boostedStats may both be getters.
+//  I think that boostedStats should be a getter and bonuses should not be, to allow bonuses to be custom defined
+
 import {PotionDrinker} from "./lib/PotionDrinker.js";
 import {PrayerBook} from "./lib/PrayerBook.js";
 
 
-//bonuses and boostedstats should both be getters, eliminating the need to manually update them every time equipment or stats/boosts change
+
 
 const slots = [
   "cape","head","neck","ammo",
@@ -20,7 +27,7 @@ const stats = ['attack', 'strength', 'ranged', 'magic', 'hitpoints', 'prayer', '
 
 const nullItem = {
   id: 0,
-  name: null,
+  name: "",
   slot: null,
   bonuses: Array(14).fill(0)
 };
@@ -47,9 +54,13 @@ export default class Player{
 		this.attackStyle = 0
 		this.equipment = {};
 		this.slots.forEach((slot) => {
-			this.equipment[slot] = nullItem;
-			this.equipment['weapon'] = unarmed
+      if(slot !== '2h'){
+        this.equipment[slot] = {...nullItem, slot:slot};
+        // console.log(this.equipment[slot])
+      }
 		}); 
+
+    this.equipment['weapon'] = unarmed
 
 		this.boostList = [];
 
@@ -104,7 +115,7 @@ export default class Player{
 
   boostStats(){
   	var potionDrinker = new PotionDrinker();
-  	console.log('boosting stats', this.stats, this.boostList)
+  	// console.log('boosting stats', this.stats, this.boostList)
   	this.boostedStats = potionDrinker.boostStats(this.stats, this.boostList)
   }
 
@@ -123,8 +134,10 @@ export default class Player{
   }
 
   unequip(slot){
-    this.equipment[slot] = nullItem;
-    this.update(); 
+    if(slots.includes(slot)){
+      this.equipment[slot] = {...nullItem, slot:slot};
+      this.update(); 
+    }
   }
 
   setStat(stat, level){
@@ -176,12 +189,15 @@ export default class Player{
   }
 
   update(){
-    console.log(this)
+    // console.log(this)
     var player = this;
     for (var i = 0; i < bonusList.length; i++) {
       var bonus = 0;
       slots.forEach(function(slot){
-        bonus += player.equipment[slot].bonuses[i];
+        if(slot !== '2h'){
+          // console.log(player.equipment[slot])
+          bonus += player.equipment[slot].bonuses[i];
+        }
       });
       player.bonuses[i] = bonus;
     }

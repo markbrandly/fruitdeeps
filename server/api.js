@@ -1,6 +1,6 @@
 const db = require('./database.js')
 const bonusList = ['stabAttack', 'slashAttack', 'crushAttack', 'magicAttack', 'rangedAttack', 'stabDefence', 'slashDefence', 'crushDefence', 'magicDefence', 'rangedDefence', 'strength', 'rangedStrength', 'magicStrength', 'prayer']
-const monBonusList = ['stabDefence', 'slashDefence', 'crushDefence', 'magicDefence', 'rangedDefence']
+const monBonusList = ['hitpoints', 'att', 'str', 'def', 'mage', 'range', 'attbns', 'strbns', 'amagic', 'mbns', 'arange', 'rngbns', 'dstab', 'dslash', 'dcrush', 'dmagic', 'drange']
 
 
 //this code sucks
@@ -75,50 +75,43 @@ exports.searchMonsterNames = function(str, limit, fn){
 }
 
 exports.getMonstersByName = function(str, fn){
-	const sql="\
-		select a.idmonster, a.name, a.wikiVersion, a.hitpoints, a.slayer, a.cbLvl, \
-		a.examine, b.localPath, c.value as mage, d.value as defence \
-		from rsitems.monster as a\
-		left join rsitems.image as b \
-    	on a.imageId = b.imageId \
-        left join rsitems.monster_stat as c \
-        on a.idmonster = c.monsterId \
-        and c.category = 'mage' \
-        left join rsitems.monster_stat as d \
-        on a.idmonster = d.monsterId \
-        and d.category = 'defence' \
-		where name = ? \
-		order by a.wikiVersion\
-		"
+	const sql=`
+		select a.idmonster, a.name, a.version, a.combat, b.localPath, a.version_number
+		from rsitems.monster as a
+		left join rsitems.image as b 
+    	on a.imageId = b.imageId 
+		where a.name = ?
+		order by a.version
+		`
 
 	const statsql = "select * from rsitems.monster_stat where monsterId = ?"
 
-	const wknsSql = "select * from rsitems.monster_wkns where monsterId = ?"
+	const wknsSql = "select * from rsitems.monster_attributes where monsterId = ?"
 
-	db.con.query(sql, [str], (err, res) => {
+	db.con.query(sql, [str], (e, res) => {
+		e && console.log(e)
 		var monsList = []
 		res.forEach((mon) => {
 			var monObj = {}
-			monObj.defence = mon.defence
-			monObj.magic = mon.mage
 			monObj.name = mon.name
 			monObj.image = mon.localPath
-			monObj.version = mon.wikiVersion
-			monObj.slayer = mon.slayer
-			monObj.hitpoints = mon.hitpoints
-			monObj.cb = mon.cbLvl
-			monObj.bonuses = {}
-			monObj.weakness = []
-			db.con.query(statsql, [mon.idmonster], (err, res2) => {
+			monObj.version = mon.version
+			monObj.combat = mon.combat
+			monObj.stats = {}
+			monObj.attributes = []
+			db.con.query(statsql, [mon.idmonster], (e, res2) => {
+				e && console.log(e)
+				console.log(statsql, mon.idmonster)
 				res2.forEach((stat) =>{
 					if (monBonusList.includes(stat.category)){
-						monObj.bonuses[stat.category] = stat.value
+						monObj.stats[stat.category] = stat.value
 					}
 				})
 
-				db.con.query(wknsSql, [mon.idmonster], (err, res3)=>{
+				db.con.query(wknsSql, [mon.idmonster], (e, res3)=>{
+					e && console.log(e)
 					res3.forEach((wkns) => {
-						monObj.weakness.push(wkns.weakness)
+						monObj.attributes.push(wkns.attribute)
 					})
 					monsList.push(monObj)
 					if(monsList.length == res.length){

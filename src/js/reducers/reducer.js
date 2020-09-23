@@ -1,6 +1,6 @@
 import Player from '../Player.js';
 
-var Newtroost = {"defence":0,"magic":0,"name":"Newtroost","image":"./assets/monster_images/Newtroost.png","version":"none","slayer":null,"hitpoints":18,"cb":19,"bonuses":{"crushDefence":0,"magicDefence":0,"rangedDefence":0,"slashDefence":0,"stabDefence":0}}
+var Newtroost = {"name":"Newtroost","image":"./assets/monster_images/Newtroost.png","version":"","combat":19,"stats":{"amagic":null,"arange":null,"att":18,"attbns":null,"dcrush":null,"def":17,"dmagic":null,"drange":null,"dslash":null,"dstab":null,"hitpoints":18,"mage":1,"mbns":null,"range":1,"rngbns":null,"str":16,"strbns":null},"attributes":[]}
 
 const defaultState = {
 	player: new Player().serialize(),

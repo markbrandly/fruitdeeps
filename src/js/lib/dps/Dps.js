@@ -1,7 +1,7 @@
 import {Flags} from "./Flags.js";
+import {MaxHit} from "./MaxHit.js";
 
-
-class Dps{
+export class Dps{
 	constructor(stateObj){
 		this.state = stateObj
 		this.calcs = {
@@ -23,20 +23,22 @@ class Dps{
 			this.calcs.vertex = "Magic";
 		}
 		else{
-			this.calcs.vertex = this.state.player.equipment.weapon.category.styles[this.state.player.attackStyle]
+			this.calcs.vertex = this.state.player.equipment.weapon.category.styles[this.state.player.attackStyle].type
 		}
 	}
 
 	setFlags(){
-		flags = new Flags();
-		flags.setFlags(this.calcs, this.state)
+		var flags = new Flags(this.state);
+		this.calcs.flags = flags.outputFlags()
 	}
 
-	setMaxHit(calcs){
-
+	setMaxHit(){
+		var max = new MaxHit(this.state, this.calcs)
+		this.calcs.maxHit = max.output()
+		console.log(this.calcs)
 	}
 
 	output(){
-		
+		return this.calcs
 	}
 }

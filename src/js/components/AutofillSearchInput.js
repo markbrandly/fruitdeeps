@@ -43,7 +43,7 @@ export class AutofillSearchInput extends Component{
 	}
 
 	keyaction(e){
-		console.log(e)
+		// console.log(e)
 		if(!this.state.isFocused && !this.state.isItemFocused){
 			return
 		}
@@ -68,13 +68,13 @@ export class AutofillSearchInput extends Component{
 	}
 
 	setFocus(){
-		console.log('focusing')
+		// console.log('focusing')
 		this.setState({isFocused:true})
 		
 	}
 
 	setBlur(){
-		console.log('blurring')
+		// console.log('blurring')
 		this.setState({isFocused:false})
 	}
 
@@ -106,7 +106,7 @@ export class AutofillSearchInput extends Component{
 			this.setState({loading:true})
 			this.getList(inputValue, (res)=>{
 				if(inputValue == this.state.inputText){
-					console.log([...JSON.parse(res)])
+					// console.log([...JSON.parse(res)])
 					this.setState({
 						searchList: [...JSON.parse(res)],
 						highlightIndex: 0,
