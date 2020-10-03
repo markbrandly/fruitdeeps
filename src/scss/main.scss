@@ -1,5 +1,5 @@
 $font1: 'Roboto Slab', sans-serif;
-$font2: 'Raleway';
+$font2: 'Nanun Gothic Coding', monospace;
 $spacing-full: 1.5em;
 $box-shadow: 0 8px 6px -6px rgba(0,0,0,0.5);
 $box-shadow-inset: 0 8px 6px -6px rgba(0,0,0,0.5) inset;
@@ -20,7 +20,7 @@ $radius:0.125em;
 
 @mixin icon-filter{
 	filter: drop-shadow(0px 0px 1px black)
-		drop-shadow(0px 0px 2px black)
+		drop-shadow(0px 0px 0px black)
 		contrast(1.4)
 		saturate(1.25)
 }
@@ -42,7 +42,7 @@ html{
 body{
 	background-color:#222;
 	color:#ddd;
-	text-shadow: 0 0.125em 0.125em rgba(0,0,0,0.5);
+	// text-shadow: 0 0.125em 0.125em rgba(0,0,0,0.5);
 }
 
 .color-1{
@@ -113,7 +113,7 @@ body{
   padding:0.25em;
   margin-right:1em;
   border-radius:2px;
-  font-family: "Raleway";
+  font-family: $font2;
 }
 
 .auto-complete-results{
@@ -326,7 +326,7 @@ overflow-y: auto;
 
 .stats-table{
 	width:100%;
-  font-family:'Raleway';
+  font-family:$font2;
   border-collapse:separate;
   border-spacing:0.5em;
 	td{
@@ -338,6 +338,7 @@ overflow-y: auto;
 .stat-wrap{
   display:flex;
   align-items:center;
+  font-family:$font2;
   &.center{
     justify-content: center;
   }
@@ -371,7 +372,7 @@ overflow-y: auto;
 
 #page-header{
   padding: 0.5em;
-  font-size: 3em;
+  font-size: 4em;
   font-family:$font2;
   background-color:#333;
   border-bottom: 10px solid $color3;

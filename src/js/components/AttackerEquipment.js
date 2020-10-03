@@ -8,12 +8,12 @@ class LoadoutCell extends Component{
 
 	render(){
 		var img = ""
-		console.log(this.props.player.equipment[this.props.slotname].icon)
-		if (this.props.player.equipment[this.props.slotname].icon){
+		console.log(this.props.player.equipment[this.props.slotname])
+		if (this.props.player.equipment[this.props.slotname].name){
 			img = (
 				<img 
 					class='item-icon' 
-					src={'./assets/item_images_detail/'+ this.props.player.equipment[this.props.slotname].icon}
+					src={'./assets/item_images/'+ this.props.player.equipment[this.props.slotname].name + '.png'}
 					onClick={()=> {this.props.unequipItem(this.props.slotname)}}
 				/>
 			)

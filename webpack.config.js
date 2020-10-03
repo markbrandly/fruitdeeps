@@ -19,11 +19,11 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader"
-          }
-        ]
+        loader: 'html-loader',
+        options: {
+          // Disables attributes processing
+          attributes: false,
+        }
       },
       {
          test:/\.(s*)css$/,

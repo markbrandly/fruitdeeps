@@ -17,5 +17,5 @@ const store = createStore(
 
 
 ReactDOM.render(<Provider store={store}><Attacker /></Provider>, document.getElementById('Player'));
-ReactDOM.render(<Provider store={store}><Defender /></Provider>, document.getElementById('Monster'));
-ReactDOM.render(<Provider store={store}><CalcOutput /></Provider>, document.getElementById('Dps'));
+//ReactDOM.render(<Provider store={store}><Defender /></Provider>, document.getElementById('Monster'));
+//ReactDOM.render(<Provider store={store}><CalcOutput /></Provider>, document.getElementById('Dps'));

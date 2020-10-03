@@ -7,10 +7,8 @@ const monBonusList = ['hitpoints', 'att', 'str', 'def', 'mage', 'range', 'attbns
 exports.searchItems = function(str, limit, fn){
 	str = "%".concat(str).concat("%")
 	const sql = `SELECT a.itemId as itemId, a.itemName as itemName,
-		a.itemType as itemType, b.imageName as icon, c.weaponType as category, c.attackSpeed as speed
+		a.itemType as itemType, c.weaponType as category, c.attackSpeed as speed
 		FROM rsitems.items a 
-		left join rsitems.image b 
-		on a.imageFull = b.imageId 
         left join rsitems.weapon_info c
         on a.itemId = c.itemId
 		WHERE a.itemName  
@@ -28,32 +26,23 @@ exports.searchItems = function(str, limit, fn){
 		results.forEach(function(itemRow){
 			var itemObj = {}
 			itemObj.name = itemRow.itemName
-			itemObj.id = itemRow.itemId
 			itemObj.slot = itemRow.itemType
 			itemObj.bonuses = Array(bonusList.length).fill(0) // [0, 0, ... ,0]
-			itemObj.icon = encodeURI(itemRow.icon)
-			db.con.query(statSql, itemObj.id, function(error, res){
+			db.con.query(statSql, itemRow.itemId, function(error, res){
 				res.forEach(function(stat){
 					itemObj.bonuses[bonusList.indexOf(stat.category)] = stat.value;
 				})
 
 				if(itemRow.category){
-					itemObj.category = {name:itemRow.category, speed:itemRow.speed}
-					db.con.query("Select combatStyle, type, attackStyle from rsitems.attack_style where weaponType = ?", itemRow.category, function(err, res2){
-						itemObj.category.styles = res2
-						items.push(itemObj)
-						if(items.length == resLen && !fnCalled){
-							fnCalled = true;
-							fn(items);
-						}
-					})
+					itemObj.category = itemRow.category
 				}
-				else {
-					items.push(itemObj)
-					if(items.length == resLen && !fnCalled){
-						fnCalled = true
-						fn(items);
-					}
+				if(itemRow.speed){
+					itemObj.speed = itemRow.speed
+				}
+				items.push(itemObj)
+				if(items.length == resLen && !fnCalled){
+					fnCalled = true
+					fn(items);
 				}
 
 			})

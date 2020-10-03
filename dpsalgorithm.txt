@@ -1,58 +1,49 @@
-max hit general formula
+Stuff to do before release:
 
-prayer boosts
+	calc stuff:
+		ahrims and dharoks
+		harmony staff :D
+		Inquisitors
 
-black mask
-salve amulet
-viggs
-obsidian armor
+	UI stuff:
+		dharoks hp toggle
+		kandarin diarty toggle
+		Implement wilderness toggle for wildy weapons
+		Implement on task toggle
+		Implement Attack style switching
+		Implement npc with same name switching
 
-max hit:
-	ranged/melee:
-		0.5 + A*(B+64)/640
-		A:
-			boosted strength
-			apply prayer
-			add stance
-			apply void
-		B:
-			ranged/melee strength bonus				
 
-		after:
-			apply black mask/salve
-		
-
-	Magic:
-		if slayerdart, trident, salamandar, sang:
-			calc max hit
-		else if spell: lookup table
-		apply charge, and or chaos gauntlet bonus
-		
-		apply magic dmg % bonus (including salve, void)
-		apply black mask
-		apply tome of fire
-		
-		
-		
-
-accuracy:
-	A*(B+64)
-	A:
-		boosted level
-		apply prayer
-		stance bonus
-		check void
-
-	B:
-		bonus
-
-	Afterward:
-		black mask or salve bonus
-		arclight/twisted bow/ smoke staff(?) / torag's set
+	data stuff
+		Sort weapons without categories into categories and update new 2020 items
 
 
 
-import algorithm:
-check if image exists in database
-if image doesn't exist, create image
-get image id
+stuff for post release:
+	All cox monsters
+	Allow manually custom equipment bonuses and custom npcs stats
+	ivandis flail
+	slayer staff
+	Implement thammaron's sceptre
+	Implement crystal armor set bonus :)
+
+
+sumhits = (floor(n/2)*cieling(n/2) + (n*n + n)/2)n
+
+
+0: 0
+1: (0 + 1) / 2
+2: (1 + 3) / 3
+3: 2 = 
+4: 4
+5: 6 = 
+6: 9
+7: 12
+8: 16
+9: 20 
+
+
+effects to add:
+
+crystal armor
+holy water

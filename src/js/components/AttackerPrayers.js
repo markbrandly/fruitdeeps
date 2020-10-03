@@ -115,15 +115,13 @@ export class AttackerPrayers extends Component{
 		return (
 			<div class="highlight-section flex-container-vertical">
 				<div>
-					<h3>Attack:</h3>
+					<h3>Melee:</h3>
 					{attack}
 				</div>
 				<div>
-					<h3>Strength:</h3>
 					{strength}
 				</div>
 				<div>
-					<h3>Melee:</h3>
 					{melee}
 				</div>
 				<div>

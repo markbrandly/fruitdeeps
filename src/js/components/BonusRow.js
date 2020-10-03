@@ -19,11 +19,13 @@ export class BonusRow extends Component{
 		else{
 			colorClass = "color-3";
 		}
+		//<!--span class={this.props.bonusValue > 0 ? "" : "hidden"}>+</span-->
 		return (
 			<tr>
 				<td>{this.props.bonusName}:</td>
 				<td class={colorClass}>
-					<span class={this.props.bonusValue > 0 ? "" : "hidden"}>+</span>{this.props.bonusValue}<span class={this.props.percent ? "" : "hidden"}>%</span>
+					
+					{this.props.bonusValue}<span class={this.props.percent ? "" : "hidden"}>%</span>
 				</td>
 			</tr>
 		)

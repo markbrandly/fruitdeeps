@@ -8,13 +8,13 @@ import {SpellBook} from '../SpellBook.js';
 //	I think that this should be done, eventually.
 
 const weaponMultiplier = {
-			"Arclight": 1.7,
-			"Leaf-bladed battleaxe": 1.175,
-			"Dragon Hunter Lance": 1.2,
-			"Viggora's chainmace": 1.5,
-			"Dragon hunter crossbow": 1.3,
-			"Craw's bow": 1.5,
-			"Obsidian armor": 1.1
+	"Arclight": 1.7,
+	"Leaf-bladed battleaxe": 1.175,
+	"Dragon Hunter Lance": 1.2,
+	"Viggora's chainmace": 1.5,
+	"Dragon hunter crossbow": 1.3,
+	"Craw's bow": 1.5,
+	"Obsidian armor": 1.1
 }
 
 
@@ -37,7 +37,6 @@ export class MaxHit{
 		const player = this.state.player
 		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
 		const strBonus = player.bonuses[10] //str bonus
-		console.log(strBonus)
 
 		//Start with visible stats
 		var effectiveStr = player.boostedStats.strength
@@ -64,7 +63,7 @@ export class MaxHit{
 
 		//apply black mask/salve bonus
 		if(this.flags.includes("Salve amulet (e)") || this.flags.includes("Salve amulet(ei)")){
-			maxHit = Math.floor(maxHit * 1.20)
+			maxHit = Math.floor(maxHit * 6 / 5)
 		}
 		else if(this.flags.includes("Salve amulet") || this.flags.includes("Salve amulet(i)")){
 			maxHit = Math.floor(maxHit * 7 / 6)
@@ -89,6 +88,7 @@ export class MaxHit{
 		const player = this.state.player
 		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
 		const strBonus = player.bonuses[11] //ranged strength
+		const monster = this.state.monster
 
 		//Start with visible stats
 		var effectiveStr = player.boostedStats.ranged
@@ -104,10 +104,10 @@ export class MaxHit{
 
 		//apply void ranged bonus and void elite ranged bonus
 		if(this.flags.includes("Elite void range")){
-			effectiveStr = Math.floor(effectiveStr * 1.125)
+			effectiveStr = Math.floor(effectiveStr * 9 / 8)
 		}
 		else if(this.flags.includes("Void range")){
-			effectiveStr = Math.floor(effectiveStr * 1.10)
+			effectiveStr = Math.floor(effectiveStr * 11 / 10)
 		}
 
 		//Calc max hit
@@ -115,14 +115,21 @@ export class MaxHit{
 
 		//apply black mask/salve bonus
 		if(this.flags.includes("Salve amulet(ei)")){
-			maxHit = Math.floor(maxHit * 1.20)
+			maxHit = Math.floor(maxHit * 6 / 5)
 		}
 		else if(this.flags.includes("Salve amulet(i)")){
-			maxHit = Math.floor(maxHit * 1.15)
+			maxHit = Math.floor(maxHit * 23 / 20)
 		}
 		//Redundant, but separate from salve amulet for readability. The minimizer fixes this in production
 		else if(this.flags.includes("Black mask (i)")){
-			maxHit = Math.floor(maxHit * 1.15) 
+			maxHit = Math.floor(maxHit * 23 / 20) 
+		}
+
+		//tbow
+		if(this.flags.includes("Twisted bow")){
+			const magic = Math.max(monster.stats.mage, monster.stats.mbns)
+			const tbowMod = 250 + Math.floor((3*magic-14)/100) - Math.floor(Math.pow(3*magic/10 - 140, 2) / 100)
+			maxHit = Math.floor(maxHit * Math.min(tbowMod, 250) / 100) //should be 350 for cox
 		}
 
 		//apply weapon special effect bonuses
@@ -196,11 +203,11 @@ export class MaxHit{
 		maxHit = Math.floor(maxHit * (100 + dmgBonus) / 100)
 
 		if(this.flags.includes("Black mask (i)")){
-			maxHit = Math.floor(maxHit * 1.15)
+			maxHit = Math.floor(maxHit * 23 / 20)
 		}
 
 		if(this.flags.includes("Tome of fire")){
-			maxHit = Math.floor(maxHit * 1.5)
+			maxHit = Math.floor(maxHit * 3 / 2)
 		}
 
 		return maxHit

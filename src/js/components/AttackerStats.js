@@ -9,7 +9,7 @@ class StatPicker extends Component{
 	render(){
 		return (
 			<td>
-				<div class="stat-wrap" style={{fontFamily: 'Raleway'}}>
+				<div class="stat-wrap">
 					<img style={{width:"1em"}} src={this.props.imgSrc} />
 					<span>{this.props.player.boostedStats[this.props.stat]}/</span>
 					<input class="input-invisible" type="number" min="0" max="99" value={this.props.player.stats[this.props.stat]} onChange={(e) => {this.props.setStat(this.props.stat, e.target.value)}}/>
@@ -43,7 +43,7 @@ export class AttackerStats extends Component{
 			return (<div><input type="checkbox" value={boost} id={"stat-boost-" + i} onChange={this.checkboxChange} checked={this.props.player.boostList.includes(boost)} /> <label for={"stat-boost-" + i}>{boost}</label> </div>)
 		})
 		return (
-			<div class='highlight-section'>
+			<div class='highlight-section flex-container-vertical'>
 				<table class="stats-table">
 					<tr>
 						<StatPicker stat="attack" imgSrc="./assets/other_icons/attack_icon.webp" player={this.props.player} setStat={this.props.setStat} />
@@ -60,17 +60,15 @@ export class AttackerStats extends Component{
 					<tr>
 						<StatPicker stat="hitpoints" imgSrc="./assets/other_icons/hitpoints_icon.webp" player={this.props.player} setStat={this.props.setStat} />
 					</tr>
-					<tr>
-						<td colspan="2">
-							<div class="center stat-wrap">
-								<img src="assets/other_icons/combat_icon.webp" />
-								{this.props.player.stats.combat}
-							</div>
-						</td>
-					</tr>
 				</table>
-				<h3>Boosts:</h3>
-				{potionInput}
+				<div class="center stat-wrap">
+					<img src="assets/other_icons/combat_icon.webp" />
+					{this.props.player.stats.combat}
+				</div>
+				<div>
+					<h3>Boosts:</h3>
+					{potionInput}
+				</div>
 			</div>
 		)
 	}

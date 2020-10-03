@@ -38,19 +38,11 @@ export class AttackerTableDisplay extends Component {
 					</tr>
 					<tr>
 						<td>Category:</td>
-						<td class="color-grey">{player.equipment.weapon.category.name}</td>
+						<td class="color-grey">{player.equipment.weapon.category}</td>
 					</tr>
 					<tr>
 						<td>Speed:</td>
-						<td class='color-grey'>{player.equipment.weapon.category.speed}</td>
-					</tr>
-					<tr>
-						<td>Type:</td>
-						<td class='color-grey'>{player.equipment.weapon.category.styles[player.attackStyle].type}</td>
-					</tr>
-					<tr>
-						<td>Stance:</td>
-						<td class='color-grey'>{player.equipment.weapon.category.styles[player.attackStyle].attackStyle}</td>
+						<td class='color-grey'>{player.equipment.weapon.speed}</td>
 					</tr>
 					</table>
 				</div>
