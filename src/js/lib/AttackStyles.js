@@ -55,7 +55,7 @@ const categoryTable = {
 	],
 
 	"Spiked": [
-		{name: "Poung", type: "Crush", style: "Accurate"},
+		{name: "Pound", type: "Crush", style: "Accurate"},
 		{name: "Pummel", type: "Crush", style: "Aggressive"},
 		{name: "Spike", type: "Stab", style: "Controlled"},
 		{name: "Block", type: "Crush", style: "Defensive"}
@@ -138,9 +138,16 @@ const categoryTable = {
 		{name: "Flare", type: "Ranged", style: "Rapid"},
 		{name: "Blaze", type: "Magic", style: "Defensive"}
 	],
-	"Bludgeon" [
+	"Bludgeon": [
 		{name: "Pound", type: "Crush", style: "Aggressive"},
 		{name: "Pummel", type: "Crush", style: "Aggressive"},
 		{name: "Block", type: "Crush", style: "Aggressive"}
 	]
+}
+
+export function AttackStyles(category){
+	if(category in categoryTable){
+		return categoryTable[category]
+	}
+	return categoryTable['Unarmed']
 }

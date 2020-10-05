@@ -8,7 +8,6 @@ class LoadoutCell extends Component{
 
 	render(){
 		var img = ""
-		console.log(this.props.player.equipment[this.props.slotname])
 		if (this.props.player.equipment[this.props.slotname].name){
 			img = (
 				<img 
@@ -32,10 +31,12 @@ export class AttackerEquipment extends Component{
 	}
 
 	render(){
-		var player = this.props.player
+		const player = this.props.player
+
+
 		return(
-			<div class='highlight-section'>
-				<div class="loadout-container highlight-section">
+			<div class='highlight-section flex-container-vertical'>
+				<div class="loadout-container">
 					<div class='loadout-row'>
 						<LoadoutCell slotname="head" player={player} unequipItem={this.props.unequipItem} />
 					</div>

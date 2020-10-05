@@ -29,8 +29,8 @@ export class Accuracy{
 	melee(){
 		const player = this.state.player
 		const monster = this.state.monster
-		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
-		const attackType = player.equipment.weapon.category.styles[player.attackStyle].type
+		const attackStyle = player.attackStyle.style
+		const attackType = player.attackStyle.type
 
 		var effectiveAtt = player.boostedStats.attack;
 		effectiveAtt = Math.floor(effectiveAtt * this.prayerModifiers.attack)
@@ -90,8 +90,8 @@ export class Accuracy{
 	ranged(){
 		const player = this.state.player
 		const monster = this.state.monster
-		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
-		const attackType = player.equipment.weapon.category.styles[player.attackStyle].type
+		const attackStyle = player.attackStyle.style
+		const attackType = player.attackStyle.type
 
 		var effectiveRanged = player.boostedStats.ranged;
 		effectiveRanged = Math.floor(effectiveRanged * this.prayerModifiers.rangedAcc)
@@ -130,14 +130,29 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * Math.min(tbowMod, 140) / 100)
 		}
 
+		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
+		//inq bonus
+		var inqBonus = 1000
+		inqList.forEach((flag) => {
+			if(this.flags.includes(flag)){
+				inqBonus += 5
+			}
+		})
+		if(this.flags.includes("Inquisitor's armour set")){
+			inqBonus = 1025
+		}
+
+		playerRoll = Math.floor(playerRoll * inqBonus / 1000)
+
+
 		return this.compareRolls(playerRoll, npcRoll)
 	}
 
 	magic(){
 		const player = this.state.player
 		const monster = this.state.monster
-		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
-		const attackType = player.equipment.weapon.category.styles[player.attackStyle].type
+		const attackStyle = player.attackStyle.style
+		const attackType = player.attackStyle.type
 
 		var effectiveMagic = player.boostedStats.magic;
 		effectiveMagic = Math.floor(effectiveMagic * this.prayerModifiers.magic)
@@ -155,7 +170,8 @@ export class Accuracy{
 		}
 
 		const npcBonus = monster.stats.dmagic
-		const playerBonus = player.bonuses[5] //Magic attack
+		const playerBonus = player.bonuses[3] //Magic attack
+
 
 		const npcRoll = this.generalFormula(monster.stats.mage + 9, npcBonus)
 		var playerRoll = this.generalFormula(effectiveMagic, playerBonus)
@@ -165,6 +181,7 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * 6 / 5)
 		}
 		else if(this.flags.includes("Salve amulet(i)") || this.flags.includes("Black mask (i)")){
+
 			playerRoll = Math.floor(playerRoll * 23 / 20)
 		}
 
@@ -172,6 +189,7 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * 11 / 10)
 		}
 
+		console.log(playerRoll, npcRoll)
 		return this.compareRolls(playerRoll, npcRoll)
 	}
 

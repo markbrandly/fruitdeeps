@@ -3,10 +3,15 @@ import {MaxHit} from "./MaxHit.js";
 import {Accuracy} from "./Accuracy.js";
 import {AttackSpeed} from "./AttackSpeed.js";
 import {SpecialWeapons} from "./SpecialWeapons.js";
+import Player from "../Player.js";
 
 export class Dps{
 	constructor(stateObj){
-		this.state = stateObj
+		this.state = {
+			...stateObj,
+			player: new Player(stateObj.player)
+		}
+		console.log(this.state.player)
 		this.calcs = {
 			vertex: "Melee",
 			flags: [],
@@ -28,7 +33,7 @@ export class Dps{
 	}
 
 	setVertex(){
-		const type = this.state.player.equipment.weapon.category.styles[this.state.player.attackStyle].type
+		const type = this.state.player.attackStyle.type
 
 		if(this.state.player.spell != null || type == "Magic"){
 			this.calcs.vertex = "Magic";
@@ -42,7 +47,7 @@ export class Dps{
 	}
 
 	setFlags(){
-		var flags = new Flags(this.state);
+		var flags = new Flags(this.state, this.calcs);
 		this.calcs.flags = flags.outputFlags()
 	}
 
@@ -94,6 +99,9 @@ export class Dps{
 		}
 		else if(this.calcs.flags.includes("Karil's set")){
 			this.calcs = specs.karils()
+		}
+		else if (this.calcs.flags.includes("Ahrim's set")){
+			this.calcs = specs.ahrims()
 		}
 		
 		someBolts.forEach((bolt) => {

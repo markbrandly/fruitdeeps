@@ -12,7 +12,7 @@ class CalcOutput extends Component{
 		const calcs = dps.output()
 		return (
 			<div class="flex-container">
-				<div class='flex-child'>
+				<div class='flex-child highlight-section'>
 					<CalcOutputNumbers calcs={calcs} />
 				</div>
 				<div class="flex-child">

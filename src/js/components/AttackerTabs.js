@@ -38,7 +38,7 @@ export class AttackerTabs extends Component{
 			displayBox = <AttackerEquipment player={this.props.player} equipItem={this.props.equipItem} unequipItem={this.props.unequipItem} />
 		}
 		else if(this.state.tabSelected == 1){
-			displayBox = <AttackerStats player={this.props.player} setStat={this.props.setStat} removeBoost={this.props.removeBoost} addBoost={this.props.addBoost} />
+			displayBox = <AttackerStats player={this.props.player} setStat={this.props.setStat} removeBoost={this.props.removeBoost} addBoost={this.props.addBoost} setMisc={this.props.setMisc}/>
 		}
 		else if(this.state.tabSelected == 2){
 			displayBox = <AttackerPrayers player={this.props.player} addPrayer={this.props.addPrayer} removePrayer={this.props.removePrayer} clearPrayers={this.props.clearPrayers} />

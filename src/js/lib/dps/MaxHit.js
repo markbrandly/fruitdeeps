@@ -35,7 +35,7 @@ export class MaxHit{
 	//These methods are really long, but in general since it's really procedural it's readable
 	melee(){
 		const player = this.state.player
-		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
+		const attackStyle = player.attackStyle.style
 		const strBonus = player.bonuses[10] //str bonus
 
 		//Start with visible stats
@@ -55,7 +55,7 @@ export class MaxHit{
 
 		//apply void melee bonus
 		if(this.flags.includes("Void melee")){
-			effectiveStr = Math.floor(effectiveStr * 1.10)
+			effectiveStr = Math.floor(effectiveStr * 11 / 10)
 		}
 
 		//Calc max hit
@@ -80,13 +80,35 @@ export class MaxHit{
 			}
 		})
 
+		if(this.flags.includes("Dharok's set")){
+			const currentHp = player.misc.currentHitpoints
+			const baseHp = player.stats.hitpoints
+
+			console.log('dharoks bonus', 1 + (baseHp - currentHp) * baseHp / 100)
+			maxHit = Math.floor(maxHit * Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000))
+		}
+
+		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
+		//inq bonus
+		var inqBonus = 1000
+		inqList.forEach((flag) => {
+			if(this.flags.includes(flag)){
+				inqBonus += 5
+			}
+		})
+		if(this.flags.includes("Inquisitor's armour set")){
+			inqBonus = 1025
+		}
+
+		maxHit = Math.floor(maxHit * inqBonus / 1000)
+
 		return maxHit
 
 	}
 
 	ranged(){
 		const player = this.state.player
-		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
+		const attackStyle = player.attackStyle.tyle
 		const strBonus = player.bonuses[11] //ranged strength
 		const monster = this.state.monster
 

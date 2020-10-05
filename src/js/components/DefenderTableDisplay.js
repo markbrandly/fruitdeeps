@@ -40,6 +40,12 @@ export class DefenderTableDisplay extends Component {
 					</table>
 				</div>
 				<div>
+					<h3>Attack Bonus</h3>
+					<table class="bonus-table">
+						<BonusRow bonusName="Magic" bonusValue={this.props.monster.stats.amagic} />
+					</table>
+				</div>
+				<div>
 					<h3>Defence bonus</h3>
 					<table class='bonus-table'>
 						<BonusRow bonusName="Stab" bonusValue={this.props.monster.stats.dstab} />

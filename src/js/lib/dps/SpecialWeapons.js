@@ -66,7 +66,13 @@ export class SpecialWeapons{
 	}
 
 	ahrims(){
+		var dps = this.calcs
 
+		dps.maxHit2 = Math.floor(dps.maxHit * 13 / 10)
+		dps.dps = dps.accuracy * (0.25 * dps.maxHit2 + 0.75 * dps.maxHit) / 6
+		dps.acc1plus = 0.25 * dps.maxHit2 * dps.accuracy / (dps.maxHit2 + 1) + 0.75 * dps.acc1plus
+
+		return dps
 	}
 
 	generalBolt(bolt){

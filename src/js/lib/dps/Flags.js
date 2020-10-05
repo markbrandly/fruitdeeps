@@ -57,11 +57,20 @@ const flagDescriptions = {
 
 	"Kandarin hard diary": "If a player has completed the Kandarin hard diary, enchanted bolts special effect proc chance is increased by a factor of 10%",
 
-	"Ahrim's set": "",
+	"Ahrim's set": "Ahrim's set has a 25% chance of increasing max hit by 30%",
 	"Karil's set": "Karil's set has a 25% chance of doing an extra 50% damage (rounded down) while the Amulet of the damned is equipped",
-	"Dharok's set": "",
+	"Dharok's set": "Dharok's set gives around a 1% damage bonus for each hitpoint lost",
 	"Verac's set": "Verac's set has a 25% chance of skipping the accuracy roll and doing 1 extra damage",
+	
 	"Ivandis flail": "",
+
+	"Inquisitor's armour set": "Inquisitor's armour set increases crush accuracy and damage by 2.5%",
+
+	"Harmonised nightmare staff": "Harmonised nightmare staff casts standard spells at an attack speed of 4 ticks",
+
+	"Inquisitor's hauberk": "Inquisitor's hauberk increases crush accuracy and damage by 0.5%",
+	"Inquisitor's great helm": "Inquisitor's great helm increases crush accuracy and damage by 0.5%",
+	"Inquisitor's plateskirt": "Inquisitor's plateskirt increases crush accuracy and damage by 0.5%",
 
 	"Slayer dart" : "The Slayer dart is not yet properly implemented"
 
@@ -75,8 +84,9 @@ const salvList = ["Salve amulet", "Salve amulet (e)", "Salve amulet(i)", "Salve 
 const obbyMelee = ['Toktz-xil-ak', 'Tzhaar-ket-em', 'Tzhaar-ket-om', 'Tzhaar-ket-om (t)', 'Toktz-xil-ek']
 
 export class Flags{
-	constructor(state = {}){
+	constructor(state = {}, calcs = {}){
 		this.state = state;
+		this.calcs = calcs
 	}
 
 	salveBlackMask(){
@@ -84,18 +94,21 @@ export class Flags{
 		const head = this.state.player.equipment.head.name
 		const attributes = this.state.monster.attributes
 
-		if(salvList.includes(neck) && attributes.includes("undead")){
-			return [neck]
+		if(attributes.includes("undead") && salvList.includes(neck)){
+			if(neck == "Salve amulet(i)" || neck == "Salve amulet(ei)" || this.calcs.vertex == "melee"){
+				return [neck]
+			}
 		}
-		else if(head.includes("Black mask") || head.toLowerCase().includes("slayer helmet")){
+
+		if(this.state.player.misc.onTask && (head.includes("Black mask") || head.toLowerCase().includes("slayer helmet"))){
 			if(head.includes("(i)")){
 				return ["Black mask (i)"]
 			}
-			else{
+			else if(this.calcs.vertex == "Melee"){
 				return ["Black mask"]
 			}
 		}
-		return null
+		return []
 	}
 
 	void(){
@@ -117,50 +130,56 @@ export class Flags{
 		})
 		if(dumb){
 			//early return if not wearing void
-			return null
+			return []
 		}
 
-		if(head == "Void melee helm"){
+		if(head.includes("Void melee helm")){
 			return ["Void melee"]
 		}
-		else if(head == "Void ranger helm" && elite){
+		else if(head.includes("Void ranger helm") && elite && this.calcs.vertex == "Ranged"){
 			return ["Elite void range"]
 		}
-		else if(head == "Void mage helm" && elite){
+		else if(head.includes("Void mage helm") && elite){
 			return ["Elite void mage"]
 		}
-		else if(head == "Void ranger helm"){
+		else if(head.includes("Void ranger helm") && this.calcs.vertex == "Ranged"){
 			return ["Void range"]
 		}
-		else if(head == "Void mage helm"){
+		else if(head.includes("Void mage helm")){
 			return ["Void mage"]
 		}
-		return null
+		return []
 	}
 
 	weapon(){
 		const weapon = this.state.player.equipment.weapon.name
+		const player = this.state.player
+		console.log('weapon', weapon)
 		const attributes = this.state.monster.attributes
+
+		if(weapon.includes("Craw's bow") && player.misc.wilderness){
+			return ["Craw's bow"]
+		}
+
+		if(weapon.includes("Viggora's chainmace") && player.misc.wilderness){
+			return ["Viggora's chainmace"]
+		}
 
 		switch(weapon){
 			case "Arclight":
-				return (attributes.includes('demon') ? [weapon] : null)
+				return (attributes.includes('demon') ? [weapon] : [])
 			case "Leaf-bladed battleaxe":
-				return (attributes.includes('leafy') ? [weapon] : null)
-			case "Craw's bow":
-			case "Viggora's chainmace":
-				return [weapon]
+				return (attributes.includes('leafy') ? [weapon] : [])
 			case "Dragon hunter lance":
 			case "Dragon hunter crossbow":
-				return (attributes.includes('dragon') ? [weapon] : null)
+				return (attributes.includes('dragon') ? [weapon] : [])
 			case "Scythe of vitur":
 			case "Twisted bow":
 				return [weapon]
-			case "Keris":
-				return (attributes.includes('kalphite') ? [weapon] : null)
-			return null
+			case "Keris": // need fix
+				return (attributes.includes('kalphite') ? [weapon] : [])
 		}
-
+		return []
 	}
 
 	obsidian(){
@@ -173,7 +192,7 @@ export class Flags{
 
 		var flaglist = []
 		if(!obbyMelee.includes(weapon)){
-			return null
+			return []
 		}
 
 		if(neck == "Berserker necklace" || neck == "Berserker necklace (or)"){
@@ -193,6 +212,7 @@ export class Flags{
 		const godSpells = ['Saradomin Strike','Flames of Zamorak','Claws of Guthix']
 		const stdSpells = new SpellBook().getSpellList().standard
 
+		const spellBook = new SpellBook();
 
 		const spell = this.state.player.spell
 		const charge = this.state.player.charge
@@ -202,14 +222,18 @@ export class Flags{
 		const attributes = this.state.monster.attributes
 		var flags = []
 
+
+
+		console.log('standard', spellBook.getSpellList().standard)
+
+		if(spellBook.getSpellList().standard.includes(spell) && weapon == "Harmonised nightmare staff"){
+			flags.push("Harmonised nightmare staff")
+		}
 		if(spell){
 			flags.push("Spell")
 		}
 
 		switch(spell){
-			// case "Crumble Undead":
-			// 	attributes.includes("undead") ? flags.push(spell) : null;
-			// 	break;
 			case "Slayer Dart":
 				flags.push(spell)
 				break;
@@ -225,8 +249,8 @@ export class Flags{
 				if(hands == "Chaos gauntlets" && spell.includes("Bolt")){
 					flags.push(hands)
 				}
-				if(shield == "Tome of fire" && spell.includes("Fire")){
-					flags.push(shield)
+				if(shield == "Tome of fire (charged)" && spell.includes("Fire")){
+					flags.push("Tome of fire")
 				}
 				if(weapon == "Smoke battlestaff" && stdSpells.includes(spell)){
 					flags.push(weapon)
@@ -234,14 +258,13 @@ export class Flags{
 				break;
 		}
 
-		//return null if flags is empty, else return flags
-		return (flags.length > 0 ? flags : null)
+		return flags
 	}
 
 	enchantedBolts(){
 		const player = this.state.player
 		const monster = this.state.monster
-		const category = player.equipment.weapon.category.name
+		const category = player.equipment.weapon.category
 		const ammo = player.equipment.ammo.name
 		const fiery = this.state.monster.attributes.includes("fiery")
 		const dragon = monster.attributes.includes("dragon")
@@ -249,7 +272,7 @@ export class Flags{
 
 		const flags = []
 		console.log('category', category)
-		if(player.spell || category != "crossbow"){
+		if(player.spell || category != "Crossbow"){
 			return flags
 		}
 
@@ -302,7 +325,7 @@ export class Flags{
 
 		const loadOut = [body, legs, weapon, head]
 
-		var dharoks = true
+		var dharoks = (this.calcs.vertex == "Melee")
 		loadOut.forEach((slot)=>{
 			if(!slot.includes("Dharok's")){
 				dharoks = false
@@ -317,15 +340,15 @@ export class Flags{
 		})
 
 
-		var ahrims = (neck == "Amulet of the damned" && player.spell)
+		var ahrims = (neck.includes("Amulet of the damned") && player.spell)
 		loadOut.forEach((slot)=>{
-			if(!slot.includes("Ahrims's")){
+			if(!slot.includes("Ahrim's")){
 				ahrims = false
 			}
 		})
 
-		var karils = (neck == "Amulet of the damned" && ammo == "Bolt rack")
-		console.log('karils ? ', karils)
+
+		var karils = (neck.includes("Amulet of the damned") && ammo == "Bolt rack")
 		loadOut.forEach((slot)=>{
 			if(!slot.includes("Karil's")){
 				karils = false
@@ -347,6 +370,34 @@ export class Flags{
 		return []
 	}
 
+	inquisitors(){
+		const player = this.state.player
+		const body = player.equipment.body.name
+		const head = player.equipment.head.name
+		const legs = player.equipment.legs.name
+
+		const slots = ['body', 'head', 'legs']
+
+		const flags = []
+		
+		if(player.attackStyle.type !== "Crush" || player.spell){
+			return flags
+		}
+
+		slots.forEach((slot) => {
+			if(player.equipment[slot].name.includes("Inquisitor's")){
+				flags.push(player.equipment[slot].name)
+			}
+		})
+
+		if(flags.length == 3){
+			return ["Inquisitor's armour set"]
+		}
+		else{
+			return flags
+		}
+	}
+
 	description(flag){
 		return flagDescriptions[flag]
 	}
@@ -356,15 +407,18 @@ export class Flags{
 		const equipment = state.player.equipment
 		var flags = []
 
+		console.log('this.weapon', this.weapon())
+
 		//Runs all the methods and consolidates their return lists
 		flags = [
-			...(this.salveBlackMask() || []),
-			...(this.void() || []),
-			...(this.weapon() || []),
-			...(this.obsidian() || []),
-			...(this.magicStuff() || []),
+			...this.salveBlackMask(),
+			...this.void(),
+			...this.weapon(),
+			...this.obsidian(),
+			...this.magicStuff(),
 			...this.enchantedBolts(),
-			...this.barrows()
+			...this.barrows(),
+			...this.inquisitors()
 		]
 
 		return flags

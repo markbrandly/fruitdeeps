@@ -1,49 +1,33 @@
 Stuff to do before release:
 
 	calc stuff:
-		ahrims and dharoks
-		harmony staff :D
-		Inquisitors
+		crystal armor
+		slayer staff + slayer dart
+		invandis flail/sickle/vampyre stuff
+		tham scepter
+		add every type of blowpipe
 
 	UI stuff:
-		dharoks hp toggle
-		kandarin diarty toggle
-		Implement wilderness toggle for wildy weapons
-		Implement on task toggle
-		Implement Attack style switching
 		Implement npc with same name switching
+		import/export/save/load
 
-
-	data stuff
-		Sort weapons without categories into categories and update new 2020 items
 
 
 
 stuff for post release:
 	All cox monsters
 	Allow manually custom equipment bonuses and custom npcs stats
-	ivandis flail
-	slayer staff
-	Implement thammaron's sceptre
-	Implement crystal armor set bonus :)
+	Specialized special attack info !!
+	Corporeal halves damage
 
 
-sumhits = (floor(n/2)*cieling(n/2) + (n*n + n)/2)n
+redundant items:
+	Barrows percentages
+	all trouver parchment items
+	void seal 1-10
+	black mask 1-10
+	craws/vigs/thamarons uncharged
+	amulet of the damned (used)
+	tome of fire uncharged
 
 
-0: 0
-1: (0 + 1) / 2
-2: (1 + 3) / 3
-3: 2 = 
-4: 4
-5: 6 = 
-6: 9
-7: 12
-8: 16
-9: 20 
-
-
-effects to add:
-
-crystal armor
-holy water

@@ -10,20 +10,22 @@ export class AttackSpeed{
 
 	output(){
 		const player = this.state.player
-		const attackStyle = player.equipment.weapon.category.styles[player.attackStyle].attackStyle
-		const attackType = player.equipment.weapon.category.styles[player.attackStyle].type
-		const weaponSpeed = player.equipment.weapon.category.speed
+		const attackStyle = player.attackStyle.style
+		const weaponSpeed = player.equipment.weapon.speed
 
 
-		if(this.flags.includes("Spell")){
+		if(this.flags.includes("Harmonised nightmare staff")){
+			return 4
+		}
+
+		if(this.state.player.spell){
 			return 5
 		}
 
-		if(attackType == "Rapid"){
+		if(attackStyle == "Rapid"){
 			return weaponSpeed - 1
 		}
 
 		return weaponSpeed
-
 	}
 }

@@ -12,20 +12,21 @@ export class CalcOutputNumbers extends Component{
 				<div>
 					<h3>Calculations</h3>
 					<table class="bonus-table">
-						<BonusRow bonusName="DPS" bonusValue={this.props.calcs.dps.toFixed(2)}/>
-						<BonusRow bonusName="Accuracy" bonusValue={(this.props.calcs.accuracy * 100).toFixed(2)} percent={true}/>
 						<tr>
-							<td>Max Hit</td><td>{this.props.calcs.maxHit}</td>
+							<td>Vertex</td><td>{this.props.calcs.vertex}</td>
 						</tr>
 						<tr>
 							<td>Attack Speed</td><td>{this.props.calcs.attackSpeed}</td>
 						</tr>
 						<tr>
-							<td>Vertex</td><td>{this.props.calcs.vertex}</td>
+							<td>Max Hit</td><td>{this.props.calcs.maxHit}</td>
 						</tr>
+						<BonusRow bonusName="Accuracy" bonusValue={(this.props.calcs.accuracy * 100).toFixed(2)} percent={true}/>
 						<tr>
 							<td>Accuracy > 0</td><td>{this.props.calcs.acc1plus}</td>
 						</tr>
+						<BonusRow bonusName="DPS" bonusValue={this.props.calcs.dps.toFixed(2)}/>
+
 					</table>
 				</div>
 			</div>

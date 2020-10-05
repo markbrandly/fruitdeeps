@@ -5,8 +5,9 @@
 //  Player.bonuses and Player.boostedStats may both be getters.
 //  I think that boostedStats should be a getter and bonuses should not be, to allow bonuses to be custom defined
 
-import {PotionDrinker} from "PotionDrinker.js";
-import {PrayerBook} from "PrayerBook.js";
+import {PotionDrinker} from "./PotionDrinker.js";
+import {PrayerBook} from "./PrayerBook.js";
+import {AttackStyles} from "./AttackStyles.js";
 
 
 
@@ -41,7 +42,7 @@ const unarmed = {
 
 export default class Player{
 	constructor(attributes = {}){
-		this.attackStyle = 0
+		this.attackStyleSelected = 0
     this.boostList = [];
     this.prayers = [];
 		this.equipment = {};
@@ -78,7 +79,7 @@ export default class Player{
     this.misc = {
       onTask: true,
       wilderness: true,
-      health: 99,
+      currentHitpoints: 99,
       kandarinHard: true,
       charge: false,
       ...attributes.misc
@@ -91,7 +92,7 @@ export default class Player{
     }
 
     if(item.slot == "weapon" || item.slot == "2h"){
-      this.attackStyle = 0 //reset attack style selection on weapon switch
+      this.attackStyleSelected = 0 //reset attack style selection on weapon switch
     }
 
     if(item.slot === "2h"){
@@ -175,31 +176,45 @@ export default class Player{
   	this.charge = (this.charge ? false : true)
   }
 
-  getBonuses(){
+  get bonuses(){
     const bonuses = Array(14).fill(0);
     for (var i = 0; i < bonusList.length; i++) {
       var bonus = 0;
-      slots.forEach(function(slot){
+      slots.forEach((slot) => {
         if(slot !== '2h'){
           bonus += this.equipment[slot].bonuses[i];
         }
       });
       bonuses[i] = bonus;
     }
+
+    //Don't include ammo ranged strength for self-sufficient weapons
+    if(this.equipment.weapon.name.includes("Crystal bow") || this.equipment.weapon.name.includes("Craw's bow") || this.equipment.weapon.category === "Thrown" || this.equipment.weapon.category === "Chinchompas"){
+      bonuses[11] = bonuses[11] - this.equipment.ammo.bonuses[11]
+    }
+
     return bonuses
   }
 
-  getBoostedStats(){
+  get boostedStats(){
     const potionDrinker = new PotionDrinker();
     return potionDrinker.boostStats(this.stats, this.boostList)
   }
 
-  getCombat(){
+  get combat(){
     var base = 0.25 * (this.stats.defence + this.stats.hitpoints + Math.floor(this.stats.prayer / 2))
     var melee = 0.325 * (this.stats.attack + this.stats.strength)
     var range = 0.325 * Math.floor(3 * this.stats.ranged / 2)
     var mage = 0.325 * Math.floor(3 * this.stats.magic / 2)
     return Math.floor(base + Math.max(melee, range, mage))
+  }
+
+  get allAttackStyles(){
+    return AttackStyles(this.equipment.weapon.category)
+  }
+
+  get attackStyle(){
+    return this.allAttackStyles[this.attackStyleSelected]
   }
 
   serialize(){
@@ -213,8 +228,8 @@ export default class Player{
     const emptyObj = new Player().serialize()
     const minObj = {}
 
-    if(fullObj.attackStyle !== 0){
-      minObj.attackStyle = fullObj.attackStyle
+    if(fullObj.attackStyleSelected !== 0){
+      minObj.attackStyleSelected = fullObj.attackStyleSelected
     }
 
     if(fullObj.spell !== null){

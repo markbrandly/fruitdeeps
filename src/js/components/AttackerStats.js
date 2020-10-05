@@ -19,6 +19,25 @@ class StatPicker extends Component{
 	}
 }
 
+class HpPicker extends Component{
+	constructor(props){
+		super(props)
+	}
+
+	render(){
+		return (
+			<td colspan="2">
+				<div class="stat-wrap">
+					<img style={{width:"1em"}} src={this.props.imgSrc} />
+					<input class="input-invisible" type="number" min="0" max="99" value={this.props.player.misc.currentHitpoints} onChange={(e) => {this.props.setMisc('currentHitpoints', e.target.value)}} />
+					<pre> / </pre>
+					<input class="input-invisible" type="number" min="0" max="99" value={this.props.player.stats.hitpoints} onChange={(e) => {this.props.setStat('hitpoints', e.target.value)}} />
+				</div>
+			</td>
+		)
+	}
+}
+
 export class AttackerStats extends Component{
 	constructor(props){
 		super(props)
@@ -58,12 +77,16 @@ export class AttackerStats extends Component{
 						<StatPicker stat="magic" imgSrc="./assets/other_icons/magic_icon.webp" player={this.props.player} setStat={this.props.setStat} />
 					</tr>
 					<tr>
-						<StatPicker stat="hitpoints" imgSrc="./assets/other_icons/hitpoints_icon.webp" player={this.props.player} setStat={this.props.setStat} />
+						<HpPicker imgSrc="./assets/other_icons/hitpoints_icon.webp" player={this.props.player} setStat={this.props.setStat} setMisc={this.props.setMisc} />
+					</tr>
+					<tr class="center">
+						<td>Current</td>
+						<td>Base</td>
 					</tr>
 				</table>
 				<div class="center stat-wrap">
 					<img src="assets/other_icons/combat_icon.webp" />
-					{this.props.player.stats.combat}
+					{this.props.player.combat}
 				</div>
 				<div>
 					<h3>Boosts:</h3>

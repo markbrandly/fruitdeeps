@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {AttackerTableDisplay} from './AttackerTableDisplay.js';
 import {AttackerTabs} from './AttackerTabs.js';
+import {AttackerMisc} from './AttackerMisc.js'
+import {AttackerAttackStyles} from './AttackerAttackStyles.js';
 
-import {Player} from '../lib/Player.js';
+import Player from '../lib/Player.js';
 
 class Attacker extends Component {
 
@@ -27,12 +29,16 @@ class Attacker extends Component {
 						setSpell={this.props.setSpell}
 						clearSpell={this.props.clearSpell}
 						toggleCharge={this.props.toggleCharge}
+
+						setMisc={this.props.setMisc}
 						/>
+					<AttackerAttackStyles player={player} setAttackStyle={this.props.setAttackStyle}/>
+					<AttackerMisc player={player} setMisc={this.props.setMisc} />
 				</div>
+				<AttackerTableDisplay player={player} />
+
 			</div>
 		);
-
-				//<AttackerTableDisplay player={this.props.player} />
 	}
 
 	componentDidMount(){
@@ -91,6 +97,14 @@ function mapDispatchToProps(dispatch){
 
 		toggleCharge: () => {
 			dispatch({type: "PLAYER_TOGGLE_CHARGE"})
+		},
+
+		setMisc: (attribute, value) => {
+			dispatch({type: "PLAYER_SET_MISC", attribute: attribute, value: value})
+		},
+
+		setAttackStyle: (i) => {
+			dispatch({type: "PLAYER_SET_ATTACKSTYLE", value: i})
 		}
 	}
 }

@@ -32,10 +32,17 @@ export class AttackerTableDisplay extends Component {
 				<div>
 					<h3>Weapon</h3>
 					<table class="bonus-table">
-					<tr>
-						<td>Name:</td>
-						<td class="color-grey">{player.equipment.weapon.name}</td>
-					</tr>
+					{(
+						player.equipment.weapon.name ? (
+							<tr>
+								<td>Name:</td>
+								<td class="color-grey">{player.equipment.weapon.name}</td>
+							</tr>
+						)
+						: ""
+
+					)}
+
 					<tr>
 						<td>Category:</td>
 						<td class="color-grey">{player.equipment.weapon.category}</td>
