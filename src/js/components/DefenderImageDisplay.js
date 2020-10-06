@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {MonsterSelect} from './MonsterSelect.js';
+import {DefenderVersionSelect} from './DefenderVersionSelect.js';
 
 export class DefenderImageDisplay extends Component{
 	constructor(props){
@@ -19,20 +20,15 @@ export class DefenderImageDisplay extends Component{
 
 	render(){
 
-		var listButtons = this.state.monList.map((item, i) => {
-			return (
-				<button class="monsterVersion">
-					{item.version || (i+1)}
-				</button>
-				)
-		})
-
 		return (
 			<div class="highlight-section flex-container-vertical">
 				<h3 class='center'>{this.props.monster.name}</h3>
-				<div class={"versions-holder" + (this.state.monList.length <= 1 ? " hidden" : "")}>
-					{listButtons}
-				</div>
+				
+				{this.state.monList.length ? 
+					(<DefenderVersionSelect monList={this.state.monList} setMonster={this.props.setMonster} />) 
+					:""
+				}
+
 				<div class='center'>
 					<img class="item-icon monster-image" src={this.props.monster.image} />
 				</div>

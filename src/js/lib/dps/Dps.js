@@ -103,6 +103,9 @@ export class Dps{
 		else if (this.calcs.flags.includes("Ahrim's set")){
 			this.calcs = specs.ahrims()
 		}
+		else if(this.calcs.flags.includes("Dark bow")){
+			this.calcs = specs.darkBow()
+		}
 		
 		someBolts.forEach((bolt) => {
 			if(this.calcs.flags.includes(bolt)){

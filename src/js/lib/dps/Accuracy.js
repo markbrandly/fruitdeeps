@@ -84,6 +84,20 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * 17 / 10)
 		}
 
+		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
+		//inq bonus
+		var inqBonus = 1000
+		inqList.forEach((flag) => {
+			if(this.flags.includes(flag)){
+				inqBonus += 5
+			}
+		})
+		if(this.flags.includes("Inquisitor's armour set")){
+			inqBonus = 1025
+		}
+
+		playerRoll = Math.floor(playerRoll * inqBonus / 1000)
+
 		return this.compareRolls(playerRoll, npcRoll)
 	}
 
@@ -130,19 +144,19 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * Math.min(tbowMod, 140) / 100)
 		}
 
-		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
+		const crystalList = ["Crystal body", "Crystal legs", "Crystal helm"]
 		//inq bonus
-		var inqBonus = 1000
-		inqList.forEach((flag) => {
+		var crystalBonus = 100
+		crystalList.forEach((flag) => {
 			if(this.flags.includes(flag)){
-				inqBonus += 5
+				crystalBonus += 6
 			}
 		})
-		if(this.flags.includes("Inquisitor's armour set")){
-			inqBonus = 1025
+		if(this.flags.includes("Crystal armour set")){
+			crystalBonus = 130
 		}
 
-		playerRoll = Math.floor(playerRoll * inqBonus / 1000)
+		playerRoll = Math.floor(playerRoll * crystalBonus / 100)
 
 
 		return this.compareRolls(playerRoll, npcRoll)
@@ -187,6 +201,10 @@ export class Accuracy{
 
 		if(this.flags.includes("Smoke battlestaff")){
 			playerRoll = Math.floor(playerRoll * 11 / 10)
+		}
+
+		if(this.flags.includes("Thammaron's sceptre")){
+			playerRoll = playerRoll * 2
 		}
 
 		console.log(playerRoll, npcRoll)

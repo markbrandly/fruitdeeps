@@ -31,7 +31,7 @@ class HpPicker extends Component{
 					<img style={{width:"1em"}} src={this.props.imgSrc} />
 					<input class="input-invisible" type="number" min="0" max="99" value={this.props.player.misc.currentHitpoints} onChange={(e) => {this.props.setMisc('currentHitpoints', e.target.value)}} />
 					<pre> / </pre>
-					<input class="input-invisible" type="number" min="0" max="99" value={this.props.player.stats.hitpoints} onChange={(e) => {this.props.setStat('hitpoints', e.target.value)}} />
+					<input class="input-invisible" type="number" min="10" max="99" value={this.props.player.stats.hitpoints} onChange={(e) => {this.props.setStat('hitpoints', e.target.value)}} />
 				</div>
 			</td>
 		)

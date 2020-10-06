@@ -152,4 +152,13 @@ export class SpecialWeapons{
 
 		return dps
 	}
+
+	darkBow(){
+		const dps = this.calcs
+		dps.maxHit2 = dps.maxHit //lol
+		dps.dps = dps.dps * 2
+		dps.acc1plus = dps.acc1plus * (1 - dps.acc1plus) + dps.acc1plus
+
+		return dps
+	}
 }

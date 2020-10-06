@@ -144,7 +144,7 @@ export class MaxHit{
 		}
 		//Redundant, but separate from salve amulet for readability. The minimizer fixes this in production
 		else if(this.flags.includes("Black mask (i)")){
-			maxHit = Math.floor(maxHit * 23 / 20) 
+			maxHit = Math.floor(maxHit * 23 / 20) 	
 		}
 
 		//tbow
@@ -160,7 +160,21 @@ export class MaxHit{
 				maxHit = Math.floor(maxHit * weaponMultiplier[key])
 			}
 		})
-		console.log('maxhit', maxHit)
+
+		const crystalList = ["Crystal body", "Crystal legs", "Crystal helm"]
+		//crystal armor bonus
+		var crystalBonus = 100
+		crystalList.forEach((flag) => {
+			if(this.flags.includes(flag)){
+				crystalBonus += 3
+			}
+		})
+		if(this.flags.includes("Crystal armour set")){
+			crystalBonus = 115
+		}
+
+		maxHit = Math.floor(maxHit * crystalBonus / 100)
+
 		return maxHit
 	}
 
@@ -220,6 +234,10 @@ export class MaxHit{
 		}
 		else if(this.flags.includes("Salve amulet(i)")){
 			dmgBonus += 15
+		}
+
+		if(this.flags.includes("Thammaron's sceptre")){
+			dmgBonus += 25
 		}
 
 		maxHit = Math.floor(maxHit * (100 + dmgBonus) / 100)

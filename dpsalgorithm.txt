@@ -1,27 +1,33 @@
 Stuff to do before release:
 
 	calc stuff:
-		crystal armor
-		slayer staff + slayer dart
+		
 		invandis flail/sickle/vampyre stuff
-		tham scepter
+		
 		add every type of blowpipe
+		every type of trident class staff (gauntlet stuff!)
+		overhit dps
+		Corporeal halves damage
+		
+		slayer staff + slayer dart
+
 
 	UI stuff:
-		Implement npc with same name switching
+		format output
+		improve autofill boxes
 		import/export/save/load
-
+		
+		Allow manually custom equipment bonuses and custom npcs stats
 
 
 
 stuff for post release:
 	All cox monsters
-	Allow manually custom equipment bonuses and custom npcs stats
 	Specialized special attack info !!
-	Corporeal halves damage
+	runelite
 
 
-redundant items:
+remove redundant items:
 	Barrows percentages
 	all trouver parchment items
 	void seal 1-10
@@ -29,5 +35,15 @@ redundant items:
 	craws/vigs/thamarons uncharged
 	amulet of the damned (used)
 	tome of fire uncharged
+
+stuff to test:
+	thammaron's sceptre multiplicative or additive ?
+	when is inquisitor bonus calc'd ?
+
+
+Questions for the calc to answer:
+	Leadbladed axe vs sword @ kurasks
+	What hitpoints should you switch between diamond and ruby bolts at callisto ?
+	mason: when should you switch from dwh to bgs at scorpia
 
 

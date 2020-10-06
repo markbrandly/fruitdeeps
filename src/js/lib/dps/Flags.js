@@ -28,9 +28,15 @@ const flagDescriptions = {
 	"Berserker necklace" : "The Berserker necklace increases the max hit of obsidian melee weapons by 20%",
 	"Obsidian armour" : "The Obsidian armour set gives a 10% damage and accuracy boost to melee obsidian weaponry",
 	"Dragon hunter crossbow" : "The Dragon hunter crossbow gives a 30% damage and accuracy boost when attacking dragons and dragon-kind",
-	"Craw's bow" : "The Craw's bow gives a 50% damage and accuracy boos when attacking a monster in the wilderness",
+	"Craw's bow" : "The Craw's bow gives a 50% damage and accuracy boost when attacking a monster in the wilderness",
 	"Viggora's chainmace" : "The Viggora's chainmace gives a 50% damage and accuracy boos when attacking a monster in the wilderness",
+	"Thammaron's sceptre" : "Thammaron's sceptre gives a 100% accuracy bonus and 20% damage bonus when casting spells in the wilderness",
 	"Dragon hunter lance" : "The Dragon hunter lance gives a 20% damage and accuracy boost when attacking dragons and dragon-kind",
+	"Dark bow": "The Dark bow shoots two arrows at once",
+
+	"Blisterwood flail" : "Blisterwood flail gives a 25% damage and 5% accuracy bonus against vampyres",
+	"Blisterwood sickle" : "Blisterwood sickle gives a 15% damage and 5% accuracy bonus against vampyres",
+	"Ivandis flail" : "Blisterwood flail gives a 25% damage and 5% accuracy bonus against vampyres",
 
 	"Smoke battlestaff" : "The Smoke battlestaff gives a 10% damage and accuracy boost when casting spells from the standard spellbook",
 	"Tome of fire" : "The Tome of fire gives a 50% damage boost when casting fire elemental spells",
@@ -61,7 +67,7 @@ const flagDescriptions = {
 	"Karil's set": "Karil's set has a 25% chance of doing an extra 50% damage (rounded down) while the Amulet of the damned is equipped",
 	"Dharok's set": "Dharok's set gives around a 1% damage bonus for each hitpoint lost",
 	"Verac's set": "Verac's set has a 25% chance of skipping the accuracy roll and doing 1 extra damage",
-	
+
 	"Ivandis flail": "",
 
 	"Inquisitor's armour set": "Inquisitor's armour set increases crush accuracy and damage by 2.5%",
@@ -72,7 +78,12 @@ const flagDescriptions = {
 	"Inquisitor's great helm": "Inquisitor's great helm increases crush accuracy and damage by 0.5%",
 	"Inquisitor's plateskirt": "Inquisitor's plateskirt increases crush accuracy and damage by 0.5%",
 
-	"Slayer dart" : "The Slayer dart is not yet properly implemented"
+	"Crystal helm": "Crystal helm gives a 3% damage and 6% accuracy bonus when using the Crystal bow",
+	"Crystal legs": "Crystal legs gives a 3% damage and 6% accuracy bonus when using the Crystal bow",
+	"Crystal body": "Crystal body gives a 3% damage and 6% accuracy bonus when using hte Crystal bow",
+	"Crystal armour set": "Crystal armour set gives a 15% damage and 30% accuracy bonus when using the Crystal bow",
+
+	"Slayer dart" : ""
 
 }
 
@@ -154,8 +165,9 @@ export class Flags{
 	weapon(){
 		const weapon = this.state.player.equipment.weapon.name
 		const player = this.state.player
-		console.log('weapon', weapon)
+
 		const attributes = this.state.monster.attributes
+		const vampyre = (attributes.includes("vampyre1") || attributes.includes("vampyre2") || attributes.includes("vampyre3"))
 
 		if(weapon.includes("Craw's bow") && player.misc.wilderness){
 			return ["Craw's bow"]
@@ -163,6 +175,14 @@ export class Flags{
 
 		if(weapon.includes("Viggora's chainmace") && player.misc.wilderness){
 			return ["Viggora's chainmace"]
+		}
+
+		if(weapon.includes("Dark bow")){
+			return ["Dark bow"]
+		}
+
+		if(weapon == "Thammaron's sceptre (Charged)"){
+			return player.spell && player.misc.wilderness ? ["Thammaron's sceptre"] : []
 		}
 
 		switch(weapon){
@@ -173,6 +193,10 @@ export class Flags{
 			case "Dragon hunter lance":
 			case "Dragon hunter crossbow":
 				return (attributes.includes('dragon') ? [weapon] : [])
+			case "Blisterwood flail":
+			case "Blisterwood sickle":
+			case "Ivandis flail":
+				return vampyre ? [weapon] : []
 			case "Scythe of vitur":
 			case "Twisted bow":
 				return [weapon]
@@ -398,6 +422,39 @@ export class Flags{
 		}
 	}
 
+	crystalArmor(){
+		const player = this.state.player
+		const weapon = player.equipment.weapon.name
+		const legs = player.equipment.legs.name
+		const body = player.equipment.body.name
+		const head = player.equipment.head.name
+
+		const flags = []
+
+		if(player.spell || weapon != "Crystal bow"){
+			return flags
+		}
+
+		if(body == "Crystal body (Active)"){
+			flags.push("Crystal body")
+		}
+
+		if(legs == "Crystal legs (Active)"){
+			flags.push("Crystal legs")
+		}
+
+		if(head == "Crystal helm (Active)"){
+			flags.push("Crystal helm")
+		}
+
+		if(flags.length == 3){
+			return ["Crystal armour set"]
+		}
+		return flags
+
+
+	}
+
 	description(flag){
 		return flagDescriptions[flag]
 	}
@@ -418,7 +475,8 @@ export class Flags{
 			...this.magicStuff(),
 			...this.enchantedBolts(),
 			...this.barrows(),
-			...this.inquisitors()
+			...this.inquisitors(),
+			...this.crystalArmor()
 		]
 
 		return flags
