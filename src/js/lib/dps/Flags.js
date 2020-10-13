@@ -36,7 +36,7 @@ const flagDescriptions = {
 
 	"Blisterwood flail" : "Blisterwood flail gives a 25% damage and 5% accuracy bonus against vampyres",
 	"Blisterwood sickle" : "Blisterwood sickle gives a 15% damage and 5% accuracy bonus against vampyres",
-	"Ivandis flail" : "Blisterwood flail gives a 25% damage and 5% accuracy bonus against vampyres",
+	"Ivandis flail" : "Ivandis flail gives a 20% damage bonus against vampyres",
 
 	"Smoke battlestaff" : "The Smoke battlestaff gives a 10% damage and accuracy boost when casting spells from the standard spellbook",
 	"Tome of fire" : "The Tome of fire gives a 50% damage boost when casting fire elemental spells",
@@ -67,8 +67,6 @@ const flagDescriptions = {
 	"Karil's set": "Karil's set has a 25% chance of doing an extra 50% damage (rounded down) while the Amulet of the damned is equipped",
 	"Dharok's set": "Dharok's set gives around a 1% damage bonus for each hitpoint lost",
 	"Verac's set": "Verac's set has a 25% chance of skipping the accuracy roll and doing 1 extra damage",
-
-	"Ivandis flail": "",
 
 	"Inquisitor's armour set": "Inquisitor's armour set increases crush accuracy and damage by 2.5%",
 
@@ -185,6 +183,14 @@ export class Flags{
 			return player.spell && player.misc.wilderness ? ["Thammaron's sceptre"] : []
 		}
 
+		if(weapon.includes("Scythe of vitur")){
+			return ["Scythe of vitur"]
+		}
+
+		if(weapon.includes("Keris")){
+			return attributes.includes('kalphite') ? ["Keris"] : []
+		}
+
 		switch(weapon){
 			case "Arclight":
 				return (attributes.includes('demon') ? [weapon] : [])
@@ -197,11 +203,8 @@ export class Flags{
 			case "Blisterwood sickle":
 			case "Ivandis flail":
 				return vampyre ? [weapon] : []
-			case "Scythe of vitur":
 			case "Twisted bow":
 				return [weapon]
-			case "Keris": // need fix
-				return (attributes.includes('kalphite') ? [weapon] : [])
 		}
 		return []
 	}
@@ -248,7 +251,7 @@ export class Flags{
 
 
 
-		console.log('standard', spellBook.getSpellList().standard)
+		// console.log('standard', spellBook.getSpellList().standard)
 
 		if(spellBook.getSpellList().standard.includes(spell) && weapon == "Harmonised nightmare staff"){
 			flags.push("Harmonised nightmare staff")
@@ -295,7 +298,7 @@ export class Flags{
 		const undead = monster.attributes.includes("undead")
 
 		const flags = []
-		console.log('category', category)
+		// console.log('category', category)
 		if(player.spell || category != "Crossbow"){
 			return flags
 		}
@@ -464,7 +467,7 @@ export class Flags{
 		const equipment = state.player.equipment
 		var flags = []
 
-		console.log('this.weapon', this.weapon())
+		// console.log('this.weapon', this.weapon())
 
 		//Runs all the methods and consolidates their return lists
 		flags = [

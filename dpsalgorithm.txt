@@ -2,20 +2,16 @@ Stuff to do before release:
 
 	calc stuff:
 		
-		invandis flail/sickle/vampyre stuff
-		
-		add every type of blowpipe
 		every type of trident class staff (gauntlet stuff!)
-		overhit dps
 		Corporeal halves damage
-		
 		slayer staff + slayer dart
 
+		remove spell and magic weapons from flags
 
 	UI stuff:
-		format output
 		improve autofill boxes
 		import/export/save/load
+		make ui mobile responsive
 		
 		Allow manually custom equipment bonuses and custom npcs stats
 
@@ -45,5 +41,3 @@ Questions for the calc to answer:
 	Leadbladed axe vs sword @ kurasks
 	What hitpoints should you switch between diamond and ruby bolts at callisto ?
 	mason: when should you switch from dwh to bgs at scorpia
-
-

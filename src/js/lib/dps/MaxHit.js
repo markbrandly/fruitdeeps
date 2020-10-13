@@ -14,7 +14,10 @@ const weaponMultiplier = {
 	"Viggora's chainmace": 1.5,
 	"Dragon hunter crossbow": 1.3,
 	"Craw's bow": 1.5,
-	"Obsidian armor": 1.1
+	"Obsidian armor": 1.1,
+	"Ivandis flail": 1.2,
+	"Blisterwood flail": 1.25,
+	"Blisterwood sickle": 1.15
 }
 
 

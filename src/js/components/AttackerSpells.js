@@ -55,7 +55,6 @@ export class AttackerSpells extends Component{
 	}
 
 	handleSetTier(e){
-
 		var spellObj = new SpellBook().tierObject(this.props.player.spell)
 		console.log(e.target.value)
 		console.log(spellObj)

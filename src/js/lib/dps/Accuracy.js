@@ -84,6 +84,10 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * 17 / 10)
 		}
 
+		if(this.flags.includes("Blisterwood flail") || this.flags.includes("Blisterwood sickle")){
+			playerRoll = Math.floor(playerRoll * 21 / 20)
+		}
+
 		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
 		//inq bonus
 		var inqBonus = 1000

@@ -5,6 +5,8 @@ import {AttackSpeed} from "./AttackSpeed.js";
 import {SpecialWeapons} from "./SpecialWeapons.js";
 import Player from "../Player.js";
 
+import {Overhit} from "./overhit/Overhit.js";
+
 export class Dps{
 	constructor(stateObj){
 		this.state = {
@@ -20,7 +22,8 @@ export class Dps{
 			attackSpeed: 1,
 			dps: 0,
 			acc1plus: 0,
-			overhitDps: 0
+			overhit1: 0,
+			overhit2: 0
 		}
 		this.setVertex();
 		this.setFlags();
@@ -30,6 +33,7 @@ export class Dps{
 		this.setDps();
 		this.setAccOverOne();
 		this.applySpecials();
+		this.overhit()
 	}
 
 	setVertex(){
@@ -59,6 +63,7 @@ export class Dps{
 	setAccuracy(){
 		var acc = new Accuracy(this.state, this.calcs)
 		this.calcs.accuracy = acc.output()
+		this.calcs.rawAcc = this.calcs.accuracy
 	}
 
 	setAttackSpeed(){
@@ -91,6 +96,15 @@ export class Dps{
 		if(this.calcs.flags.includes("Scythe of vitur")){
 			this.calcs = specs.scythe()
 		}
+		else if(this.calcs.flags.includes("Enchanted diamond bolts")){
+			this.calcs = specs.diamondBolts()
+		}
+		else if(this.calcs.flags.includes("Enchanted ruby bolts")){
+			this.calcs = specs.rubyBolts()
+		}
+		else if(this.calcs.flags.includes("Enchanted onyx bolts")){
+			this.calcs = specs.onyxBolts()
+		}
 		else if(this.calcs.flags.includes("Keris")){
 			this.calcs = specs.keris()
 		}
@@ -109,10 +123,14 @@ export class Dps{
 		
 		someBolts.forEach((bolt) => {
 			if(this.calcs.flags.includes(bolt)){
-				console.log(bolt)
 				this.calcs = specs.generalBolt(bolt)
 			}
 		})
+	}
+
+	overhit(){
+		const overhit = new Overhit(this.state, this.calcs)
+		this.calcs.approxOverhit = overhit.approximate()
 	}
 
 	output(){
