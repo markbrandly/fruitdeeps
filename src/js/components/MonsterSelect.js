@@ -34,6 +34,17 @@ export class MonsterSelect extends AutofillSearchInput{
 
 	results(){
 		return this.state.searchList.map((item, i) => {
+			var listLen = this.state.searchList.length
+			let ref = 0
+			if(i == this.state.highlightIndex){
+				ref = this.highlightRef;
+			}
+			else if(i == (this.state.highlightIndex + 1) % listLen){
+				ref = this.downRef;
+			}
+			else if(i == ((((this.state.highlightIndex -1) % listLen) + listLen) % listLen)){
+				ref = this.upRef;
+			}
 			return (
 				<li
 					value={i}
@@ -46,7 +57,7 @@ export class MonsterSelect extends AutofillSearchInput{
 						this.setItemFocus();
 					}}
 					class={this.state.highlightIndex == i ? "auto-complete-selected" : ""}
-					ref={this.state.highlightIndex == i ? this.highlightRef : 0}
+					ref={ref}
 					tabIndex="0"
 				>
 					{item}

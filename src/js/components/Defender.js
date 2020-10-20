@@ -11,7 +11,7 @@ class Defender extends Component{
 					<DefenderImageDisplay monster={this.props.monster} setMonster={this.props.setMonster} />
 				</div>
 				<div class="flex-child">
-					<DefenderTableDisplay monster={this.props.monster}/>
+					<DefenderTableDisplay monster={this.props.monster} setMonsterStat={this.props.setMonsterStat} />
 				</div>
 			</div>
 			)
@@ -29,6 +29,10 @@ function mapDispatchToProps(dispatch){
 		setMonster: (monster) => {
 			dispatch({type: "SET_MONSTER", monster: monster})
 		},
+
+		setMonsterStat: (stat, value) => {
+			dispatch({type: "MONSTER_SET_STAT", stat: stat, value: value})
+		}
 
 	}
 }

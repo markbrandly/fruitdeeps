@@ -211,8 +211,11 @@ export class Accuracy{
 			playerRoll = playerRoll * 2
 		}
 
-		console.log(playerRoll, npcRoll)
-		return this.compareRolls(playerRoll, npcRoll)
+		let acc = this.compareRolls(playerRoll, npcRoll)
+		if(this.flags.includes("Brimstone ring")){
+			acc = 0.75 * acc + 0.25 * this.compareRolls(playerRoll, Math.ceil(npcRoll * 9 / 10))
+		}
+		return acc
 	}
 
 	output(){

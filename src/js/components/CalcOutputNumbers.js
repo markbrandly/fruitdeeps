@@ -47,8 +47,14 @@ export class CalcOutputNumbers extends Component{
 		const rows = []
 		rows.push(
 			<tr>
+				<td>Type</td>
+				<td class={color}>{this.props.calcs.attackType}</td>
+			</tr>
+		)
+		rows.push(
+			<tr>
 				<td>Style</td>
-				<td class={color}>{this.props.calcs.vertex}</td>
+				<td>{this.props.calcs.attackStyle}</td>
 			</tr>
 		)
 		rows.push(

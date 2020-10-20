@@ -47,6 +47,7 @@ export default class Player{
     this.prayers = [];
 		this.equipment = {};
     this.spell = null;
+    this.customBonuses = new Array(14).fill(0)
 
     Object.assign(this, attributes)
 
@@ -109,12 +110,15 @@ export default class Player{
       this.equipment[item.slot] = item;
       delete this.equipment[item.slot].slots
     }
+
+    this.customBonuses = new Array(14).fill(0)
   }
 
   unequip(slot){
     if(slots.includes(slot)){
       this.equipment[slot] = {...nullItem, slot:slot};
     }
+    this.customBonuses = new Array(14).fill(0)
   }
 
   addBoost(boost){
@@ -127,6 +131,12 @@ export default class Player{
   	var boostList = new Set(this.boostList)
   	boostList.delete(boost)
   	this.boostList = [...boostList]
+  }
+
+  setBonusCustom(bonusIndex, value){
+    let i = parseInt(bonusIndex)
+    let bonusRaw = this.bonusesRaw[i]
+    this.customBonuses[i] = parseInt(value) - bonusRaw
   }
 
   setStat(stat, level){
@@ -172,11 +182,15 @@ export default class Player{
   	this.spell = null;
   }
 
+  clearCustomBonuses(){
+    this.customBonuses = new Array(14).fill(0)
+  }
+
   toggleCharge(){
   	this.charge = (this.charge ? false : true)
   }
 
-  get bonuses(){
+  get bonusesRaw(){
     const bonuses = Array(14).fill(0);
     for (var i = 0; i < bonusList.length; i++) {
       var bonus = 0;
@@ -194,6 +208,12 @@ export default class Player{
     }
 
     return bonuses
+  }
+
+  get bonuses(){
+    return this.bonusesRaw.map((value, i) => {
+      return value + this.customBonuses[i]
+    })
   }
 
   get boostedStats(){
@@ -227,6 +247,18 @@ export default class Player{
     const fullObj = this.serialize()
     const emptyObj = new Player().serialize()
     const minObj = {}
+
+    
+    let sumCustom = 0
+
+    for(let i = 0; i <= 13; i++){
+      sumCustom += Math.abs(this.customBonuses[i])
+    }
+
+    if(sumCustom > 0){
+      minObj.customBonuses = this.customBonuses
+    }
+    
 
     if(fullObj.attackStyleSelected !== 0){
       minObj.attackStyleSelected = fullObj.attackStyleSelected

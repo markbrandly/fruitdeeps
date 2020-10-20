@@ -74,13 +74,18 @@ body{
 }
 
 
+.sub-text{
+	font-size:0.75em;
+	color:#aaa;
+}
+
 .width-control{
 	max-width:1400px;
 	margin:0 auto;
 	font-family: $font1;
 }
 
-.auto-complete-results li:hover, .auto-complete-selected{
+.auto-complete-selected{
   background-color: #222;
   color: #fff;
 }
@@ -114,6 +119,10 @@ body{
   // margin-right:1em;
   border-radius:2px;
   font-family: $font2;
+}
+
+.border-bottom-dashed{
+	border-bottom:1px dashed #888
 }
 
 .auto-complete-results{
@@ -296,6 +305,10 @@ overflow-y: auto;
 	text-align: center;
 }
 
+.align-right{
+	text-align:right;
+}
+
 .bonus-table{
 	width:100%;
 	border:1px solid #555;
@@ -362,7 +375,7 @@ overflow-y: auto;
 }
 
 .auto-complete-results.input-hidden-hack{
-	top:-9999px;
+	// top:-9999px;
 	left:-9999px;
 }
 

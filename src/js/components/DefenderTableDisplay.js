@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 import {BonusRow} from './BonusRow.js';
 
+const MonsterStat = (props) => {
+	return (
+		<input type="number" class="input-invisible border-bottom-dashed" min="1" value={props.value} data-stat={props.stat} onChange={props.onChange} />
+		)
+}
 
 export class DefenderTableDisplay extends Component {
+	constructor(props){
+		super(props)
+		this.handleChange = this.handleChange.bind(this)
+	}
+
+	handleChange(e){
+		e.persist()
+		let stat = e.target.getAttribute("data-stat")
+		let value = e.target.value
+		this.props.setMonsterStat(stat, value)
+	}
+
 	render(){
 		return (
 			<div class='flex-container-vertical'>
@@ -19,7 +36,8 @@ export class DefenderTableDisplay extends Component {
 							<td>
 								<div class='stat-wrap'>
 									<img src="https://oldschool.runescape.wiki/images/9/96/Hitpoints_icon.png?a4819" />
-									{this.props.monster.stats.hitpoints}
+									
+									<MonsterStat value={this.props.monster.stats.hitpoints} stat="hitpoints" onChange={this.handleChange} />
 								</div>
 							</td>
 						</tr>
@@ -27,13 +45,13 @@ export class DefenderTableDisplay extends Component {
 							<td>
 								<div class='stat-wrap'>
 									<img src="https://oldschool.runescape.wiki/images/b/b7/Defence_icon.png?ca0cd" />
-									{this.props.monster.stats.def}
+									<MonsterStat value={this.props.monster.stats.def} stat="def" onChange={this.handleChange} />
 								</div>
 							</td>
 							<td>
 								<div class='stat-wrap'>
-									<img src="https://oldschool.runescape.wiki/images/5/5c/Magic_icon.png?334cf" />
-									{this.props.monster.stats.mage}
+									<img src="https://oldschool.runescape.wiki/images/5/5c/Magic_icon.png?334cf"/>
+									<MonsterStat value={this.props.monster.stats.mage} stat="mage" onChange={this.handleChange} />
 								</div>
 							</td>
 						</tr>

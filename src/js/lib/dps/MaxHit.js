@@ -186,35 +186,65 @@ export class MaxHit{
 		const spell = this.state.player.spell
 		var magic = this.state.player.boostedStats.magic
 		var dmgBonus = this.state.player.bonuses[12]
+		const weapon = this.state.player.equipment.weapon.name
 
 		var maxHit = 0
-		if(spell && spell !== "Slayer Dart"){
+		if(spell == "Magic Dart"){
+			if(this.flags.includes("Slayer's staff (e)")){
+				maxHit = Math.floor(magic/6) + 13
+			}
+			else{
+				maxHit = Math.floor(magic/10) + 10
+			}
+		}
+		else if(spell){
 			maxHit = spellBook.maxLookup(spell)
 		}
-		//I do not like listing all of these individually like this.
-		else if(spell == "Slayer Dart"){
-			maxHit = Math.floor(magic/10) + 10
-		}
-		else if(this.flags.includes("Trident of the seas")){
-			maxHit = Math.floor(magic/3) - 5
-		}
-		else if(this.flags.includes("Trident of the swamp")){
-			maxHit = Math.floor(magic/3) - 2
-		}
-		else if(this.flags.includes("Sanguinesti staff")){
-			maxHit = Math.floor(magic/3) - 1
-		}
-		else if(this.flags.includes("Black salamander")){
-			maxHit = this.generalFormula(magic, 92)
-		}
-		else if(this.flags.includes("Red salamander")){
-			maxHit = this.generalFormula(magic, 77)
-		}
-		else if(this.flags.includes("Orange salamander")){
-			maxHit = this.generalFormula(magic, 59)
-		}
-		else if(this.flags.includes("Swamp lizard")){
-			maxHit = this.generalFormula(magic, 56)
+		else{
+			switch(weapon){
+				case "Trident of the seas (Charged)":
+				case "Trident of the seas (e) (Charged)":
+					maxHit = Math.floor(magic/3) - 5
+					break;
+				case "Trident of the swamp (Charged)":
+				case "Trident of the swamp (e) (Charged)":
+					maxHit = Math.floor(magic/3) - 2
+					break;
+				case "Sanguinesti staff (Charged)":
+					maxHit = Math.floor(magic/3) - 1
+					break;
+				case "Black salamander":
+					maxHit = this.generalFormula(magic, 92)
+					break;
+				case "Red salamander":
+					maxHit = this.generalFormula(magic, 77)
+					break;
+				case "Orange salamander":
+					maxHit = this.generalFormula(magic, 59)
+					break;
+				case "Swamp lizard":
+					maxHit = this.generalFormula(magic, 56)
+					break;
+				case "Starter staff":
+					maxHit = spallBook.maxLookup("Fire Strike")
+					break;
+				case "Dawnbringer":
+					maxHit = Math.floor(magic / 6 ) - 1
+					break;
+				case "Corrupted staff (basic)":
+				case "Crystal staff (basic)":
+					maxHit = 23;
+					break;
+				case "Corrupted staff (attuned)":
+				case "Crystal staff (attuned)":
+					maxHit = 31
+					break;
+				case "Corrupted staff (perfected)":
+				case "Crystal staff (perfected)":
+					maxHit = 39
+					break;
+
+			}
 		}
 
 		//static max hit additives

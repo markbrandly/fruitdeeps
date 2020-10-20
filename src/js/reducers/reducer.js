@@ -5,7 +5,6 @@ var Newtroost = {"name":"Sotetseg","image":"./assets/monster_images/Sotetseg.png
 const defaultState = {
 	player: {},
 	monster: Newtroost,
-	settings: {}
 }
 
 function reducer(state = defaultState, action){
@@ -18,6 +17,13 @@ function reducer(state = defaultState, action){
 			return {
 				...state,
 				player: player.minimize()
+			}
+
+		case "SET_PLAYER":
+			console.log('seting player')
+			return {
+				...state,
+				player: new Player(action.player).minimize()
 			}
 
 		case "PLAYER_UNEQUIP_ITEM":
@@ -76,6 +82,20 @@ function reducer(state = defaultState, action){
 				player: player.minimize()
 			}
 
+		case "PLAYER_SET_BONUS":
+			player.setBonusCustom(action.bonusIndex, action.value)
+			return {
+				...state,
+				player: player.minimize()
+			}
+
+		case "PLAYER_CLEAR_CUSTOM_BONUSES":
+			player.clearCustomBonuses()
+			return {
+				...state,
+				player: player.minimize()
+			}
+
 		case "PLAYER_CLEAR_SPELL":
 			player.clearSpell()
 			return {
@@ -108,6 +128,15 @@ function reducer(state = defaultState, action){
 			return {
 				...state,
 				player: player.minimize()
+			}
+		
+		case "MONSTER_SET_STAT":
+			const monster = {...state.monster}
+			monster.stats[action.stat] = parseInt(action.value)
+			console.log('monster set stat', monster)
+			return {
+				...state,
+				monster: monster
 			}
 		default: return state
 	}

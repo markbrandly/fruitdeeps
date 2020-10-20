@@ -42,7 +42,8 @@ const flagDescriptions = {
 	"Tome of fire" : "The Tome of fire gives a 50% damage boost when casting fire elemental spells",
 	"Chaos gauntlets" : "The Chaos gauntlets add 3 to the max hits of bolt spells",
 	"Charge" : "The Charge spell adds 10 to the max hits of god spells",
-	"Spell" : "Spells typically have predefined max hits and attack speeds of 5",
+	"Slayer's staff (e)" : "Slayer's staff (e) increases the maximum hit of Magic Dart",
+	"Brimstone ring" : "Brimstone ring gives a 25% chance of ignoring 10% of the monster's total magic defence",
 
 	"Trident of the seas" : "The Trident of the seas has a max hit of Magic/3 - 5", 
 	"Trident of the swamp" : "The Trident of the swamp has a max hit of Magic/3 - 2",
@@ -79,9 +80,7 @@ const flagDescriptions = {
 	"Crystal helm": "Crystal helm gives a 3% damage and 6% accuracy bonus when using the Crystal bow",
 	"Crystal legs": "Crystal legs gives a 3% damage and 6% accuracy bonus when using the Crystal bow",
 	"Crystal body": "Crystal body gives a 3% damage and 6% accuracy bonus when using hte Crystal bow",
-	"Crystal armour set": "Crystal armour set gives a 15% damage and 30% accuracy bonus when using the Crystal bow",
-
-	"Slayer dart" : ""
+	"Crystal armour set": "Crystal armour set gives a 15% damage and 30% accuracy bonus when using the Crystal bow"
 
 }
 
@@ -246,6 +245,7 @@ export class Flags{
 		const weapon = this.state.player.equipment.weapon.name;
 		const shield = this.state.player.equipment.shield.name;
 		const hands = this.state.player.equipment.hands.name;
+		const ring = this.state.player.equipment.ring.name;
 		const attributes = this.state.monster.attributes
 		var flags = []
 
@@ -256,34 +256,28 @@ export class Flags{
 		if(spellBook.getSpellList().standard.includes(spell) && weapon == "Harmonised nightmare staff"){
 			flags.push("Harmonised nightmare staff")
 		}
-		if(spell){
-			flags.push("Spell")
+
+		if(charge && godSpells.includes(spell)){
+			flags.push('Charge')
+		}
+		if(hands == "Chaos gauntlets" && spell.includes("Bolt")){
+			flags.push(hands)
+		}
+		if(shield == "Tome of fire (Charged)" && spell.includes("Fire")){
+			flags.push("Tome of fire")
+		}
+		if(weapon == "Smoke battlestaff" && stdSpells.includes(spell)){
+			flags.push(weapon)
+		}
+		if(ring == "Brimstone ring" && this.calcs.vertex == "Magic"){
+			flags.push(ring)
 		}
 
-		switch(spell){
-			case "Slayer Dart":
-				flags.push(spell)
-				break;
-			case null:
-				if(specialWeapons.includes(weapon)){
-					flags.push(weapon)
-				}
-				break;
-			default:
-				if(charge && godSpells.includes(spell)){
-					flags.push('Charge')
-				}
-				if(hands == "Chaos gauntlets" && spell.includes("Bolt")){
-					flags.push(hands)
-				}
-				if(shield == "Tome of fire (charged)" && spell.includes("Fire")){
-					flags.push("Tome of fire")
-				}
-				if(weapon == "Smoke battlestaff" && stdSpells.includes(spell)){
-					flags.push(weapon)
-				}
-				break;
+		if(weapon == "Slayer's staff (e)" && spell == "Magic Dart" && this.state.player.misc.wilderness){
+			flags.push(weapon)
 		}
+
+
 
 		return flags
 	}
@@ -330,7 +324,8 @@ export class Flags{
 				break;
 			case "Onyx bolts (e)":
 			case "Onyx dragon bolts (e)":
-				undead ? flags.push("Enchanted onyx bolts") : null
+				console.log("onyx bolts ee ------")
+				undead ?  null : flags.push("Enchanted onyx bolts")
 				break;
 		}
 

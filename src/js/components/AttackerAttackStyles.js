@@ -15,7 +15,13 @@ export class AttackerAttackStyles extends Component{
 
 		return styles.map((style, i) => 
 			<tr>
-				<td><label for={"attack-style-select-"+i}>{style.name}</label></td>
+				<td>
+					<label for={"attack-style-select-"+i}>
+						{style.name}
+						<div class='sub-text'>{style.type} - {style.style}</div>
+					</label>
+
+				</td>
 				<td><input type="radio" onChange={this.setStyle} value={i} id={"attack-style-select-"+i} checked={i == this.props.player.attackStyleSelected}/></td>
 			</tr>
 		)

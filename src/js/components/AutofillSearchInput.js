@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-//This component works well but I think some state could just be stored as class attributes
-//A lot of stuff like shouldscroll should never trigger a rerender so can be stored as an attribute
-//state.inputtext and shouldscroll should both be class attributes
+//state.inputtext can prbably be class attribute
 
 export class AutofillSearchInput extends Component{
 	constructor(props){
@@ -10,7 +8,6 @@ export class AutofillSearchInput extends Component{
 		this.state = {
 			searchList: [],
 			loading: false,
-			isFocused: false,
 			isItemFocused: false,
 			highlightIndex: 0,
 			inputText: "",
@@ -24,18 +21,15 @@ export class AutofillSearchInput extends Component{
 		this.handleChange = this.handleChange.bind(this)
 		this.setHighlightIndex = this.setHighlightIndex.bind(this)
 		this.keyaction = this.keyaction.bind(this)
+		this.handleHover = this.handleHover.bind(this)
 		this.highlightRef = React.createRef();
+		this.upRef = React.createRef();
+		this.downRef = React.createRef();
+		this.inputRef = React.createRef();
 	}
 
 	componentDidMount(){
 		document.addEventListener("keydown", this.keyaction)
-	}
-
-	componentDidUpdate(){
-		if(this.highlightRef.current && this.state.shouldScroll){
-			this.highlightRef.current.scrollIntoView({block: "center"})
-			this.setState({shouldScroll: false})
-		}
 	}
 
 	componentWillUnmount(){
@@ -43,23 +37,25 @@ export class AutofillSearchInput extends Component{
 	}
 
 	keyaction(e){
-		// console.log(e)
 		if(!this.state.isFocused && !this.state.isItemFocused){
 			return
 		}
 		var listLen = this.state.searchList.length
-		if(this.state.isFocused){
-			if(e.key == "ArrowDown" ){
-				e.preventDefault()
-				this.setState({highlightIndex: (this.state.highlightIndex + 1) % listLen, shouldScroll: true})
-			}
-			else if(e.key == "ArrowUp"){
-				e.preventDefault()
-				this.setState({highlightIndex: ((((this.state.highlightIndex -1) % listLen) + listLen) % listLen), shouldScroll: true})
-			}
+		if(e.key == "ArrowDown"){
+			e.preventDefault()
+			this.downRef.current.focus()
 		}
-		if(e.key == "Enter"){
+		else if(e.key == "ArrowUp"){
+			e.preventDefault()
+			this.upRef.current.focus()
+		}
+		else if(e.key == "Enter" || e.key =="ArrowRight"){
+			this.inputRef.current.focus()
 			this.selectItem(this.state.searchList[this.state.highlightIndex]);
+		}
+		else if(e.key == "Tab" && this.state.isFocused){
+			e.preventDefault();
+			this.highlightRef.current.focus()
 		}
 	}
 
@@ -68,13 +64,11 @@ export class AutofillSearchInput extends Component{
 	}
 
 	setFocus(){
-		// console.log('focusing')
 		this.setState({isFocused:true})
 		
 	}
 
 	setBlur(){
-		// console.log('blurring')
 		this.setState({isFocused:false})
 	}
 
@@ -106,7 +100,6 @@ export class AutofillSearchInput extends Component{
 			this.setState({loading:true})
 			this.getList(inputValue, (res)=>{
 				if(inputValue == this.state.inputText){
-					// console.log([...JSON.parse(res)])
 					this.setState({
 						searchList: [...JSON.parse(res)],
 						highlightIndex: 0,
@@ -120,9 +113,15 @@ export class AutofillSearchInput extends Component{
 		}
 	}
 
+	handleHover(e){
+		let inputValue = e.target.value
+		this.inputRef.current.focus()
+		this.setState({highlightIndex: inputValue})
+	}
+
 	render(){
 		var results = this.results();
-
+		console.log("rendering autobox")
 		var ol = (
 			<ol class={"auto-complete-results" + ((this.state.searchList.length > 0 && (this.state.isFocused || this.state.isItemFocused)) ? "": " input-hidden-hack")}>
 				{results}
@@ -131,7 +130,7 @@ export class AutofillSearchInput extends Component{
 
 		return (
 			<div class="auto-complete-container" >
-				<input className="auto-complete-input" onChange={this.handleChange} onFocus={this.setFocus} placeholder={this.placeholder} onBlur={this.setBlur} />
+				<input className="auto-complete-input" onChange={this.handleChange} onFocus={this.setFocus} placeholder={this.placeholder} onBlur={this.setBlur} ref={this.inputRef}/>
 				{ol}
 			</div>
 		)

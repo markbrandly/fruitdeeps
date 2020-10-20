@@ -29,6 +29,8 @@ export class Overhit{
 			this.generalMemory[i] = (sum / max + (max+1) / (max)) 
 		}
 
+		console.log(this.generalMemory)
+
 		return this.getStep(hp)	
 	}
 

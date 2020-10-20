@@ -3,6 +3,7 @@ import {AttackerEquipment} from './AttackerEquipment.js';
 import {AttackerStats} from './AttackerStats.js';
 import {AttackerPrayers} from './AttackerPrayers.js';
 import {AttackerSpells} from './AttackerSpells.js';
+import {AttackerImport} from './AttackerImport.js';
 
 class Tab extends Component{
 	constructor(props){
@@ -46,6 +47,9 @@ export class AttackerTabs extends Component{
 		else if(this.state.tabSelected == 3){
 			displayBox = <AttackerSpells player={this.props.player} setSpell={this.props.setSpell} clearSpell={this.props.clearSpell} toggleCharge={this.props.toggleCharge}/>
 		}
+		else if(this.state.tabSelected == 4){
+			displayBox = <AttackerImport player={this.props.player} setPlayer={this.props.setPlayer} />
+		}
 		return (
 			<div>
 				<div class='tabs'>
@@ -53,6 +57,7 @@ export class AttackerTabs extends Component{
 					<Tab tab="1" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/skills_icon.webp"></Tab>
 					<Tab tab="2" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/prayer_icon.png"></Tab>
 					<Tab tab="3" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/spellbook.png"></Tab>
+					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="https://oldschool.runescape.wiki/images/7/71/Strange_implement.png?4fd87"></Tab>
 				</div>
 				{displayBox}
 			</div>

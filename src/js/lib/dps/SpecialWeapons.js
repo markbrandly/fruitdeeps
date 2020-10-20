@@ -160,7 +160,7 @@ export class SpecialWeapons{
 		dps.specChance = specChance
 		dps.maxHitSpec = Math.floor(dps.maxHit * 6 / 5)
 
-		const avgHit = (dps.maxHitSpec * specChance + dps.maxHit * (1 - specChance)) / 4
+		const avgHit = (dps.maxHitSpec * specChance + dps.maxHit * (1 - specChance)) / 2
 
 		dps.dps = dps.accuracy * avgHit / (0.6 * dps.attackSpeed)
 

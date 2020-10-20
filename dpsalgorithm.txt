@@ -1,19 +1,16 @@
 Stuff to do before release:
 
 	calc stuff:
-		
-		every type of trident class staff (gauntlet stuff!)
-		Corporeal halves damage
-		slayer staff + slayer dart
-
-		remove spell and magic weapons from flags
+		Corporeal halves damage		
+		fix keris spec 
 
 	UI stuff:
-		improve autofill boxes
-		import/export/save/load
+		multiple sets
+		save/load sets
+
 		make ui mobile responsive
 		
-		Allow manually custom equipment bonuses and custom npcs stats
+		spells debug when you select tier, it doesn't select element
 
 
 

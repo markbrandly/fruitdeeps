@@ -14,32 +14,7 @@ class Attacker extends Component {
 
 
 		return (
-			<div class="flex-container">
-				<div class="flex-child flex-container-vertical">
-					<AttackerTabs 
-						player={player}
-						equipItem={this.props.equipItem}
-						unequipItem={this.props.unequipItem}
-						setStat={this.props.setStat} 
-						addBoost={this.props.addBoost} 
-						removeBoost={this.props.removeBoost} 
-						addPrayer={this.props.addPrayer}
-						removePrayer={this.props.removePrayer}
-						clearPrayers={this.props.clearPrayers}
-						setSpell={this.props.setSpell}
-						clearSpell={this.props.clearSpell}
-						toggleCharge={this.props.toggleCharge}
-
-						setMisc={this.props.setMisc}
-						setPlayer={this.props.setPlayer}
-
-						/>
-					<AttackerAttackStyles player={player} setAttackStyle={this.props.setAttackStyle}/>
-					<AttackerMisc player={player} setMisc={this.props.setMisc} />
-				</div>
-				<AttackerTableDisplay player={player} setBonusCustom={this.props.setBonusCustom} clearBonusCustom={this.props.clearBonusCustom} />
-
-			</div>
+			
 		);
 	}
 
@@ -57,16 +32,16 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
 	return {
-		equipItem: (item) => {
-			dispatch({type: "PLAYER_EQUIP_ITEM", item: item})
+		equipItem: (i) => {
+			return (item) => dispatch({type: "PLAYER_EQUIP_ITEM", item: item})
 		},
 
-		unequipItem: (slot) => {
-			dispatch({type: "PLAYER_UNEQUIP_ITEM", slot: slot})
+		unequipItem: (i) => {
+			return (slot) => dispatch({type: "PLAYER_UNEQUIP_ITEM", slot: slot})
 		},
 
-		setStat: (stat, level) => {
-			dispatch({type: "PLAYER_SET_STAT", stat: stat, level: level})
+		setStat: (i) => {
+			return (stat, level) => dispatch({type: "PLAYER_SET_STAT", stat: stat, level: level})
 		},
 
 		addBoost: (boost) => {

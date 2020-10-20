@@ -4,7 +4,7 @@ export class KarilsOverhit extends Overhit{
 	algorithm(){
 		const hp = this.state.monster.stats.hitpoints
 
-		const m1 = this.calcs.maxHit
+		const m1 = this.calcs.maxHit1
 
 		const dist = Array(Math.floor(m1 * 1.5) + 1).fill(0)
 

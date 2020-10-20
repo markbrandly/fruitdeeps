@@ -38,15 +38,28 @@ export class Dps{
 
 	setVertex(){
 		const type = this.state.player.attackStyle.type
+		const style = this.state.player.attackStyle.style
+		const spell = this.state.player.spell
 
-		if(this.state.player.spell != null || type == "Magic"){
+		if(spell != null || type == "Magic"){
 			this.calcs.vertex = "Magic";
+			this.calcs.attackType = "Magic"
+			if(type == "Magic"){
+				this.calcs.attackStyle = style
+			}
+			else if(spell){
+				this.calcs.attackStyle = "Spell"
+			}
 		}
 		else if(type == "Ranged"){
 			this.calcs.vertex = "Ranged"
+			this.calcs.attackType = "Ranged"
+			this.calcs.attackStyle = style
 		}
 		else{
 			this.calcs.vertex = "Melee"
+			this.calcs.attackType = type
+			this.calcs.attackStyle = style
 		}
 	}
 
