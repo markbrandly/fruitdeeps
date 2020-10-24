@@ -1,101 +1,170 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {AttackerTableDisplay} from './AttackerTableDisplay.js';
-import {AttackerTabs} from './AttackerTabs.js';
-import {AttackerMisc} from './AttackerMisc.js'
-import {AttackerAttackStyles} from './AttackerAttackStyles.js';
+import {Attacker} from './Attacker.js';
 
 import Player from '../lib/Player.js';
 
-class Attacker extends Component {
+class AttackerSwitcherInner extends Component {
+	constructor(props){
+		super(props)
+		this.state = {playerSelected: 0}
+	}
 
-	render() {
-		const player = new Player(this.props.player)
+	buttons(){
+		return this.props.playerList.map((player, i) => <button onClick={() => this.setState({playerSelected: i})}>Set {i + 1}</button>)
+	}
+
+	render(){
+		let i = this.state.playerSelected
+		const player = new Player(this.props.playerList[i])
+		console.log("atacker switcher playadasder:", player)
+		console.log("atacker switcher rendering !!!!!!!!")
+
 
 
 		return (
-			
+			<div class="flex-container-vertical">
+				<div class="flex-container-vertical">
+					<h2 class="flex-valign">
+						<img src="/assets/other_icons/attack_icon.png" />
+						<span class="space-left">Set {i+1}</span>
+					</h2>
+
+					<Attacker
+						player={player}
+
+						equipItem={this.props.equipItem(i)}
+						unequipItem={this.props.unequipItem(i)}
+						setStat={this.props.setStat(i)}
+						addBoost={this.props.addBoost(i)}
+						removeBoost={this.props.removeBoost(i)}
+						addPrayer={this.props.addPrayer(i)}
+						removePrayer={this.props.removePrayer(i)}
+						clearPrayers={this.props.clearPrayers(i)}
+						setSpell={this.props.setSpell(i)}
+						clearSpell={this.props.clearSpell(i)}
+						toggleCharge={this.props.toggleCharge(i)}
+						setMisc={this.props.setMisc(i)}
+						setAttackStyle={this.props.setAttackStyle(i)}
+						setBonusCustom={this.props.setBonusCustom(i)}
+						clearBonusCustom={this.props.clearBonusCustom(i)}
+						setPlayer={this.props.setPlayer(i)}
+					/>
+				</div>
+				<div class='highlight-section'>
+					{this.buttons()}
+					{this.props.playerList.length < 4 ? <button onClick={this.props.addPlayer}>Add set</button> : null}
+				</div>
+			</div>
 		);
 	}
+}
 
-	componentDidMount(){
-		const thirdab = {"name":"3rd age bow","slot":"2h","bonuses":[0,0,0,0,80,0,0,0,0,0,0,0,0,0],"category":"Bow","speed":4}
-		this.props.equipItem(thirdab)
+class AttackerSwitcher extends Component {
+	render() {
+		return (
+			<AttackerSwitcherInner
+				playerList = {this.props.playerList}
+
+				equipItem={this.props.equipItem}
+				unequipItem={this.props.unequipItem}
+				setStat={this.props.setStat}
+				addBoost={this.props.addBoost}
+				removeBoost={this.props.removeBoost}
+				addPrayer={this.props.addPrayer}
+				removePrayer={this.props.removePrayer}
+				clearPrayers={this.props.clearPrayers}
+				setSpell={this.props.setSpell}
+				clearSpell={this.props.clearSpell}
+				toggleCharge={this.props.toggleCharge}
+				setMisc={this.props.setMisc}
+				setAttackStyle={this.props.setAttackStyle}
+				setBonusCustom={this.props.setBonusCustom}
+				clearBonusCustom={this.props.clearBonusCustom}
+				setPlayer={this.props.setPlayer}
+
+				addPlayer={this.props.addPlayer}
+			/>
+		)
 	}
 }
 
 function mapStateToProps(state){
 	return {
-		player: state.player
+		playerList: state.playerList
 	}
 }
 
 function mapDispatchToProps(dispatch){
 	return {
 		equipItem: (i) => {
-			return (item) => dispatch({type: "PLAYER_EQUIP_ITEM", item: item})
+			return (item) => dispatch({type: "PLAYER_EQUIP_ITEM", item: item, index: i})
 		},
 
 		unequipItem: (i) => {
-			return (slot) => dispatch({type: "PLAYER_UNEQUIP_ITEM", slot: slot})
+			return (slot) => dispatch({type: "PLAYER_UNEQUIP_ITEM", slot: slot, index: i})
 		},
 
 		setStat: (i) => {
-			return (stat, level) => dispatch({type: "PLAYER_SET_STAT", stat: stat, level: level})
+			return (stat, level) => dispatch({type: "PLAYER_SET_STAT", stat: stat, level: level, index: i})
 		},
 
-		addBoost: (boost) => {
-			dispatch({type: "PLAYER_ADD_BOOST", boost:boost})
+		addBoost: (i) => {
+			return (boost) => dispatch({type: "PLAYER_ADD_BOOST", boost:boost, index: i})
 		},
 
-		removeBoost: (boost) => {
-			dispatch({type: "PLAYER_REMOVE_BOOST", boost: boost})
+		removeBoost: (i) => {
+			return(boost) => dispatch({type: "PLAYER_REMOVE_BOOST", boost: boost, index: i})
 		},
 
-		addPrayer: (prayer) => {
-			dispatch({type: "PLAYER_ADD_PRAYER", prayer: prayer})
+		addPrayer: (i) => {
+			return(prayer) => dispatch({type: "PLAYER_ADD_PRAYER", prayer: prayer, index: i})
 		},
 
-		removePrayer: (prayer) => {
-			dispatch({type: "PLAYER_REMOVE_PRAYER", prayer: prayer})
+		removePrayer: (i) => {
+			return (prayer) => dispatch({type: "PLAYER_REMOVE_PRAYER", prayer: prayer, index: i})
 		},
 
-		clearPrayers: () => {
-			dispatch({type:"PLAYER_CLEAR_PRAYERS"})
+		clearPrayers: (i) => {
+			return () => dispatch({type:"PLAYER_CLEAR_PRAYERS", index: i})
 		},
 
-		setSpell: (spell) => {
-			dispatch({type: "PLAYER_SET_SPELL", spell:spell})
+		setSpell: (i) => {
+			return (spell) => dispatch({type: "PLAYER_SET_SPELL", spell:spell, index: i})
 		},
 
-		clearSpell: () => {
-			dispatch({type: "PLAYER_CLEAR_SPELL"})
+		clearSpell: (i) => {
+			return () => dispatch({type: "PLAYER_CLEAR_SPELL", index: i})
 		},
 
-		toggleCharge: () => {
-			dispatch({type: "PLAYER_TOGGLE_CHARGE"})
+		toggleCharge: (i) => {
+			return () => dispatch({type: "PLAYER_TOGGLE_CHARGE", index: i})
 		},
 
-		setMisc: (attribute, value) => {
-			dispatch({type: "PLAYER_SET_MISC", attribute: attribute, value: value})
+		setMisc: (i) => {
+			return (attribute, value) => dispatch({type: "PLAYER_SET_MISC", attribute: attribute, value: value, index: i})
 		},
 
 		setAttackStyle: (i) => {
-			dispatch({type: "PLAYER_SET_ATTACKSTYLE", value: i})
+			return (style) => dispatch({type: "PLAYER_SET_ATTACKSTYLE", value: style, index: i})
 		},
 
-		setBonusCustom: (bonusIndex, value) => {
-			dispatch({type:"PLAYER_SET_BONUS", bonusIndex:bonusIndex, value:value})
+		setBonusCustom: (i) => {
+			return (bonusIndex, value) => dispatch({type:"PLAYER_SET_BONUS", bonusIndex:bonusIndex, value:value, index: i})
 		},
 
-		clearBonusCustom: () => {
-			dispatch({type:"PLAYER_CLEAR_CUSTOM_BONUSES"})
+		clearBonusCustom: (i) => {
+			return () => dispatch({type:"PLAYER_CLEAR_CUSTOM_BONUSES", index: i})
 		},
 
-		setPlayer: (player) => {
-			dispatch({type:"SET_PLAYER", player:player})
+		setPlayer: (i) => {
+			return (player) => dispatch({type:"SET_PLAYER", player:player, index: i})
+		},
+
+		addPlayer: () => {
+			dispatch({type:"ADD_NEW_PLAYER"})
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Attacker)
+export default connect(mapStateToProps, mapDispatchToProps)(AttackerSwitcher)

@@ -2,10 +2,9 @@ Stuff to do before release:
 
 	calc stuff:
 		Corporeal halves damage		
-		fix keris spec 
 
 	UI stuff:
-		multiple sets
+
 		save/load sets
 
 		make ui mobile responsive

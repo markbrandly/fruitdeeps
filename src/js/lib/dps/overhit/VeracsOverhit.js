@@ -1,16 +1,21 @@
 import {Overhit} from "./Overhit.js";
 
 export class VeracsOverhit extends Overhit{
-	algorithm(){
-		const hp = this.state.monster.stats.hitpoints
+	timeToKill(hp){
 
 		const m1 = this.calcs.maxHit
 
 		const specChance = 0.25
 		const accuracy = this.calcs.rawAcc
+		const speed = this.calcs.attackSpeed
 
 		const dist = Array(m1 + 2).fill(0)
 		let hitSum = 0
+
+
+		if(typeof this.generalMemory[hp-1] === 'undefined'){
+			this.fillMemory(hp)
+		}
 
 		//populate hit distribution lookup table
 		for(let h1 = 0; h1 <= m1; h1++){
@@ -23,15 +28,14 @@ export class VeracsOverhit extends Overhit{
 			}
  		}
 
-		for (let i = 1; i <= hp; i++){
-			let sum = 0
-			for(let hit = 1; hit <= m1 + 1; hit++){
-				sum += this.getStep(i - hit) * dist[hit]
-			}
-			this.generalMemory[i] = (sum + 1) / (hitSum)
-		}
 
-		return this.getStep(hp)
+		let sum = 0
+		for(let hit = 1; hit <= m1 + 1; hit++){
+			sum += this.getStep(hp - hit) * dist[hit]
+		}
+		const ttk = (sum + speed) / (hitSum)
+		this.generalMemory[hp] = ttk
+		return ttk
 	}
 
 	hitsToDps(hits){

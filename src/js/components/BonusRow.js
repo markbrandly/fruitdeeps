@@ -8,6 +8,8 @@ export class BonusRow extends Component{
 		}
 		super(props)
 	}
+
+
 	render(){
 		var colorClass;
 		if (this.props.bonusValue < 0){

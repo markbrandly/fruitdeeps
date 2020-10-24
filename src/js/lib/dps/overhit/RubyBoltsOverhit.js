@@ -1,16 +1,19 @@
 import {Overhit} from "./Overhit.js";
 
 export class RubyBoltsOverhit extends Overhit{
-	algorithm(){
-		const hp = this.state.monster.stats.hitpoints
-
+	timeToKill(hp){
 		const m1 = this.calcs.maxHit
 
 		const specChance = this.calcs.specChance
 		const accuracy = this.calcs.rawAcc
+		const speed = this.calcs.attackSpeed
 
 		const dist = Array(m1 + 1).fill(0)
 		let hitSum = 0
+
+		if(typeof this.generalMemory[hp-1] === 'undefined'){
+			this.fillMemory(hp)
+		}
 
 		//populate hit distribution lookup table
 		for(let h1 = 1; h1 <= m1; h1 += 1){
@@ -20,30 +23,21 @@ export class RubyBoltsOverhit extends Overhit{
 
 		hitSum += specChance
 
-		for (let i = 1; i <= hp; i++){
-			let sum = 0
-			let spec = Math.min(100, Math.floor(i / 5))
-			for(let hit = 1; hit <= m1; hit += 1){
-				sum += this.getStep(i - hit) * dist[hit]
-			}
 
-			// console.log(spec)
-			if(spec === 0){
-				this.generalMemory[i] = (sum + 1) / (hitSum - specChance)
-			}
-			else{
-				this.generalMemory[i] = (this.getStep(i-spec) * specChance + sum + 1) / (hitSum)
-			}
+		let sum = 0
+		let spec = Math.min(100, Math.floor(hp / 5))
+		for(let hit = 1; hit <= m1; hit += 1){
+			sum += this.getStep(hp - hit) * dist[hit]
 		}
 
-
-		return this.getStep(hp)
-	}
-
-	hitsToDps(hits){
-		const acc = this.calcs.accuracy
-		const hp = this.state.monster.stats.hitpoints
-		const speed = this.calcs.attackSpeed
-		return hp / hits / speed / 0.6
+		let ttk = 0
+		if(spec === 0){
+			ttk = (sum + speed) / (hitSum - specChance)
+		}
+		else{
+			ttk = (this.getStep(hp-spec) * specChance + sum + speed) / (hitSum)
+		}
+		this.generalMemory[hp] = ttk
+		return ttk
 	}
 }

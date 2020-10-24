@@ -57,6 +57,10 @@ body{
 	color:$color3;
 }
 
+.mono-font{
+	font-family: $font2;
+}
+
 .color-grey{
 	color:#aaa;
 }
@@ -72,6 +76,41 @@ body{
 .top-border-blue{
 	border-top:0.5em solid $color1;
 }
+
+//recharts stuff
+.recharts-layer{
+	&.xAxis, &.yAxis{
+		font-family:$font2;
+		color: #eee;
+	}
+}
+
+.recharts-default-tooltip{
+	background-color:#444 !important; //Due to a bug with recharts I have to use !important specificity
+	border:none !important;
+}
+
+.recharts-tooltip-item-value{
+	color:#eee;
+	font-family:$font2;
+}
+
+.recharts-legend-item-text{
+	font-size:1.25em;
+}
+
+.recharts-legend-wrapper{
+	// background-color:#444;
+	padding:0.5em;
+}
+
+.yAxis-label{
+	position:absolute;
+	transform: rotate(-90deg);
+	transform-origin:0% 0%;
+	top:60%;
+}
+//end recharts
 
 
 .sub-text{

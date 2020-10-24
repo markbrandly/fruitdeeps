@@ -1,12 +1,17 @@
 import {Overhit} from "./Overhit.js";
 
 export class KarilsOverhit extends Overhit{
-	algorithm(){
-		const hp = this.state.monster.stats.hitpoints
+	timeToKill(hp){
 
 		const m1 = this.calcs.maxHit1
 
 		const dist = Array(Math.floor(m1 * 1.5) + 1).fill(0)
+		const accuracy = this.calcs.rawAcc
+		const speed = this.calcs.attackSpeed
+
+		if(typeof this.generalMemory[hp-1] === 'undefined'){
+			this.fillMemory(hp)
+		}
 
 		//populate hit distribution lookup table
 		for(let h1 = 0; h1 <= m1; h1 += 1){
@@ -15,14 +20,12 @@ export class KarilsOverhit extends Overhit{
 		}
 
 		//calc overhit dps for hp = 0, hp = 1, ..., hp = hp
-		for (let i = 1; i <= hp; i += 1){
-			let sum = 0
-			for(let hit = 1; hit <= Math.floor(m1 * 1.5); hit += 1){
-				sum += this.getStep(i - hit) * dist[hit]
-			}
-			this.generalMemory[i] = (sum + m1 + 1) / m1
+		let sum = 0
+		for(let hit = 1; hit <= Math.floor(m1 * 1.5); hit += 1){
+			sum += this.getStep(hp - hit) * dist[hit]
 		}
-
-		return this.getStep(hp)
+		const ttk = (sum + m1 + speed) / m1 / accuracy
+		this.generalMemory[hp] = ttk
+		return ttk
 	}
 }

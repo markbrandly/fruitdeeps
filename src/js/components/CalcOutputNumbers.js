@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import {BonusRow} from "./BonusRow.js";
 
+function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    var hDisplay = h > 0 ? h + 'h ' : "";
+    var mDisplay = m > 0 ? m + 'm ' : "";
+    var sDisplay = s > 0 ? s + 's ' : "";
+    return hDisplay + mDisplay + sDisplay; 
+}
+
 const decimals = 3
 
 class OutputTable extends Component{
@@ -80,7 +92,7 @@ export class CalcOutputNumbers extends Component{
 			if("maxHit" + i in this.props.calcs){
 				rows.push(
 					<tr>
-						<td>Max hit (hit {i})</td>
+						<td>Max hit <span class='sub-text'>(hit {i})</span></td>
 						<td>{this.props.calcs["maxHit" + i]}</td>
 					</tr>
 				)
@@ -90,7 +102,7 @@ export class CalcOutputNumbers extends Component{
 		if("maxHitSpec" in this.props.calcs){
 			rows.push(
 				<tr>
-					<td>Max hit (spec)</td>
+					<td>Max hit <span class='sub-text'>(proc)</span></td>
 					<td>{this.props.calcs.maxHitSpec}</td>
 				</tr>
 			)
@@ -109,18 +121,18 @@ export class CalcOutputNumbers extends Component{
 			</tr>
 		)
 
-		if("accSpec" in this.props.calcs){
+		if("specAcc" in this.props.calcs){
 			rows.push(
 				<tr>
-					<td>Accuracy (spec)</td>
-					<td>{(this.props.calcs.accSpec * 100).toFixed(decimals-1) + "%"}</td>
+					<td><span class='sub-text'>(with proc)</span></td>
+					<td>{(this.props.calcs.specAcc * 100).toFixed(decimals-1) + "%"}</td>
 				</tr>
 				)
 		}
 
 		rows.push(
 			<tr>
-				<td>P(dmg {">"}= 1)</td>
+				<td>p(dmg {">"} 0)</td>
 				<td  class="color-1">{(this.props.calcs.acc1plus * 100).toFixed(decimals-1)+ "%"}</td>
 			</tr>
 			)
@@ -130,10 +142,18 @@ export class CalcOutputNumbers extends Component{
 
 	dps(){
 		const rows = []
+		const momentary = (<span class="sub-text">(momentary)</span>)
+		const hp = this.props.calcs.hitpoints
+
+		const contTtk = this.props.ttk
+		const ttk = this.props.ttk - this.props.calcs.attackSpeed
+
+		const overhitDps = hp / ttk / 0.6
+		const overhitCont = hp / contTtk / 0.6
 
 		rows.push(
 			<tr>
-				<td>Raw</td>
+				<td>Raw {this.props.calcs.flags.includes("Enchanted ruby bolts") ? momentary : null}</td>
 				<td>{this.props.calcs.dps.toFixed(decimals)}</td>
 			</tr>
 		)
@@ -145,20 +165,66 @@ export class CalcOutputNumbers extends Component{
 		rows.push(
 			<tr>
 				<td>Overhit</td>
-				<td class="color-1">{"overhit" in this.props ? this.props.overhit.toFixed(decimals) : "Loading..."}</td>
+				<td class="color-1">{this.props.ttk !== null ? overhitDps.toFixed(decimals) : "..."}</td>
+			</tr>
+		)
+
+		rows.push(
+			<tr>
+				<td>Overhit <span class='sub-text'>(cont.)</span></td>
+				<td class="color-1">{this.props.ttk !== null ? overhitCont.toFixed(decimals) : "..."}</td>
 			</tr>
 		)
 
 		return <OutputTable name="Dps" rows={rows} />
 	}
 
+	ttk(){
+		const contTtk = this.props.ttk
+		const ttk = this.props.ttk - this.props.calcs.attackSpeed
+
+		const rows = []
+
+		rows.push(
+			<tr>
+				<td>Seconds</td>
+				<td>{this.props.ttk !== null ? secondsToHms(ttk * 0.6) : '...'}</td>
+			</tr>
+		)
+
+		rows.push(
+			<tr>
+				<td>Seconds <span class='sub-text'>(cont.)</span></td>
+				<td>{this.props.ttk !== null ? secondsToHms(contTtk * 0.6) : '...'}</td>
+			</tr>
+		)
+
+
+		rows.push(
+			<tr>
+				<td>Ticks</td>
+				<td class='color-1'>{this.props.ttk !== null ? ttk.toFixed(decimals) : '...'}</td>
+			</tr>
+		)
+
+		rows.push(
+			<tr>
+				<td>Ticks <span class='sub-text'>(cont.)</span></td>
+				<td class='color-1'>{this.props.ttk !== null ? contTtk.toFixed(decimals) : '...'}</td>
+			</tr>
+		)
+
+		return <OutputTable name="Time to kill" rows={rows} />
+	}
+
 	render(){
 		return(
-			<div class="flex-container-vertical">
+			<div class="flex-container-vertical flex-child highlight-section">
 				{this.attack()}
 				{this.damage()}
 				{this.accuracy()}
 				{this.dps()}
+				{this.ttk()}
 			</div>
 			)
 	}

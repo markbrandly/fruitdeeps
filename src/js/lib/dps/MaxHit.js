@@ -87,7 +87,6 @@ export class MaxHit{
 			const currentHp = player.misc.currentHitpoints
 			const baseHp = player.stats.hitpoints
 
-			console.log('dharoks bonus', 1 + (baseHp - currentHp) * baseHp / 100)
 			maxHit = Math.floor(maxHit * Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000))
 		}
 

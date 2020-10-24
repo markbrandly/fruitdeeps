@@ -1,11 +1,11 @@
 import {Overhit} from "./Overhit.js";
 
 export class AhrimsOverhit extends Overhit{
-	algorithm(){
-		const hp = this.state.monster.stats.hitpoints
-
+	timeToKill(hp){
 		const m1 = this.calcs.maxHit
 		const m2 = this.calcs.maxHitSpec
+		const accuracy = this.calcs.accuracy
+		const speed = this.calcs.attackSpeed
 
 		const dist = Array(m2 + 1).fill(0)
 
@@ -20,18 +20,12 @@ export class AhrimsOverhit extends Overhit{
 			dist[h2] += 0.25 / m2
 		}
 
-		console.log(dist)
-		//calc overhit dps for hp = 0, hp = 1, ..., hp = hp
-		for (let i = 1; i <= hp; i += 1){
-			let sum = 0
-			for(let hit = 1; hit <= m2; hit += 1){
-				sum += this.getStep(i - hit) * dist[hit]
-			}
-			this.generalMemory[i] = sum + 1 / (1 - 0.75/(m1+1) - 0.25/(m2+1))
+		let sum = 0
+		for(let hit = 1; hit <= m2; hit += 1){
+			sum += this.getStep(i - hit) * dist[hit]
 		}
-
-		console.log(this.generalMemory)
-
-		return this.getStep(hp)
+		const ttk = sum + 1 / (1 - 0.75/(m1+1) - 0.25/(m2+1)) * speed / accuracy
+		this.generalMemory[hp] = ttk
+		return ttk
 	}
 }

@@ -12,18 +12,17 @@ export class CalcOutputText extends Component{
 			return (
 				<tr>
 					<td>{flag}</td>
-					<td>{flags.description(flag)}</td>
-				</tr>
+					<td class='color-grey'>{flags.description(flag)}</td>
+				</tr> 
 				)
 		})
 		return(
-			<div class="flex-container-vertical">
-				<div>
+			<div class="flex-container-vertical flex-child">
 				<h3>Active effects</h3>
+				{flagTable.length === 0 ? <span class='mono-font'>No active effects</span> : null}
 				<table class="bonus-table">
 					{flagTable}
 				</table>
-				</div>
 			</div>
 			)
 	}

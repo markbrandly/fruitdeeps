@@ -1,37 +1,51 @@
 export class Overhit{
-	constructor(state, calcs){
+	constructor(state, calcs, continuous = true){
 		this.state = state
 		this.calcs = calcs
+		this.continuous = continuous
+		console.log(continuous)
 
 		this.generalMemory = [0]
 	}
 
 	getStep(i){
-		if(i < 0){
-			return 0
+		if(i <= 0){
+			return (this.continuous ? 0 : this.calcs.attackSpeed * -1)
 		}
-		else {
+		else if(typeof this.generalMemory[i] !== 'undefined'){
 			return this.generalMemory[i]
+		}
+		else{
+			return this.timeToKill(i)
 		}
 	}
 
-	algorithm(){
-		const hp = this.state.monster.stats.hitpoints
+	setMemory(memory){
+		this.generalMemory = memory
+	}
+
+	fillMemory(hp){
+		for(var i = 0; i < hp; i++){
+			this.getStep(i)
+		}
+	}
+
+	timeToKill(hp){
 		const max = this.calcs.maxHit
-		const acc = this.calcs.accuracy
+		const accuracy = this.calcs.accuracy
 		const speed = this.calcs.attackSpeed
 
-		for (let i = 1; i <= hp; i += 1){
-			let sum = 0
-			for(let hit = 1; hit <= max; hit += 1){
-				sum += this.getStep(i - hit)
-			}
-			this.generalMemory[i] = (sum / max + (max+1) / (max)) 
+		if(typeof this.generalMemory[hp-1] === 'undefined'){
+			this.fillMemory(hp)
 		}
 
-		console.log(this.generalMemory)
-
-		return this.getStep(hp)	
+		let sum = 0
+		for(let hit = 1; hit <= max; hit += 1){
+			sum += this.getStep(hp - hit)
+		}
+		const ttk = (sum / max + (max +1) / max / accuracy * speed) 
+		this.generalMemory[hp] = ttk
+		return ttk
 	}
 
 	approximate(){
@@ -48,14 +62,14 @@ export class Overhit{
 		}
 	}
 
-	hitsToDps(hits){
-		const acc = this.calcs.accuracy
-		const hp = this.state.monster.stats.hitpoints
-		const speed = this.calcs.attackSpeed
-		return hp * acc / hits / speed / 0.6
-	}
+	// hitsToDps(hits){
+	// 	const acc = this.calcs.accuracy
+	// 	const hp = this.state.monster.stats.hitpoints
+	// 	const speed = this.calcs.attackSpeed
+	// 	return hp * acc / hits / speed / 0.6
+	// }
 
 	output(){
-		return this.hitsToDps(this.algorithm())
+		return {ttk: this.timeToKill(this.state.monster.stats.hitpoints), ttkList: this.generalMemory}
 	}
 }

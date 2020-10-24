@@ -23,7 +23,8 @@ export class Dps{
 			dps: 0,
 			acc1plus: 0,
 			overhit1: 0,
-			overhit2: 0
+			overhit2: 0,
+			hitpoints: this.state.monster.stats.hitpoints
 		}
 		this.setVertex();
 		this.setFlags();

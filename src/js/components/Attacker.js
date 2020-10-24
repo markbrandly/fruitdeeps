@@ -7,17 +7,17 @@ import {AttackerAttackStyles} from './AttackerAttackStyles.js';
 
 import Player from '../lib/Player.js';
 
-class Attacker extends Component {
+export class Attacker extends Component {
 
 	render() {
-		const player = new Player(this.props.player)
-
-
+		const player = this.props.player
+		console.log('attacker', player)
 		return (
 			<div class="flex-container">
 				<div class="flex-child flex-container-vertical">
 					<AttackerTabs 
 						player={player}
+
 						equipItem={this.props.equipItem}
 						unequipItem={this.props.unequipItem}
 						setStat={this.props.setStat} 
@@ -42,85 +42,4 @@ class Attacker extends Component {
 			</div>
 		);
 	}
-
-	componentDidMount(){
-		const thirdab = {"name":"3rd age bow","slot":"2h","bonuses":[0,0,0,0,80,0,0,0,0,0,0,0,0,0],"category":"Bow","speed":4}
-		this.props.equipItem(thirdab)
-	}
 }
-
-function mapStateToProps(state){
-	return {
-		player: state.player
-	}
-}
-
-function mapDispatchToProps(dispatch){
-	return {
-		equipItem: (item) => {
-			dispatch({type: "PLAYER_EQUIP_ITEM", item: item})
-		},
-
-		unequipItem: (slot) => {
-			dispatch({type: "PLAYER_UNEQUIP_ITEM", slot: slot})
-		},
-
-		setStat: (stat, level) => {
-			dispatch({type: "PLAYER_SET_STAT", stat: stat, level: level})
-		},
-
-		addBoost: (boost) => {
-			dispatch({type: "PLAYER_ADD_BOOST", boost:boost})
-		},
-
-		removeBoost: (boost) => {
-			dispatch({type: "PLAYER_REMOVE_BOOST", boost: boost})
-		},
-
-		addPrayer: (prayer) => {
-			dispatch({type: "PLAYER_ADD_PRAYER", prayer: prayer})
-		},
-
-		removePrayer: (prayer) => {
-			dispatch({type: "PLAYER_REMOVE_PRAYER", prayer: prayer})
-		},
-
-		clearPrayers: () => {
-			dispatch({type:"PLAYER_CLEAR_PRAYERS"})
-		},
-
-		setSpell: (spell) => {
-			dispatch({type: "PLAYER_SET_SPELL", spell:spell})
-		},
-
-		clearSpell: () => {
-			dispatch({type: "PLAYER_CLEAR_SPELL"})
-		},
-
-		toggleCharge: () => {
-			dispatch({type: "PLAYER_TOGGLE_CHARGE"})
-		},
-
-		setMisc: (attribute, value) => {
-			dispatch({type: "PLAYER_SET_MISC", attribute: attribute, value: value})
-		},
-
-		setAttackStyle: (i) => {
-			dispatch({type: "PLAYER_SET_ATTACKSTYLE", value: i})
-		},
-
-		setBonusCustom: (bonusIndex, value) => {
-			dispatch({type:"PLAYER_SET_BONUS", bonusIndex:bonusIndex, value:value})
-		},
-
-		clearBonusCustom: () => {
-			dispatch({type:"PLAYER_CLEAR_CUSTOM_BONUSES"})
-		},
-
-		setPlayer: (player) => {
-			dispatch({type:"SET_PLAYER", player:player})
-		}
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Attacker)

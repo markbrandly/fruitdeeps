@@ -1,17 +1,21 @@
 import {Overhit} from "./Overhit.js";
 
 export class DiamondBoltsOverhit extends Overhit{
-	algorithm(){
-		const hp = this.state.monster.stats.hitpoints
+	timeToKill(hp){
 
 		const m1 = this.calcs.maxHit
 		const m2 = this.calcs.maxHitSpec
 
 		const specChance = this.calcs.specChance
 		const accuracy = this.calcs.rawAcc
+		const speed = this.calcs.attackSpeed
 
 		const dist = Array(m2 + 1).fill(0)
 		let hitSum = 0
+		
+		if(typeof this.generalMemory[hp-1] === 'undefined'){
+			this.fillMemory(hp)
+		}
 
 		//populate hit distribution lookup table
 		for(let h1 = 1; h1 <= m1; h1 += 1){
@@ -24,21 +28,13 @@ export class DiamondBoltsOverhit extends Overhit{
 			hitSum += specChance / (m2 + 1)
 		}
 
-		for (let i = 1; i <= hp; i += 1){
-			let sum = 0
-			for(let hit = 1; hit <= m2; hit += 1){
-				sum += this.getStep(i - hit) * dist[hit]
-			}
-			this.generalMemory[i] = (sum + 1) / (hitSum)
+
+		let sum = 0
+		for(let hit = 1; hit <= m2; hit += 1){
+			sum += this.getStep(hp - hit) * dist[hit]
 		}
-
-		return this.getStep(hp)
-	}
-
-	hitsToDps(hits){
-		const acc = this.calcs.accuracy
-		const hp = this.state.monster.stats.hitpoints
-		const speed = this.calcs.attackSpeed
-		return hp / hits / speed / 0.6
+		const ttk = (sum + speed) / (hitSum)
+		this.generalMemory[hp] = ttk
+		return ttk
 	}
 }

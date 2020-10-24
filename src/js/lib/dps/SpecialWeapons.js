@@ -7,11 +7,16 @@ export class SpecialWeapons{
 
 	keris(){
 		var dps = this.calcs
-		dps.maxHit = Math.floor(dps.maxHit * 1.33)
-		dps.maxHitSpec = dps.maxHit * 3
+		dps.baseMax = dps.maxHit
+		dps.maxHit = Math.floor(dps.maxHit * 4 / 3)
+		dps.maxHitSpec = dps.baseMax * 3
 
-		dps.dps = dps.accuracy * dps.maxHit / 4.8 * (3 / 51)
-		dps.acc1plus = dps.accuracy * dps.maxHit / (dps.maxHit + 1)
+		
+		const avgHit = (dps.maxHit / 2 * 50/51) + (1/51 * dps.baseMax * 3 / 2)
+		dps.dps = dps.rawAcc * avgHit / 4 / 0.6
+
+
+		dps.acc1plus = dps.rawAcc * (50/51 * dps.maxHit / (dps.maxHit + 1)) + (1/51 * dps.baseMax / (dps.baseMax + 1))
 		return dps
 	}
 
@@ -29,13 +34,13 @@ export class SpecialWeapons{
 
 		dps.dps = dps.dps1 + dps.dps2 + dps.dps3
 
-		dps.accSum = dps.acc
+		dps.accSum = dps.accuracy
 		dps.accSum = dps.accSum + (1 - dps.accSum) * dps.accSum
 		dps.accSum = dps.accSum + (1 - dps.accSum) * dps.accSum
 
-		dps.acc1plus = dps.acc * dps.maxHit1 / (dps.maxHit1 + 1)
-		dps.acc1plus = dps.acc1plus + (1 - dps.acc1plus) * dps.accSum * dps.maxHit2 / (dps.maxHit2 + 1)
-		dps.acc1plus = dps.acc1plus + (1 - dps.acc1plus) * dps.accSum * dps.maxHit3 / (dps.maxHit3 + 1)
+		dps.acc1plus = dps.accuracy * dps.maxHit1 / (dps.maxHit1 + 1)
+		dps.acc1plus = dps.acc1plus + (1 - dps.acc1plus) * dps.accuracy * dps.maxHit2 / (dps.maxHit2 + 1)
+		dps.acc1plus = dps.acc1plus + (1 - dps.acc1plus) * dps.accuracy * dps.maxHit3 / (dps.maxHit3 + 1)
 
 		return dps
 	}
@@ -47,6 +52,7 @@ export class SpecialWeapons{
 		
 		dps.rawAcc = dps.accuracy
 		dps.accuracy = specChance + (1-specChance) * dps.accuracy
+		dps.specAcc = dps.accuracy
 		dps.dps = specChance * (1 + dps.maxHit / 2) / (0.6 * dps.attackSpeed) + (1-specChance) * dps.dps;
 		dps.acc1plus = specChance + (1 - specChance) * dps.acc1plus
 
@@ -107,6 +113,7 @@ export class SpecialWeapons{
 
 		//Accuracy when taking spec into account
 		dps.accuracy = specChance + (1 - specChance) * dps.accuracy
+		dps.specAcc = dps.accuracy
 
 		//dps when taking spec into account
 		dps.dps = specChance * specDps + (1 - specChance) * dps.dps
@@ -128,6 +135,7 @@ export class SpecialWeapons{
 
 		dps.rawAcc = dps.accuracy
 		dps.accuracy2 = specChance + (1-specChance) * dps.accuracy
+		dps.specAcc = dps.accuracy2
 
 		dps.dps = specChance * specDmg / (0.6 * dps.attackSpeed) + (1 - specChance) * dps.dps
 		
@@ -147,6 +155,7 @@ export class SpecialWeapons{
 
 		dps.rawAcc = dps.accuracy
 		dps.accuracy = specChance + (1 - specChance) * dps.accuracy
+		dps.specAcc = dps.accuracy
 
 		dps.acc1plus = specChance * dps.maxHitSpec / (dps.maxHitSpec + 1) + (1-specChance) * dps.acc1plus
 

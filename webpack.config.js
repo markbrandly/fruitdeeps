@@ -8,6 +8,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
   },
+  optimization: {
+    minimize: false
+  },
   module: {
     rules: [
       {
@@ -33,6 +36,10 @@ module.exports = {
         test: /\.worker\.js$/,
         use: { loader: 'worker-loader' },
       },
+      // {
+      //   loader: 'workerize-loader',
+      //   options: { inline: true }
+      // }
     ]
   },
   plugins: [
