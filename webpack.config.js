@@ -9,7 +9,7 @@ module.exports = {
     filename: 'main.js',
   },
   optimization: {
-    minimize: false
+    // minimize: false
   },
   module: {
     rules: [
