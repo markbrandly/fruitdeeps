@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Flags} from "../lib/dps/flags.js";	
+import {Flags} from "../lib/dps/Flags.js";	
 
 export class CalcOutputText extends Component{
 	constructor(props){
