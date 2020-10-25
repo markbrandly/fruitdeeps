@@ -83,6 +83,9 @@ export class Accuracy{
 		if(this.flags.includes("Arclight")){
 			playerRoll = Math.floor(playerRoll * 17 / 10)
 		}
+		if(this.flags.includes("Viggora's chainmace")){
+			playerRoll = Math.floor(playerRoll * 3 / 2)
+		}
 
 		if(this.flags.includes("Blisterwood flail") || this.flags.includes("Blisterwood sickle")){
 			playerRoll = Math.floor(playerRoll * 21 / 20)
