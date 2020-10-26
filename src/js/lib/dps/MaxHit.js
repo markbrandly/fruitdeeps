@@ -151,9 +151,9 @@ export class MaxHit{
 
 		//tbow
 		if(this.flags.includes("Twisted bow")){
-			const magic = Math.max(monster.stats.mage, monster.stats.mbns)
+			const magic = Math.min(Math.max(monster.stats.mage, monster.stats.mbns), 250)
 			const tbowMod = 250 + Math.floor((3*magic-14)/100) - Math.floor(Math.pow(3*magic/10 - 140, 2) / 100)
-			maxHit = Math.floor(maxHit * Math.min(tbowMod, 250) / 100) //should be 350 for cox
+			maxHit = Math.floor(maxHit * tbowMod / 100) //should be 350 for cox
 		}
 
 		//apply weapon special effect bonuses
