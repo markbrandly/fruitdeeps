@@ -1,7 +1,12 @@
 Stuff to do before release:
 
 	calc stuff:
-		Corporeal halves damage		
+		Corporeal halves damage
+		ba monsters
+		zulrah
+		All cox monsters (ice demon, guardian)
+
+		default attack styles?
 
 	UI stuff:
 

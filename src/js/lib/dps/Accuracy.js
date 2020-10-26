@@ -149,9 +149,9 @@ export class Accuracy{
 		}
 
 		else if(this.flags.includes("Twisted bow")){
-			const magic = Math.min(Math.max(monster.stats.mage, monster.stats.mbns), 140)
+			const magic = Math.max(monster.stats.mage, monster.stats.mbns)
 			const tbowMod = 140 + Math.floor((3*magic-10)/100) - Math.floor(Math.pow(3*magic/10 - 100, 2) / 100)
-			playerRoll = Math.floor(playerRoll * tbowMod / 100)
+			playerRoll = Math.floor(playerRoll * Math.min(tbowMod, 140) / 100)
 		}
 
 		const crystalList = ["Crystal body", "Crystal legs", "Crystal helm"]
