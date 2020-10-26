@@ -10,7 +10,7 @@ import {SpellBook} from '../SpellBook.js';
 const weaponMultiplier = {
 	"Arclight": 1.7,
 	"Leaf-bladed battleaxe": 1.175,
-	"Dragon Hunter Lance": 1.2,
+	"Dragon hunter lance": 1.2,
 	"Viggora's chainmace": 1.5,
 	"Dragon hunter crossbow": 1.3,
 	"Craw's bow": 1.5,
