@@ -85,7 +85,7 @@ export class CalcOutputMultiple extends Component{
 
 		for(let i = 0; i < playerList.length; i++){
 			if(!(i % 2)){
-				outputBlocks.push(<div class='flex-container'>{dps[i]} {i < dps.length ? dps[i+1] : null}</div>)
+				outputBlocks.push(<div class='flex-container top-level'>{dps[i]} {i < dps.length ? dps[i+1] : null}</div>)
 			}
 		}
 

@@ -473,3 +473,39 @@ overflow-y: auto;
 	display:flex;
 	margin-top:0.5em;
 }
+
+@media screen and (max-width: 1400px) {
+  body{
+  	font-size:0.75em;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .flex-container.top-level{
+  	flex-direction:column;
+  }
+
+  .flex-container.top-level>*+*{
+  	margin-top:1.5em;
+  }
+
+  .top-level>.flex-child + .flex-child{
+  	margin-left:0
+  }
+
+
+}
+
+@media screen and (max-width: 560px) {
+  .flex-container{
+  	flex-direction:column;
+  }
+
+  .flex-container>*+*{
+  	margin-top:1.5em;
+  }
+
+  .flex-child + .flex-child{
+  	margin-left:0
+  }
+}
