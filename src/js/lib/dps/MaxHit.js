@@ -17,7 +17,9 @@ const weaponMultiplier = {
 	"Obsidian armor": 1.1,
 	"Ivandis flail": 1.2,
 	"Blisterwood flail": 1.25,
-	"Blisterwood sickle": 1.15
+	"Blisterwood sickle": 1.15,
+	"Obsidian armour": 1.1,
+	"Berserker necklace": 1.2
 }
 
 

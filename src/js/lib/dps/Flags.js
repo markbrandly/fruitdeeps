@@ -208,7 +208,7 @@ export class Flags{
 		const head = this.state.player.equipment.head.name
 
 		var flaglist = []
-		if(!obbyMelee.includes(weapon)){
+		if(!obbyMelee.includes(weapon) || this.calcs.vertex !== 'Melee'){
 			return []
 		}
 
@@ -216,7 +216,7 @@ export class Flags{
 			flaglist.push("Berserker necklace")
 		}
 
-		if(head == "Obsidian platebody" && legs == "Obsidian platelegs" && head == "Obsidian helmet"){
+		if(body == "Obsidian platebody" && legs == "Obsidian platelegs" && head == "Obsidian helmet"){
 			flaglist.push("Obsidian armour")
 		}
 

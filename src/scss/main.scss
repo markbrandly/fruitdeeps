@@ -497,6 +497,10 @@ overflow-y: auto;
 }
 
 @media screen and (max-width: 560px) {
+	.header-sub{
+		display:none;
+	}
+
   .flex-container{
   	flex-direction:column;
   }

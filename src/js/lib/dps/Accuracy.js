@@ -89,6 +89,9 @@ export class Accuracy{
 		else if(this.flags.includes("Dragon hunter lance")){
 			playerRoll = Math.floor(playerRoll * 6 / 5)
 		}
+		else if(this.flags.includes("Obsidian armour")){
+			playerRoll = Math.floor(playerRoll * 11 / 10)
+		}
 
 		if(this.flags.includes("Blisterwood flail") || this.flags.includes("Blisterwood sickle")){
 			playerRoll = Math.floor(playerRoll * 21 / 20)
