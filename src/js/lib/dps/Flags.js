@@ -212,12 +212,14 @@ export class Flags{
 			return []
 		}
 
-		if(neck == "Berserker necklace" || neck == "Berserker necklace (or)"){
-			flaglist.push("Berserker necklace")
-		}
+
 
 		if(body == "Obsidian platebody" && legs == "Obsidian platelegs" && head == "Obsidian helmet"){
 			flaglist.push("Obsidian armour")
+		}
+
+		if(neck == "Berserker necklace" || neck == "Berserker necklace (or)"){
+			flaglist.push("Berserker necklace")
 		}
 
 		return flaglist
