@@ -106,6 +106,10 @@ export class MaxHit{
 
 		maxHit = Math.floor(maxHit * inqBonus / 1000)
 
+		if(this.flags.includes("Tier 6")){
+			maxHit = Math.floor(maxHit * 11 / 10)
+		}
+
 		return maxHit
 
 	}
@@ -178,6 +182,15 @@ export class MaxHit{
 		}
 
 		maxHit = Math.floor(maxHit * crystalBonus / 100)
+
+
+		if(this.flags.includes("Quick Shot")){
+			maxHit = Math.floor(maxHit * 11 / 10)
+		}
+		if(this.flags.includes("Tier 6")){
+			maxHit = Math.floor(maxHit * 11 / 10)
+		}
+
 
 		return maxHit
 	}
@@ -282,6 +295,10 @@ export class MaxHit{
 
 		if(this.flags.includes("Tome of fire")){
 			maxHit = Math.floor(maxHit * 3 / 2)
+		}
+
+		if(this.flags.includes("Tier 6")){
+			maxHit = Math.floor(maxHit * 11 / 10)
 		}
 
 		return maxHit

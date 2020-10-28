@@ -111,6 +111,15 @@ export class Accuracy{
 
 		playerRoll = Math.floor(playerRoll * inqBonus / 1000)
 
+		if(this.flags.includes("Fluid Strike")){
+			playerRoll = Math.floor(playerRoll * 125 / 100)
+		}
+
+		if(this.flags.includes("Tier 6")){
+			playerRoll = Math.floor(playerRoll * 11 / 10)
+		}
+		
+
 		return this.compareRolls(playerRoll, npcRoll)
 	}
 
@@ -171,6 +180,14 @@ export class Accuracy{
 
 		playerRoll = Math.floor(playerRoll * crystalBonus / 100)
 
+		if(this.flags.includes("Quick Shot")){
+			playerRoll = Math.floor(playerRoll * 2)
+		}
+
+		if(this.flags.includes("Tier 6")){
+			playerRoll = Math.floor(playerRoll * 11 / 10)
+		}
+
 
 		return this.compareRolls(playerRoll, npcRoll)
 	}
@@ -218,6 +235,14 @@ export class Accuracy{
 
 		if(this.flags.includes("Thammaron's sceptre")){
 			playerRoll = playerRoll * 2
+		}
+
+		if(this.flags.includes("Double Cast")){
+			playerRoll = Math.floor(playerRoll * 2.25)
+		}
+
+		if(this.flags.includes("Tier 6")){
+			playerRoll = Math.floor(playerRoll * 11 / 10)
 		}
 
 		let acc = this.compareRolls(playerRoll, npcRoll)

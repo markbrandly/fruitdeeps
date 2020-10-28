@@ -71,7 +71,13 @@ const flagDescriptions = {
 	"Crystal helm": "3% damage and 6% accuracy bonus when using the Crystal bow",
 	"Crystal legs": "3% damage and 6% accuracy bonus when using the Crystal bow",
 	"Crystal body": "3% damage and 6% accuracy bonus when using hte Crystal bow",
-	"Crystal armour set": "15% damage and 30% accuracy bonus when using the Crystal bow"
+	"Crystal armour set": "15% damage and 30% accuracy bonus when using the Crystal bow",
+
+	"Quick Shot" : "Range attacks have 100% increased accuracy, 10% increased damage, and attack twice as fast",
+	"Fluid Strike" : "Melee attacks have 25% increased accuracy and attack twice as fast",
+	"Double Cast" : "Magic attacks have 125% increased accuracy and attack twice as fast",
+
+	"Tier 6" : "10% increased damage and accuracy"
 
 }
 
@@ -450,6 +456,28 @@ export class Flags{
 		return flagDescriptions[flag]
 	}
 
+	relics(){
+		const player = this.state.player
+		const vertex = this.calcs.vertex
+		const t3 = player.misc.tier3relic
+		const flags = []
+		if(t3 == "Quick Shot" && vertex == "Ranged"){
+			flags.push(t3)
+		}
+		else if (t3 == "Fluid Strike" && vertex == "Melee"){
+			flags.push(t3)
+		}
+		else if (t3 == "Double Cast" && vertex == "Magic"){
+			flags.push(t3)
+		}
+
+		if(player.misc.tier6relic){
+			flags.push('Tier 6')
+		}
+
+		return flags
+	}
+
 	outputFlags(){
 		var state = this.state
 		const equipment = state.player.equipment
@@ -467,7 +495,8 @@ export class Flags{
 			...this.enchantedBolts(),
 			...this.barrows(),
 			...this.inquisitors(),
-			...this.crystalArmor()
+			...this.crystalArmor(),
+			...this.relics()
 		]
 
 		return flags

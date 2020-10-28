@@ -4,6 +4,7 @@ import {AttackerStats} from './AttackerStats.js';
 import {AttackerPrayers} from './AttackerPrayers.js';
 import {AttackerSpells} from './AttackerSpells.js';
 import {AttackerImport} from './AttackerImport.js';
+import {AttackerRelics} from './AttackerRelics.js';
 
 class Tab extends Component{
 	constructor(props){
@@ -48,6 +49,9 @@ export class AttackerTabs extends Component{
 			displayBox = <AttackerSpells player={this.props.player} setSpell={this.props.setSpell} clearSpell={this.props.clearSpell} toggleCharge={this.props.toggleCharge}/>
 		}
 		else if(this.state.tabSelected == 4){
+			displayBox = <AttackerRelics player={this.props.player} setMisc={this.props.setMisc} />
+		}
+		else if(this.state.tabSelected == 5){
 			displayBox = <AttackerImport player={this.props.player} setPlayer={this.props.setPlayer} />
 		}
 		return (
@@ -57,7 +61,8 @@ export class AttackerTabs extends Component{
 					<Tab tab="1" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/skills_icon.webp"></Tab>
 					<Tab tab="2" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/prayer_icon.png"></Tab>
 					<Tab tab="3" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/spellbook.png"></Tab>
-					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="https://oldschool.runescape.wiki/images/7/71/Strange_implement.png?4fd87"></Tab>
+					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="https://oldschool.runescape.wiki/images/thumb/0/09/Trailblazer_League_-_%3F_Relic.png/30px-Trailblazer_League_-_%3F_Relic.png?a4482"></Tab>
+					<Tab tab="5" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="https://oldschool.runescape.wiki/images/7/71/Strange_implement.png?4fd87"></Tab>
 				</div>
 				{displayBox}
 			</div>

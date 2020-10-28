@@ -83,6 +83,8 @@ export default class Player{
       currentHitpoints: 99,
       kandarinHard: true,
       charge: false,
+      tier3relic: null,
+      tier6relic: false,
       ...attributes.misc
     }
 	}

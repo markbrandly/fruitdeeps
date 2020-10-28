@@ -11,19 +11,27 @@ export class AttackSpeed{
 	output(){
 		const player = this.state.player
 		const attackStyle = player.attackStyle.style
-		const weaponSpeed = player.equipment.weapon.speed
-
+		let weaponSpeed = player.equipment.weapon.speed
+		const vertex = this.vertex
 
 		if(this.flags.includes("Harmonised nightmare staff")){
-			return 4
+			weaponSpeed = 4
+		}
+		else if(this.state.player.spell){
+			weaponSpeed = 5
+		}
+		else if(attackStyle == "Rapid"){
+			weaponSpeed -= 1
 		}
 
-		if(this.state.player.spell){
-			return 5
-		}
+		let t3 = false
 
-		if(attackStyle == "Rapid"){
-			return weaponSpeed - 1
+		t3 = t3 || (vertex == "Ranged" && this.flags.includes("Quick Shot"))
+		t3 = t3 || (vertex == "Melee" && this.flags.includes("Fluid Strike"))
+		t3 = t3 || (vertex == "Magic" && this.flags.includes("Double Cast"))
+
+		if(t3){
+			weaponSpeed = weaponSpeed - Math.floor(weaponSpeed / 2)
 		}
 
 		return weaponSpeed
