@@ -77,6 +77,8 @@ const flagDescriptions = {
 	"Fluid Strike" : "Melee attacks have 25% increased accuracy and attack twice as fast",
 	"Double Cast" : "Magic attacks have 125% increased accuracy and attack twice as fast",
 
+	"Double Cast Bug Abuse" : "Ice spells sometimes have 100% accuracy with Double Cast",
+
 	"Tier 6" : "10% increased damage and accuracy"
 
 }
@@ -460,7 +462,12 @@ export class Flags{
 		const player = this.state.player
 		const vertex = this.calcs.vertex
 		const t3 = player.misc.tier3relic
+		const voidList = this.void();
+		const mBonus = player.bonuses[3]
 		const flags = []
+
+		const ice = player.spell && player.spell.includes("Ice")
+
 		if(t3 == "Quick Shot" && vertex == "Ranged"){
 			flags.push(t3)
 		}
@@ -469,6 +476,9 @@ export class Flags{
 		}
 		else if (t3 == "Double Cast" && vertex == "Magic"){
 			flags.push(t3)
+			if(ice && (mBonus > 60 || mBonus > 20 && (voidList.includes('Void mage') || voidList.includes("Elite void mage")))){
+				flags.push("Double Cast Bug Abuse")
+			}
 		}
 
 		if(player.misc.tier6relic){

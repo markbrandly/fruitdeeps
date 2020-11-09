@@ -111,11 +111,15 @@ export class Accuracy{
 
 		playerRoll = Math.floor(playerRoll * inqBonus / 1000)
 
-		if(this.flags.includes("Fluid Strike")){
+
+		if(this.flags.includes("Fluid Strike") && this.flags.includes("Tier 6")){
+			playerRoll = Math.floor(playerRoll * 135 / 100)
+		}
+		else if(this.flags.includes("Fluid Strike")){
 			playerRoll = Math.floor(playerRoll * 125 / 100)
 		}
 
-		if(this.flags.includes("Tier 6")){
+		else if(this.flags.includes("Tier 6")){
 			playerRoll = Math.floor(playerRoll * 11 / 10)
 		}
 		
@@ -180,11 +184,15 @@ export class Accuracy{
 
 		playerRoll = Math.floor(playerRoll * crystalBonus / 100)
 
-		if(this.flags.includes("Quick Shot")){
+
+
+		if(this.flags.includes("Quick Shot") && this.flags.includes("Tier 6")){
+			playerRoll = Math.floor(playerRoll * 21 / 10)
+		}
+		else if(this.flags.includes("Quick Shot")){
 			playerRoll = Math.floor(playerRoll * 2)
 		}
-
-		if(this.flags.includes("Tier 6")){
+		else if(this.flags.includes("Tier 6")){
 			playerRoll = Math.floor(playerRoll * 11 / 10)
 		}
 
@@ -237,11 +245,14 @@ export class Accuracy{
 			playerRoll = playerRoll * 2
 		}
 
-		if(this.flags.includes("Double Cast")){
-			playerRoll = Math.floor(playerRoll * 2.25)
-		}
 
-		if(this.flags.includes("Tier 6")){
+		if(this.flags.includes("Double Cast") && this.flags.includes("Tier 6")){
+			playerRoll = Math.floor(playerRoll * 235 / 100)
+		}
+		else if(this.flags.includes("Double Cast")){
+			playerRoll = Math.floor(playerRoll * 225 / 100)
+		}
+		else if(this.flags.includes("Tier 6")){
 			playerRoll = Math.floor(playerRoll * 11 / 10)
 		}
 
@@ -249,6 +260,11 @@ export class Accuracy{
 		if(this.flags.includes("Brimstone ring")){
 			acc = 0.75 * acc + 0.25 * this.compareRolls(playerRoll, Math.ceil(npcRoll * 9 / 10))
 		}
+
+		if(this.flags.includes("Double Cast Bug Abuse")){
+			return 1
+		}
+
 		return acc
 	}
 

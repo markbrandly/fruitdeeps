@@ -184,10 +184,10 @@ export class MaxHit{
 		maxHit = Math.floor(maxHit * crystalBonus / 100)
 
 
-		if(this.flags.includes("Quick Shot")){
-			maxHit = Math.floor(maxHit * 11 / 10)
+		if(this.flags.includes("Quick Shot") && this.flags.includes("Tier 6")){
+			maxHit = Math.floor(maxHit * 12 / 10)
 		}
-		if(this.flags.includes("Tier 6")){
+		else if(this.flags.includes("Quick Shot") || this.flags.includes("Tier 6")){
 			maxHit = Math.floor(maxHit * 11 / 10)
 		}
 
