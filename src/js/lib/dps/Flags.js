@@ -476,7 +476,7 @@ export class Flags{
 		}
 		else if (t3 == "Double Cast" && vertex == "Magic"){
 			flags.push(t3)
-			if(ice && (mBonus > 60 || mBonus > 20 && (voidList.includes('Void mage') || voidList.includes("Elite void mage")))){
+			if(ice && (mBonus >= 60 || mBonus >= 20 && (voidList.includes('Void mage') || voidList.includes("Elite void mage")))){
 				flags.push("Double Cast Bug Abuse")
 			}
 		}

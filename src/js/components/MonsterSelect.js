@@ -56,6 +56,7 @@ export class MonsterSelect extends AutofillSearchInput{
 						this.setHighlightIndex(e);
 						this.setItemFocus();
 					}}
+					onMouseOver={this.handleHover}
 					class={this.state.highlightIndex == i ? "auto-complete-selected" : ""}
 					ref={ref}
 					tabIndex="0"
