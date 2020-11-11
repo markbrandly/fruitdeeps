@@ -6,14 +6,16 @@ export class SpecialWeapons{
 	}
 
 	keris(){
+
 		var dps = this.calcs
+		const speed = dps.attackSpeed
 		dps.baseMax = dps.maxHit
 		dps.maxHit = Math.floor(dps.maxHit * 4 / 3)
 		dps.maxHitSpec = dps.baseMax * 3
 
 		
 		const avgHit = (dps.maxHit / 2 * 50/51) + (1/51 * dps.baseMax * 3 / 2)
-		dps.dps = dps.rawAcc * avgHit / 4 / 0.6
+		dps.dps = dps.rawAcc * avgHit / speed / 0.6
 
 
 		dps.acc1plus = dps.rawAcc * (50/51 * dps.maxHit / (dps.maxHit + 1)) + (1/51 * dps.baseMax / (dps.baseMax + 1))
@@ -22,6 +24,7 @@ export class SpecialWeapons{
 
 	scythe(){
 		var dps = this.calcs
+		const speed = dps.attackSpeed
 		dps.maxHit1 = dps.maxHit
 		dps.maxHit2 = Math.floor(0.5 * dps.maxHit)
 		dps.maxHit3 = Math.floor(0.25 * dps.maxHit)
@@ -29,8 +32,8 @@ export class SpecialWeapons{
 		dps.maxHit = dps.maxHit1 + dps.maxHit2 + dps.maxHit3
 
 		dps.dps1 = dps.dps //lol
-		dps.dps2 = dps.accuracy * dps.maxHit2 / 6
-		dps.dps3 = dps.accuracy * dps.maxHit3 / 6
+		dps.dps2 = dps.accuracy * dps.maxHit2 / speed / 2 / 0.6
+		dps.dps3 = dps.accuracy * dps.maxHit3 / speed / 2 / 0.6
 
 		dps.dps = dps.dps1 + dps.dps2 + dps.dps3
 
@@ -47,13 +50,14 @@ export class SpecialWeapons{
 
 	veracs(){
 		const specChance = 0.25
+		const speed = dps.attackSpeed
 		var dps = this.calcs
 		dps.maxHitSpec = dps.maxHit + 1
 		
 		dps.rawAcc = dps.accuracy
 		dps.accuracy = specChance + (1-specChance) * dps.accuracy
 		dps.specAcc = dps.accuracy
-		dps.dps = specChance * (1 + dps.maxHit / 2) / (0.6 * dps.attackSpeed) + (1-specChance) * dps.dps;
+		dps.dps = specChance * (1 + dps.maxHit / 2) / (0.6 * speed) + (1-specChance) * dps.dps;
 		dps.acc1plus = specChance + (1 - specChance) * dps.acc1plus
 
 		return dps
@@ -77,10 +81,11 @@ export class SpecialWeapons{
 	}
 
 	ahrims(){
+		
 		var dps = this.calcs
-
+		const speed = dps.attackSpeed
 		dps.maxHitSpec = Math.floor(dps.maxHit * 13 / 10)
-		dps.dps = dps.accuracy * (0.25 * dps.maxHitSpec + 0.75 * dps.maxHit) / 6
+		dps.dps = dps.accuracy * (0.25 * dps.maxHitSpec + 0.75 * dps.maxHit) / 2 / speed / 0.6
 		dps.acc1plus = 0.25 * dps.maxHitSpec * dps.accuracy / (dps.maxHitSpec + 1) + 0.75 * dps.acc1plus
 
 		return dps
