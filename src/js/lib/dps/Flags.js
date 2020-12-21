@@ -321,7 +321,7 @@ export class Flags{
 				break;
 			case "Dragonstone bolts (e)":
 			case "Dragonstone dragon bolts (e)":
-				dragon ? flags.push("Enchanted dragonstone bolts") : null
+				dragon || flags.push("Enchanted dragonstone bolts")
 				break;
 			case "Onyx bolts (e)":
 			case "Onyx dragon bolts (e)":

@@ -116,7 +116,7 @@ export class MaxHit{
 
 	ranged(){
 		const player = this.state.player
-		const attackStyle = player.attackStyle.tyle
+		const attackStyle = player.attackStyle.style
 		const strBonus = player.bonuses[11] //ranged strength
 		const monster = this.state.monster
 
