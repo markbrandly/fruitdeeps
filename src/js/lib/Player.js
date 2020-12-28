@@ -42,7 +42,7 @@ const unarmed = {
 
 export default class Player{
 	constructor(attributes = {}){
-		this.attackStyleSelected = 0
+		this.attackStyleSelected = 1
     this.boostList = [];
     this.prayers = [];
 		this.equipment = {};
@@ -94,8 +94,13 @@ export default class Player{
       return false;
     }
 
-    if(item.slot == "weapon" || item.slot == "2h"){
-      this.attackStyleSelected = 0 //reset attack style selection on weapon switch
+    if((item.slot == "weapon" || item.slot == "2h") && item.category != this.equipment.weapon.category){
+      if(item.category == 'Bulwark' || item.category == 'Gun'){
+        this.attackStyleSelected = 0
+      }
+      else{
+        this.attackStyleSelected = 1 
+      }
     }
 
     if(item.slot === "2h"){
@@ -232,7 +237,17 @@ export default class Player{
   }
 
   get allAttackStyles(){
-    return AttackStyles(this.equipment.weapon.category)
+    if(this.equipment.weapon.name == "Abyssal bludgeon"){
+      return [
+        {name: "Pound", type: "Crush", style: "Aggressive"},
+        {name: "Pummel", type: "Crush", style: "Aggressive"},
+        {name: "Block", type: "Crush", style: "Aggressive"}
+      ]
+    }
+    else{
+      return AttackStyles(this.equipment.weapon.category)
+    }
+    
   }
 
   get attackStyle(){
@@ -262,7 +277,7 @@ export default class Player{
     }
     
 
-    if(fullObj.attackStyleSelected !== 0){
+    if(fullObj.attackStyleSelected !== 1){
       minObj.attackStyleSelected = fullObj.attackStyleSelected
     }
 

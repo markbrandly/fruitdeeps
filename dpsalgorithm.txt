@@ -7,10 +7,9 @@ Stuff to do before release:
 		All cox monsters (ice demon, guardian)
 
 		default attack styles?
-		fix bludgeon
+
 		Dragonstone bolts ?
-		attack style should default to 2nd
-		attack style should retain when switching to same weapon
+
 		dharoks lol
 		loading sign on search boxes
 		custom npc stats
