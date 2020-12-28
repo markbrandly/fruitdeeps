@@ -9,20 +9,22 @@ import {SpellBook} from '../SpellBook.js';
 
 const weaponMultiplier = {
 	"Arclight": 1.7,
-	"Leaf-bladed battleaxe": 1.175,
 	"Dragon hunter lance": 1.2,
 	"Viggora's chainmace": 1.5,
 	"Dragon hunter crossbow": 1.3,
 	"Craw's bow": 1.5,
 	"Obsidian armor": 1.1,
-	"Ivandis flail": 1.2,
-	"Blisterwood flail": 1.25,
-	"Blisterwood sickle": 1.15,
 	"Obsidian armour": 1.1,
 	"Berserker necklace": 1.2
 }
 
-
+const weaponMultAfterInq ={ 
+	"Leaf-bladed battleaxe": 1.175,
+	"Ivandis flail": 1.2,
+	"Blisterwood flail": 1.25,
+	"Blisterwood sickle": 1.15
+}
+	
 export class MaxHit{
 	constructor(state, calcs){
 		this.state = state
@@ -85,15 +87,8 @@ export class MaxHit{
 			}
 		})
 
-		if(this.flags.includes("Dharok's set")){
-			const currentHp = player.misc.currentHitpoints
-			const baseHp = player.stats.hitpoints
-
-			maxHit = Math.floor(maxHit * Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000))
-		}
-
-		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
 		//inq bonus
+		const inqList = ["Inquisitor's hauberk", "Inquisitor's great helm", "Inquisitor's plateskirt"]
 		var inqBonus = 1000
 		inqList.forEach((flag) => {
 			if(this.flags.includes(flag)){
@@ -103,8 +98,21 @@ export class MaxHit{
 		if(this.flags.includes("Inquisitor's armour set")){
 			inqBonus = 1025
 		}
-
 		maxHit = Math.floor(maxHit * inqBonus / 1000)
+
+		Object.keys(weaponMultAfterInq).forEach((key) => {
+			if(this.flags.includes(key)){
+				maxHit = Math.floor(maxHit * weaponMultiplier[key])
+			}
+		})
+
+
+		if(this.flags.includes("Dharok's set")){
+			const currentHp = player.misc.currentHitpoints
+			const baseHp = player.stats.hitpoints
+
+			maxHit = Math.floor(maxHit * Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000))
+		}
 
 		if(this.flags.includes("Tier 6")){
 			maxHit = Math.floor(maxHit * 11 / 10)
