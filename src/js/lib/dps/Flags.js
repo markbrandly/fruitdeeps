@@ -102,7 +102,7 @@ export class Flags{
 		const attributes = this.state.monster.attributes
 
 		if(attributes.includes("undead") && salvList.includes(neck)){
-			if(neck == "Salve amulet(i)" || neck == "Salve amulet(ei)" || this.calcs.vertex == "melee"){
+			if(neck == "Salve amulet(i)" || neck == "Salve amulet(ei)" || this.calcs.vertex == "Melee"){
 				return [neck]
 			}
 		}

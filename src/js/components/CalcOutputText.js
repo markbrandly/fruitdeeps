@@ -16,14 +16,16 @@ export class CalcOutputText extends Component{
 				</tr> 
 				)
 		})
-		return(
-			<div class="flex-container-vertical flex-child">
-				<h3>Active effects</h3>
-				{flagTable.length === 0 ? <span class='mono-font'>No active effects</span> : null}
-				<table class="bonus-table">
-					{flagTable}
-				</table>
-			</div>
+		if(flagTable.length > 0){
+			return (
+				<div>
+					<h3>Active effects</h3>
+					<table class="bonus-table">
+						{flagTable}
+					</table>
+				</div>
 			)
+		}
+		return null
 	}
 }

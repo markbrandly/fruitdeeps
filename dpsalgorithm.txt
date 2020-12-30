@@ -4,11 +4,7 @@ Stuff to do before release:
 		Corporeal halves damage
 		ba monsters
 		zulrah
-		All cox monsters (ice demon, guardian)
-
-		default attack styles?
-
-		Dragonstone bolts ?
+		All cox monsters (ice demon, guardian
 
 		dharoks lol
 		loading sign on search boxes
@@ -16,6 +12,9 @@ Stuff to do before release:
 
 		fill out the set feature
 		special attacks!!
+
+		prayers into checkboxes
+		spell selection bug
 
 	UI stuff:
 
@@ -25,11 +24,7 @@ Stuff to do before release:
 		spells debug when you select tier, it doesn't select element
 
 
-
-stuff for post release:
-	All cox monsters
-	Specialized special attack info !!
-	runelite
+ruelite integration
 
 
 remove redundant items:
@@ -43,10 +38,7 @@ remove redundant items:
 
 stuff to test:
 	thammaron's sceptre multiplicative or additive ?
-	when is inquisitor bonus calc'd ?
 
 
 Questions for the calc to answer:
-	Leadbladed axe vs sword @ kurasks
-	What hitpoints should you switch between diamond and ruby bolts at callisto ?
 	mason: when should you switch from dwh to bgs at scorpia

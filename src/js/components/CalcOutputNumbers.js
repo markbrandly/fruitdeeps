@@ -219,12 +219,16 @@ export class CalcOutputNumbers extends Component{
 
 	render(){
 		return(
-			<div class="flex-container-vertical flex-child highlight-section">
-				{this.attack()}
-				{this.damage()}
-				{this.accuracy()}
-				{this.dps()}
-				{this.ttk()}
+			<div class="flex-container flex-child">
+				<div class='flex-child flex-container-vertical'>
+					{this.attack()}
+					{this.damage()}
+					{this.accuracy()}
+				</div>
+				<div class='highlight-section flex-child flex-container-vertical'>
+					{this.dps()}
+					{this.ttk()}
+				</div>
 			</div>
 			)
 	}

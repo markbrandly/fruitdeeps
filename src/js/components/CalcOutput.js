@@ -29,7 +29,7 @@ export class CalcOutput extends Component{
 
 		return (
 
-			<div class='flex-container' style={{    padding: '1em', border: '1px dashed #666'}}>
+			<div class='flex-container-vertical' style={{    padding: '1em', border: '1px dashed #666'}}>
 				<CalcOutputNumbers calcs={calcs} ttk={this.props.ttk}/>
 				<CalcOutputText calcs={calcs} />
 			</div>

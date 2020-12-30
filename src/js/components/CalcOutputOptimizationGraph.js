@@ -54,7 +54,7 @@ export class CalcOutputOptimizationGraph extends Component{
 				<div style={{padding:"1em", border:'1px dashed #666'}}>
 					<div class='highlight-section flex-container-vertical'>
 						<div width="100%" height="10em" style={{position: "relative"}}>
-							<div class='yAxis-label'>T
+							<div class='yAxis-label'>
 								Time to Kill (ticks)
 							</div>
 							<ResponsiveContainer width="100%" height={400}>
