@@ -3,7 +3,7 @@ import {BonusRow} from './BonusRow.js';
 
 const MonsterStat = (props) => {
 	return (
-		<input type="number" class="input-invisible border-bottom-dashed" min="1" value={props.value} data-stat={props.stat} onChange={props.onChange} />
+		<input type="number" class="input-invisible" min="1" value={props.value} data-stat={props.stat} onChange={props.onChange} />
 		)
 }
 

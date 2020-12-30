@@ -212,9 +212,15 @@ overflow-y: auto;
 		/*background-color:white;*/
 	padding:$spacing-full;
 	box-shadow:$box-shadow;
-	background-color:#444;
+	background-color:#3b3b3b;
 	border-bottom-left-radius: $radius;
 	border-bottom-right-radius: $radius;
+}
+
+.single-line{
+	overflow: hidden;
+    white-space: nowrap;
+    clear: both;
 }
 
 .space-left{

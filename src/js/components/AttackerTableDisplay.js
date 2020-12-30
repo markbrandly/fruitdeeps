@@ -16,18 +16,18 @@ const BonusSelectRow = (props) => {
 		colorClass = "color-2"
 	}
 
-	let percent = <span class="hidden">%</span>
+	let percent = <pre class="hidden"> %</pre>
 	if("percent" in props && props.percent){
-		percent = <span>%</span>
+		percent = <pre> %</pre>
 	}
 
 	return (
 		<tr>
-			<td>{props.bonusName}{asterisk}</td>
+			<td class='single-line'>{props.bonusName}{asterisk}</td>
 			<td class={colorClass}>
 				<span class="stat-wrap">
 					<input type="number" onChange={props.onChange} value={props.player.bonuses[props.bonusIndex]} data-bonus={props.bonusIndex} 
-					class="input-invisible align-right border-bottom-dashed" />{percent}
+					class="input-invisible align-right" />{percent}
 				</span>
 			</td>
 		</tr>
