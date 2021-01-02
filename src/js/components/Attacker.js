@@ -35,7 +35,7 @@ export class Attacker extends Component {
 
 						/>
 					<AttackerAttackStyles player={player} setAttackStyle={this.props.setAttackStyle}/>
-					<AttackerMisc player={player} setMisc={this.props.setMisc} />
+
 				</div>
 				<AttackerTableDisplay player={player} setBonusCustom={this.props.setBonusCustom} clearBonusCustom={this.props.clearBonusCustom} />
 

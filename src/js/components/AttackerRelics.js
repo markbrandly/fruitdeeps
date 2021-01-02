@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {AttackerMisc} from './AttackerMisc.js'
+
 const Tier3relic = (props) => { 
 	return (
 		<div>
@@ -46,20 +48,23 @@ export class AttackerRelics extends Component{
 	render(){
 		return (
 			<div class="highlight-section flex-container-vertical">
-				<h3>Relics</h3>
+				<AttackerMisc player={this.props.player} setMisc={this.props.setMisc} />
 				<div>
-					<Tier3relic player={this.props.player} relicName="Quick Shot" setRelic={this.setT3Relic} />
-					<Tier3relic player={this.props.player} relicName="Fluid Strike" setRelic={this.setT3Relic} />
-					<Tier3relic player={this.props.player} relicName="Double Cast" setRelic={this.setT3Relic} />
-				</div>
-				<div>
-					<input
-						type="checkbox"
-						id={"t6-select"}
-						checked={this.props.player.misc.tier6relic}
-						onChange={this.toggleT6Relic}
-					/>
-					<label for={"t6-select"}>Tier 6</label>
+					<h3>Relics</h3>
+					<div>
+						<Tier3relic player={this.props.player} relicName="Quick Shot" setRelic={this.setT3Relic} />
+						<Tier3relic player={this.props.player} relicName="Fluid Strike" setRelic={this.setT3Relic} />
+						<Tier3relic player={this.props.player} relicName="Double Cast" setRelic={this.setT3Relic} />
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id={"t6-select"}
+							checked={this.props.player.misc.tier6relic}
+							onChange={this.toggleT6Relic}
+						/>
+						<label for={"t6-select"}>Tier 6</label>
+					</div>
 				</div>
 			</div>
 		)

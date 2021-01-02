@@ -6,6 +6,13 @@ Stuff to do before release:
 		zulrah
 		All cox monsters (ice demon, guardian
 
+		blowpipe images ?
+		blowpipe dart accuracy
+		tooltips
+		label x axis on optimization graph
+		
+		firefox visual bug
+
 		dharoks lol
 		loading sign on search boxes
 		custom npc stats
