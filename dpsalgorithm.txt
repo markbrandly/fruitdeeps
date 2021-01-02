@@ -20,6 +20,8 @@ Stuff to do before release:
 		fill out the set feature
 		special attacks!!
 
+		list npc attributes
+
 		prayers into checkboxes
 		spell selection bug
 
@@ -28,7 +30,7 @@ Stuff to do before release:
 		loading symbol on textbox
 		save/load sets
 		
-		spells debug when you select tier, it doesn't select element
+		spells debug: when you select tier, it doesn't select element
 
 
 ruelite integration
