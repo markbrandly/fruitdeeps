@@ -170,6 +170,10 @@ export class Accuracy{
 			playerRoll = Math.floor(playerRoll * Math.min(tbowMod, 140) / 100)
 		}
 
+		else if(this.flags.includes("Craw's bow")){
+			playerRoll = Math.floor(playerRoll * 3 / 2)
+		}
+
 		const crystalList = ["Crystal body", "Crystal legs", "Crystal helm"]
 		//inq bonus
 		var crystalBonus = 100
