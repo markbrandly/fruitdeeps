@@ -48,6 +48,32 @@ export class SpecialWeapons{
 		return dps
 	}
 
+	dharoks(){
+		var dps = this.calcs
+		const currentHp = this.state.player.misc.currentHitpoints
+		const baseHp = this.state.player.stats.hitpoints
+
+		const hpMult = Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000)
+
+		const baseMax = dps.maxHit
+
+		var hitSum = 0
+		for(let i = 0; i <= baseMax; i++){
+			hitSum += Math.floor(i * hpMult)
+		}
+
+		var hitAvg = hitSum / (baseMax + 1)
+
+
+
+		dps.maxHit = Math.floor(dps.maxHit * hpMult)
+		dps.dps = hitAvg * dps.rawAcc / dps.attackSpeed / 0.6
+		dps.hpMult = hpMult
+		dps.baseMax = baseMax
+
+		return dps
+	}
+
 	veracs(){
 		const specChance = 0.25
 		const speed = dps.attackSpeed

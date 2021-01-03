@@ -107,12 +107,12 @@ export class MaxHit{
 		})
 
 
-		if(this.flags.includes("Dharok's set")){
-			const currentHp = player.misc.currentHitpoints
-			const baseHp = player.stats.hitpoints
+		// if(this.flags.includes("Dharok's set")){
+		// 	const currentHp = player.misc.currentHitpoints
+		// 	const baseHp = player.stats.hitpoints
 
-			maxHit = Math.floor(maxHit * Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000))
-		}
+		// 	maxHit = Math.floor(maxHit * Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000))
+		// }
 
 		if(this.flags.includes("Tier 6")){
 			maxHit = Math.floor(maxHit * 11 / 10)

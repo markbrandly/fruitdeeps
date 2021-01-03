@@ -2,19 +2,34 @@ const db = require('./database.js')
 const bonusList = ['stabAttack', 'slashAttack', 'crushAttack', 'magicAttack', 'rangedAttack', 'stabDefence', 'slashDefence', 'crushDefence', 'magicDefence', 'rangedDefence', 'strength', 'rangedStrength', 'magicStrength', 'prayer']
 const monBonusList = ['hitpoints', 'att', 'str', 'def', 'mage', 'range', 'attbns', 'strbns', 'amagic', 'mbns', 'arange', 'rngbns', 'dstab', 'dslash', 'dcrush', 'dmagic', 'drange']
 
+const blackList = [
+	'(Locked)', 
+	'(0)', '(25)', '(50)', '(75)', '(100)', 
+	'(1)', '(2)', '(3)', '(4)', '(5)', '(6)', '(7)', '(8)', '(9)', '(10)',
+	'Craw\'s bow (Uncharged)', 'Tome of fire (Empty)', 'Tome of fire (Empty)']
 
-//this code sucks
-exports.searchItems = function(str, limit, fn){
-	str = "%".concat(str).concat("%")
-	const sql = `SELECT a.itemId as itemId, a.itemName as itemName,
+
+var searchItemSql = `SELECT a.itemId as itemId, a.itemName as itemName,
 		a.itemType as itemType, c.weaponType as category, c.attackSpeed as speed
 		FROM rsitems.items a 
         left join rsitems.weapon_info c
         on a.itemId = c.itemId
 		WHERE a.itemName  
-		like ?
-		ORDER BY a.itemName 
-		LIMIT ?`;
+		like ?`
+
+
+blackList.forEach((item) => {
+	searchItemSql += `\n and a.itemName not like "%` + item + `%"`
+})
+
+
+
+searchItemSql = searchItemSql + `\nORDER BY a.itemName LIMIT ?`
+
+//this code sucks
+exports.searchItems = function(str, limit, fn){
+	str = "%".concat(str).concat("%")
+	const sql = searchItemSql;
 	const statSql = "SELECT * FROM rsitems.stat s WHERE s.itemId = ?";
 	var fnCalled = false;
 	db.con.query(sql, [str,limit], function(error, results){

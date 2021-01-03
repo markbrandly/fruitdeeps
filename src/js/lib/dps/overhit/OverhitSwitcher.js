@@ -7,6 +7,7 @@ import {AhrimsOverhit} from './AhrimsOverhit.js'
 import {DiamondBoltsOverhit} from './DiamondBoltsOverhit.js'
 import {RubyBoltsOverhit} from './RubyBoltsOverhit.js'
 import {VeracsOverhit} from './VeracsOverhit.js'
+import {DharoksOverhit} from './DharoksOverhit.js'
 import {GeneralBoltsOverhit} from './GeneralBoltsOverhit.js'
 import {OnyxBoltsOverhit} from './OnyxBoltsOverhit.js'
 
@@ -55,6 +56,9 @@ export function OverhitSwitcher(state, calcs, continuous){
 		}
 		else if(calcs.flags.includes("Verac's set")){
 			overhit = new VeracsOverhit(state, calcs, continuous)
+		}
+		else if(calcs.flags.includes("Dharok's set")){
+			overhit = new DharoksOverhit(state, calcs, continuous)
 		}
 		else if(overhit === null){
 			overhit = new Overhit(state, calcs, continuous)

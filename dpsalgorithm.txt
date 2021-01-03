@@ -10,8 +10,7 @@ Stuff to do before release:
 		blowpipe dart accuracy
 		tooltips
 		label x axis on optimization graph
-		
-		firefox visual bug
+
 
 		dharoks lol
 		loading sign on search boxes
@@ -21,6 +20,8 @@ Stuff to do before release:
 		special attacks!!
 
 		list npc attributes
+
+		type in name get stats
 
 		prayers into checkboxes
 		spell selection bug
@@ -35,15 +36,6 @@ Stuff to do before release:
 
 ruelite integration
 
-
-remove redundant items:
-	Barrows percentages
-	all trouver parchment items
-	void seal 1-10
-	black mask 1-10
-	craws/vigs/thamarons uncharged
-	amulet of the damned (used)
-	tome of fire uncharged
 
 stuff to test:
 	thammaron's sceptre multiplicative or additive ?
