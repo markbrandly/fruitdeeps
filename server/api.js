@@ -40,7 +40,7 @@ exports.searchItems = function(str, limit, fn){
 		}
 		results.forEach(function(itemRow){
 			var itemObj = {}
-			itemObj.name = itemRow.itemName
+			itemObj.name = itemRow.itemName.replace(" (Normal)", "")
 			itemObj.slot = itemRow.itemType
 			itemObj.bonuses = Array(bonusList.length).fill(0) // [0, 0, ... ,0]
 			db.con.query(statSql, itemRow.itemId, function(error, res){
