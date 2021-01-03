@@ -11,8 +11,6 @@ Stuff to do before release:
 		tooltips
 		label x axis on optimization graph
 
-
-		dharoks lol
 		loading sign on search boxes
 		custom npc stats
 

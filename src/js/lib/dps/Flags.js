@@ -264,7 +264,7 @@ export class Flags{
 		if(hands == "Chaos gauntlets" && spell.includes("Bolt")){
 			flags.push(hands)
 		}
-		if(shield == "Tome of fire (Charged)" && spell.includes("Fire")){
+		if(shield == "Tome of fire (Charged)" && spell && spell.includes("Fire")){
 			flags.push("Tome of fire")
 		}
 		if(weapon == "Smoke battlestaff" && stdSpells.includes(spell)){
