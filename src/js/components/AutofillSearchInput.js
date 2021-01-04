@@ -132,6 +132,7 @@ export class AutofillSearchInput extends Component{
 			<div class="auto-complete-container" >
 				<input className="auto-complete-input" onChange={this.handleChange} onFocus={this.setFocus} placeholder={this.placeholder} onBlur={this.setBlur} ref={this.inputRef}/>
 				{ol}
+				{this.state.loading && (<span class='loading-spinner'><img src="../assets/spinner.svg" style={{height:"1em", width:"auto"}} /></span>)}
 			</div>
 		)
 	}
