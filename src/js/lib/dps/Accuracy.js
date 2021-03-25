@@ -19,10 +19,10 @@ export class Accuracy{
 
 	compareRolls(atk, def){
 		if(atk > def){
-			return 1 - (def + 2) / (2 * (atk + 1))
+			return Math.max(0, Math.min(1, 1 - (def + 2) / (2 * (atk + 1))))
 		}
 		else{
-			return atk / (2 * (def + 1))
+			return Math.max(0, Math.min(1, atk / (2 * (def + 1))))
 		}
 	}
 

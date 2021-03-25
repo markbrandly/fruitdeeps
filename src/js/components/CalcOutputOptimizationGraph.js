@@ -1,55 +1,63 @@
 import React, { Component } from 'react';
-import {BonusRow} from "./BonusRow.js";
+import { BonusRow } from "./BonusRow.js";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    Label,
+    ResponsiveContainer
 } from 'recharts';
 
 import Worker from 'worker-loader!../lib/workers/Worker.js';
 
 const colors = ['#9eff74', '#74c7ff', "#ff8274", "#eeeeee"]
 
-export class CalcOutputOptimizationGraph extends Component{
-	constructor(props){
-		super(props)
+export class CalcOutputOptimizationGraph extends Component {
+    constructor(props) {
+        super(props)
 
-		this.optWorker = new Worker()
-		this.state = {data: {}, id: null, continuous: true}
+        this.optWorker = new Worker()
+        this.state = { data: {}, id: null, continuous: true }
 
-		this.handleWorker = this.handleWorker.bind(this)
-		this.generateId = this.generateId.bind(this)
-		this.toggleContinuous = this.toggleContinuous.bind(this)
-	}
+        this.handleWorker = this.handleWorker.bind(this)
+        this.generateId = this.generateId.bind(this)
+        this.toggleContinuous = this.toggleContinuous.bind(this)
+    }
 
-	toggleContinuous(){
-		this.setState({data: {}, id: null, continuous: !this.state.continuous})
-		console.log(this.state)
-	}
+    toggleContinuous() {
+        this.setState({ data: {}, id: null, continuous: !this.state.continuous })
+        console.log(this.state)
+    }
 
-	generateId(){
-		return JSON.stringify({calcsList: this.props.calcsList, state: this.props.state})
-	}
+    generateId() {
+        return JSON.stringify({ calcsList: this.props.calcsList, state: this.props.state })
+    }
 
-	handleWorker(){
-		this.optWorker.terminate()
-		this.optWorker = new Worker()
+    handleWorker() {
+        this.optWorker.terminate()
+        this.optWorker = new Worker()
 
-		this.optWorker.onmessage = function (event) {};
+        this.optWorker.onmessage = function(event) {};
 
-		this.optWorker.addEventListener('message', (event) => {
-			if("graphData" in event.data){
-				this.setState({data: event.data.graphData, id: this.generateId()})
-			}
-		});
-		this.optWorker.postMessage({state: this.props.state, calcsList: this.props.calcsList, type: "Optimization", continuous: this.state.continuous});
-	}
+        this.optWorker.addEventListener('message', (event) => {
+            if ("graphData" in event.data) {
+                this.setState({ data: event.data.graphData, id: this.generateId() })
+            }
+        });
+        this.optWorker.postMessage({ state: this.props.state, calcsList: this.props.calcsList, type: "Optimization", continuous: this.state.continuous });
+    }
 
-	render(){
-		if(this.state.id !== this.generateId()){
-			this.handleWorker()
-		}
-		const lines = this.props.calcsList.map((calcs,i) => <Line type="monotone" dot={false} dataKey={"Set " + (i + 1)} stroke={colors[i % 4]} strokeWidth={3}/>)
-		return (
-			<div>
+    render() {
+        if (this.state.id !== this.generateId()) {
+            this.handleWorker()
+        }
+        const lines = this.props.calcsList.map((calcs, i) => <Line type="monotone" dot={false} dataKey={"Set " + (i + 1)} stroke={colors[i % 4]} strokeWidth={3}/>)
+        return (
+            <div>
 				<h2>Optimal Switching @ {this.props.state.monster.name}</h2>
 				<div style={{padding:"1em", border:'1px dashed #666'}}>
 					<div class='highlight-section flex-container-vertical'>
@@ -85,7 +93,7 @@ export class CalcOutputOptimizationGraph extends Component{
 					</div>
 				</div>
 			</div>
-	      )
-		//<Label value="Pages of my website" offset={0} position="insideBottom" />
-	}
+        )
+        //<Label value="Pages of my website" offset={0} position="insideBottom" />
+    }
 }
