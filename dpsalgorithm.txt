@@ -1,16 +1,16 @@
 Stuff to do before release:
 
 	calc stuff:
-		Corporeal halves damage
-		ba monsters
-		zulrah
-		All cox monsters (ice demon, guardian
+		Corporeal (1/2 damage)
+		ba monsters (+5 damage)
+		zulrah (damage over 50 is rerolled or smth dumb)
+		guardian (some mining formula or smth)
+		shades gadderhammer
+		cox monster scaling O.O
 
-		blowpipe images ?
-		blowpipe dart accuracy
 		tooltips
 		label x axis on optimization graph
-		
+
 		custom npc stats
 
 		fill out the set feature
@@ -18,14 +18,12 @@ Stuff to do before release:
 
 		list npc attributes
 
-		type in name get stats
-
 		prayers into checkboxes
 		spell selection bug
+		two options in the auto search menu bug
 
 	UI stuff:
 
-		loading symbol on textbox
 		save/load sets
 		
 		spells debug: when you select tier, it doesn't select element
@@ -40,3 +38,36 @@ stuff to test:
 
 Questions for the calc to answer:
 	mason: when should you switch from dwh to bgs at scorpia
+
+special attacks to incl:
+	Abby dagger
+	abyssal whip
+	Darklight / arclight
+	d claws
+	dds
+	dlong
+	d mace
+	d sword
+	dwh
+	ags
+	bgs
+	sgs
+	ss
+	sbs
+	zgs
+	g hammer
+	barrelchest
+	bone dagger
+	c hally
+	ballista
+	acb
+	dcb
+	dcb the other one
+	d bow
+	mlb / mcb
+	msb
+	dthrown
+	blowy p
+
+	dawnbringer
+	nightmare staves
