@@ -244,7 +244,7 @@ export class Flags {
         const spellBook = new SpellBook();
 
         const spell = this.state.player.spell
-        const charge = this.state.player.charge
+        const charge = this.state.player.misc.charge
         const weapon = this.state.player.equipment.weapon.name;
         const shield = this.state.player.equipment.shield.name;
         const hands = this.state.player.equipment.hands.name;

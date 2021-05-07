@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import {AttackerMisc} from './AttackerMisc.js'
+import { AttackerMisc } from './AttackerMisc.js'
 
-const Tier3relic = (props) => { 
-	return (
-		<div>
+const Tier3relic = (props) => {
+    return (
+        <div>
 			<input
 				type="checkbox"
 				id={props.relicName + "-select"}
@@ -14,41 +14,44 @@ const Tier3relic = (props) => {
 			/>
 			<label for={props.relicName + "-select"}>{props.relicName}</label>
 		</div>
-	)
+    )
 }
 
-export class AttackerRelics extends Component{
-	constructor(props){
-		super(props)
-		this.importRef = React.createRef();
+export class AttackerRelics extends Component {
+    constructor(props) {
+        super(props)
+        this.importRef = React.createRef();
 
-		this.setT3Relic = this.setT3Relic.bind(this)
-		this.toggleT6Relic = this.toggleT6Relic.bind(this)
-	}
+        this.setT3Relic = this.setT3Relic.bind(this)
+        this.toggleT6Relic = this.toggleT6Relic.bind(this)
+    }
 
-	setT3Relic(e){
-		if(e.target.checked){
-			this.props.setMisc('tier3relic', e.target.value)
-		}
-		else{
-			this.props.setMisc('tier3relic', null)
-		}
-		
-	}
+    setMisc(attribute, value) {
+        const player = this.props.player
+        player.setMisc(attribute, value)
+        this.props.setPlayer(player.minimize())
+    }
 
-	toggleT6Relic(e){
-		if(e.target.checked){
-			this.props.setMisc('tier6relic', true)
-		}
-		else{
-			this.props.setMisc('tier6relic', false)
-		}
-	}
+    setT3Relic(e) {
+        if (e.target.checked) {
+            this.setMisc('tier3relic', e.target.value)
+        } else {
+            this.setMisc('tier3relic', null)
+        }
+    }
 
-	render(){
-		return (
-			<div class="highlight-section flex-container-vertical">
-				<AttackerMisc player={this.props.player} setMisc={this.props.setMisc} />
+    toggleT6Relic(e) {
+        if (e.target.checked) {
+            this.setMisc('tier6relic', true)
+        } else {
+            this.setMisc('tier6relic', false)
+        }
+    }
+
+    render() {
+        return (
+            <div class="highlight-section flex-container-vertical">
+				<AttackerMisc player={this.props.player} setMisc={this.setMisc.bind(this)} />
 				<div>
 					<h3>Relics</h3>
 					<div>
@@ -67,6 +70,6 @@ export class AttackerRelics extends Component{
 					</div>
 				</div>
 			</div>
-		)
-	}
+        )
+    }
 }

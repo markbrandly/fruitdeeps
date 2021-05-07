@@ -18,15 +18,11 @@ Stuff to do before release:
 
 		list npc attributes
 
-		prayers into checkboxes
-		spell selection bug
 		two options in the auto search menu bug
 
 	UI stuff:
 
 		save/load sets
-		
-		spells debug: when you select tier, it doesn't select element
 
 
 ruelite integration

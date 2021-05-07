@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-import {AutofillSearchInput} from './AutofillSearchInput.js';
+import { AutofillSearchInput } from './AutofillSearchInput.js';
 
-export class EquipmentSelect extends AutofillSearchInput{
-	constructor(props){
-		super(props)
-		this.url='/api/searchItems'
-		this.placeholder="Equip an item..."
-		this.results = this.results.bind(this)
-		this.selectItem = this.selectItem.bind(this)
-	}
+export class EquipmentSelect extends AutofillSearchInput {
+    constructor(props) {
+        super(props)
+        this.url = '/api/searchItems'
+        this.placeholder = "Equip an item..."
+        this.results = this.results.bind(this)
+        this.selectItem = this.selectItem.bind(this)
+    }
 
-	selectItem(item){
-		this.props.equipItem(item)
-	}
+    selectItem(item) {
+        let player = this.props.player
+        player.equip(item)
+        this.props.setPlayer(player.minimize())
+    }
 
-	results(){
+    results() {
 
-		return this.state.searchList.map((item, i) => {
-			var listLen = this.state.searchList.length
-			let ref = 0
-			if(i == this.state.highlightIndex){
-				ref = this.highlightRef;
-			}
-			else if(i == (this.state.highlightIndex + 1) % listLen){
-				ref = this.downRef;
-			}
-			else if(i == ((((this.state.highlightIndex -1) % listLen) + listLen) % listLen)){
-				ref = this.upRef;
-			}
-			return (
-				<li
+        return this.state.searchList.map((item, i) => {
+            var listLen = this.state.searchList.length
+            let ref = 0
+            if (i == this.state.highlightIndex) {
+                ref = this.highlightRef;
+            } else if (i == (this.state.highlightIndex + 1) % listLen) {
+                ref = this.downRef;
+            } else if (i == ((((this.state.highlightIndex - 1) % listLen) + listLen) % listLen)) {
+                ref = this.upRef;
+            }
+            return (
+                <li
 					value={i}
 					onClick={(e) => {
 						this.selectItem(this.state.searchList[e.target.value])
@@ -46,6 +46,6 @@ export class EquipmentSelect extends AutofillSearchInput{
 				>
 					{item.name}
 				</li>)
-		});
-	}
+        });
+    }
 }
