@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 var path = require('path');
 
@@ -29,23 +30,29 @@ module.exports = {
             },
             {
                 test: /\.(s*)css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                ]
             },
             {
                 test: /\.worker\.js$/,
                 use: { loader: 'worker-loader' },
             },
-            // {
-            //   loader: 'workerize-loader',
-            //   options: { inline: true }
-            // }
         ]
     },
     plugins: [
         new HtmlWebPackPlugin({
             template: "src/index.html"
             // filename: "./dist/index.html"
-        })
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+            ignoreOrder: false, // Enable to remove warnings about conflicting order
+        }),
+
     ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
