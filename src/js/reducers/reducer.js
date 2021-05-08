@@ -37,7 +37,11 @@ function reducer(state = defaultState, action) {
 
         case "MONSTER_SET_STAT":
             const monster = { ...state.monster }
-            monster.stats[action.stat] = parseInt(action.value)
+            let value = parseInt(action.value)
+            if (action.stat === 'hitpoints' && value === 0) {
+                value = 1
+            }
+            monster.stats[action.stat] = value
             console.log('monster set stat', monster)
             return {
                 ...state,

@@ -1,3 +1,5 @@
+import { Dps } from "../Dps.js";
+
 export class Overhit {
     constructor(state, calcs, continuous = true) {
         this.state = state
@@ -32,7 +34,14 @@ export class Overhit {
         const max = this.calcs.maxHit
         const accuracy = this.calcs.accuracy
         const speed = this.calcs.attackSpeed
-        const hitDist = this.calcs.hitDist
+        let hitDist = this.calcs.hitDist
+
+        if (this.calcs.flags.includes("Enchanted ruby bolts")) {
+            let state = this.state
+            state.monster.stats.hitpoints = hp;
+            let dps = new Dps(state);
+            hitDist = dps.output().hitDist;
+        }
 
         if (typeof this.generalMemory[hp - 1] === 'undefined') {
             this.fillMemory(hp)

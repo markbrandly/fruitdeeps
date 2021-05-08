@@ -3,9 +3,9 @@ import { SpellBook } from '../SpellBook.js';
 
 //MaxHit calculates a player's max hit from player and monster state
 //Notes:
-//	Melee and ranged max hit codes are very redundant
-//	Can definitely generalize them a lot. Not sure if that will improve or diminish readability, however
-//	I think that this should be done, eventually.
+//  Melee and ranged max hit codes are very redundant
+//  Can definitely generalize them a lot. Not sure if that will improve or diminish readability, however
+//  I think that this should be done, eventually.
 
 const weaponMultiplier = {
     "Arclight": 1.7,
@@ -44,6 +44,13 @@ export class MaxHit {
         const player = this.state.player
         const attackStyle = player.attackStyle.style
         const strBonus = player.bonuses[10] //str bonus
+
+        if (this.flags.includes("Zulrah")) {
+            return 0;
+        }
+        if (this.flags.includes("Guardians") && !player.equipment.weapon.name.includes("pickaxe")) {
+            return 0;
+        }
 
         //Start with visible stats
         var effectiveStr = player.boostedStats.strength
@@ -121,6 +128,10 @@ export class MaxHit {
         const attackStyle = player.attackStyle.style
         const strBonus = player.bonuses[11] //ranged strength
         const monster = this.state.monster
+
+        if (this.flags.includes("Guardians")) {
+            return 0;
+        }
 
         //Start with visible stats
         var effectiveStr = player.boostedStats.ranged
@@ -208,6 +219,10 @@ export class MaxHit {
         var magic = this.state.player.boostedStats.magic
         var dmgBonus = this.state.player.bonuses[12]
         const weapon = this.state.player.equipment.weapon.name
+
+        if (this.flags.includes("Guardians")) {
+            return 0;
+        }
 
         var maxHit = 0
         if (spell == "Magic Dart") {

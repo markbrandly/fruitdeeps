@@ -85,6 +85,8 @@ export default class Player {
             charge: false,
             tier3relic: null,
             tier6relic: false,
+            mining: 99,
+            baRank: 5,
             ...attributes.misc
         }
     }

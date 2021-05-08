@@ -25,7 +25,7 @@ export class SpecialWeapons {
             kerisDist[h2] += acc / 51 / (dps.maxHitSpec + 1)
         }
 
-        dps.hitDist = kerisDist;
+        dps.hitDistList[0] = kerisDist;
 
         return dps
     }
@@ -38,7 +38,7 @@ export class SpecialWeapons {
 
         const hpMult = Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000)
         const max = Math.floor(dps.maxHit * hpMult)
-        const oldDist = dps.hitDist
+        const oldDist = dps.hitDistList[0]
         const newDist = Array(max + 1).fill(0);
 
         for (let dmg = 0; dmg < oldDist.length; dmg++) {
@@ -46,7 +46,7 @@ export class SpecialWeapons {
         }
 
         dps.maxHit = max
-        dps.hitDist = newDist;
+        dps.hitDistList[0] = newDist;
 
         return dps
     }
@@ -63,7 +63,7 @@ export class SpecialWeapons {
 
         dps.maxHitSpec = dps.maxHit + 1
 
-        const oldDist = dps.hitDist
+        const oldDist = dps.hitDistList[0]
         const newDist = Array(specMax + 1).fill(0);
 
         for (let dmg = 0; dmg < oldDist.length; dmg++) {
@@ -77,7 +77,7 @@ export class SpecialWeapons {
         dps.rawAcc = acc
         dps.accuracy = specChance + (1 - specChance) * dps.accuracy
         dps.specAcc = dps.accuracy
-        dps.hitDist = newDist
+        dps.hitDistList[0] = newDist
 
         return dps
     }
@@ -90,15 +90,15 @@ export class SpecialWeapons {
         const m2 = Math.floor(dps.maxHit / 2)
         const mSum = m1 + m2
 
-        const oldDist = dps.hitDist;
+        const oldDist = dps.hitDistList[0];
         const newDist = Array(mSum + 1).fill(0);
         for (let dmg = 0; dmg < oldDist.length; dmg++) {
             newDist[dmg] += oldDist[dmg] * 0.75;
             newDist[Math.trunc(dmg * 3 / 2)] += oldDist[dmg] * 0.25
         }
 
-        dps.hitDist = newDist;
-        dps.maxHitList = [m1, m2];
+        dps.hitDistList[0] = newDist;
+        dps.maxList = [m1, m2];
         dps.maxHit = mSum
         return dps
     }
@@ -121,7 +121,7 @@ export class SpecialWeapons {
             newDist[dmg] += acc * 0.25 / (m2 + 1);
         }
 
-        dps.hitDist = newDist;
+        dps.hitDistList[0] = newDist;
         dps.maxHitSpec = m2
         return dps
     }
@@ -156,7 +156,7 @@ export class SpecialWeapons {
 
 
 
-        dps.hitDist = newDist
+        dps.hitDistList[0] = newDist
         //max hit of the spec
         dps.maxHitSpec = m2
         dps.rawAcc = acc
@@ -169,11 +169,15 @@ export class SpecialWeapons {
     rubyBolts() {
         const dps = this.calcs
         const hp = this.state.monster.stats.hitpoints
-        const specDmg = Math.min(100, Math.floor(hp / 5))
+        let specDmg = Math.trunc(hp / 5)
+        if (dps.flags.includes("Corporeal beast")) {
+            specDmg = Math.trunc(specDmg / 2)
+        }
+        specDmg = Math.min(100, specDmg);
         const max = dps.maxHit
         const specChance = this.calcs.flags.includes("Kandarin hard diary") ? 0.066 : 0.06
 
-        const oldDist = dps.hitDist;
+        const oldDist = dps.hitDistList[0];
         const newDist = Array(Math.max(specDmg, max) + 1).fill(0);
 
         for (let dmg = 0; dmg < oldDist.length; dmg++) {
@@ -183,7 +187,7 @@ export class SpecialWeapons {
         newDist[specDmg] += specChance
 
         dps.specChance = specChance
-        dps.hitDist = newDist;
+        dps.hitDistList[0] = newDist;
         dps.maxHitSpec = specDmg
         dps.specAcc = specChance + (1 - specChance) * dps.accuracy
         return dps
@@ -210,7 +214,7 @@ export class SpecialWeapons {
         }
 
 
-        dps.hitDist = newDist;
+        dps.hitDistList[0] = newDist;
         dps.rawAcc = dps.accuracy
         dps.accuracy = specChance + (1 - specChance) * dps.accuracy
         dps.specAcc = dps.accuracy
@@ -237,9 +241,92 @@ export class SpecialWeapons {
             newDist[dmg] += acc * specChance / (m2 + 1)
         }
 
-        dps.hitDist = newDist
+        dps.hitDistList[0] = newDist
         dps.maxHitSpec = m2
 
         return dps
+    }
+
+    barbarianAssault() {
+        const dps = this.calcs
+        const m1 = dps.maxHit
+        const rank = this.state.player.misc.baRank
+        const m2 = m1 + rank
+
+        for (var i = 0; i < dps.hitDistList.length; i++) {
+            let dist = dps.hitDistList[i]
+            let newDist = Array(dist.length + rank).fill(0)
+            for (var dmg = 0; dmg < dist.length; dmg++) {
+                newDist[dmg + rank] = dist[dmg];
+            }
+            dps.hitDistList[i] = newDist;
+        }
+
+        for (let hitNum = 0; hitNum < dps.maxList.length; hitNum++) {
+            dps.maxList[hitNum] += rank;
+        }
+
+        return dps;
+    }
+
+    corporealBeast() {
+        const dps = this.calcs;
+        const oldDistList = dps.hitDistList
+
+        const newDistList = []
+        for (var i = 0; i < oldDistList.length; i++) {
+            let oldDist = oldDistList[i]
+            let newDist = Array(Math.trunc((oldDist.length + 1) / 2)).fill(0)
+            for (let j = 0; j < oldDist.length; j++) {
+                newDist[Math.trunc(j / 2)] += oldDist[j]
+            }
+            console.log(oldDist, newDist)
+            newDistList.push(newDist);
+        }
+        dps.hitDistList = newDistList;
+        for (let i = 0; i < dps.maxList.length; i++) {
+            dps.maxList[i] = Math.trunc(dps.maxList[i] / 2)
+        }
+
+        return dps;
+    }
+
+    zulrah() {
+        const dps = this.calcs;
+        const oldDistList = dps.hitDistList
+
+        const newDistList = [];
+
+        for (var i = 0; i < oldDistList.length; i++) {
+            let oldDist = oldDistList[i]
+            let newDist = Array(Math.min(oldDist.length, 51)).fill(0)
+
+            for (let dmg = 0; dmg < oldDist.length; dmg++) {
+                if (dmg > 50) {
+                    for (let roll = 0; roll <= 5; roll++) {
+                        newDist[45 + roll] += oldDist[dmg] / 6
+                    }
+                } else {
+                    newDist[dmg] += oldDist[dmg]
+                }
+            }
+            newDistList.push(newDist);
+        }
+
+        dps.hitDistList = newDistList;
+
+        for (let i = 0; i < dps.maxList.length; i++) {
+            dps.maxList[i] = Math.min(50, dps.maxList[i])
+        }
+
+        if ("maxHitSpec" in dps && dps.maxHitSpec > 50) {
+            dps.maxHitSpec = 50;
+        }
+
+        return dps
+    }
+
+    guardians() {
+
     }
 }

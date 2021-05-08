@@ -82,7 +82,11 @@ const flagDescriptions = {
 
     "Tier 6": "10% increased damage and accuracy",
 
-    "Ice demon": "Ice demon takes 1/3 damage from range and melee, and 150% damage from fire spells"
+    "Ice demon": "Ice demon takes 1/3 damage from range and melee, and 150% damage from fire spells",
+    "Guardians": "Only pickaxes damage Guardians, and with a multiplier",
+    "Zulrah": "Hits above 50 are re-rolled and melee does no damage",
+    "Corporeal beast": "All hits are halved, except hits from spears, magic, or halberds on stab",
+    "Barbarian Assault": "Each hit does extra damage according to the player's Attacker rank",
 
 }
 
@@ -487,11 +491,35 @@ export class Flags {
         return flags
     }
 
-    chambers() {
-        const flags = [];
+
+    npcs() {
+        const flags = []
+        const category = this.state.player.equipment.weapon.category;
+        const type = this.state.player.attackStyle.type
+        const weaponName = this.state.player.equipment.weapon.name
+
+        if (this.state.monster.name == "Zulrah") {
+            flags.push("Zulrah");
+        }
+
+        if (this.state.monster.attributes.includes("penance")) {
+            flags.push("Barbarian Assault");
+        }
+
+        if (this.state.monster.name == "Corporeal Beast") {
+            if (!(this.calcs.vertex == "Magic" || weaponName.includes("spear") || weaponName.includes("halberd") && type == "Stab")) {
+                flags.push("Corporeal beast");
+            }
+        }
+
         if (this.state.monster.name == "Ice demon") {
             flags.push("Ice demon");
         }
+
+        if (this.state.monster.name == "Guardian") {
+            flags.push("Guardians");
+        }
+
         return flags
     }
 
@@ -513,7 +541,7 @@ export class Flags {
             ...this.inquisitors(),
             ...this.crystalArmor(),
             ...this.relics(),
-            ...this.chambers()
+            ...this.npcs()
         ]
 
         return flags

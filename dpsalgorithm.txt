@@ -1,9 +1,6 @@
 Stuff to do before release:
 
 	calc stuff:
-		Corporeal (1/2 damage)
-		ba monsters (+5 damage)
-		zulrah (damage over 50 is rerolled or smth dumb)
 		guardian (some mining formula or smth)
 		shades gadderhammer
 		cox monster scaling O.O

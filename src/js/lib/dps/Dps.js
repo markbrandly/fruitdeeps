@@ -34,7 +34,6 @@ export class Dps {
         this.setAttackSpeed();
 
         this.setHitDist();
-        this.applySpecials();
 
         this.setDps();
         this.setAccOverOne();
@@ -113,6 +112,12 @@ export class Dps {
             hitDistList.push(HitDistribution(this.calcs.maxList[i], acc));
         }
 
+        this.calcs.hitDistList = hitDistList;
+
+        this.applySpecials();
+
+        hitDistList = this.calcs.hitDistList;
+
         //Combine Hit distributions into one
         let hitDist = [1]
         hitDistList.forEach((dist) => {
@@ -125,8 +130,15 @@ export class Dps {
             hitDist = [...newDist];
         })
 
+        let maxHit = 0;
+        for (var i = 0; i < this.calcs.maxList.length; i++) {
+            maxHit += this.calcs.maxList[i]
+        }
+
+        this.calcs.maxHit = maxHit
+
         this.calcs.hitDist = hitDist;
-        this.calcs.hitDistList = hitDistList;
+
     }
 
     setDps() {
@@ -159,8 +171,6 @@ export class Dps {
         const specs = new SpecialWeapons(this.state, this.calcs)
         if (this.calcs.flags.includes("Enchanted diamond bolts")) {
             this.calcs = specs.diamondBolts()
-        } else if (this.calcs.flags.includes("Enchanted ruby bolts")) {
-            this.calcs = specs.rubyBolts()
         } else if (this.calcs.flags.includes("Enchanted onyx bolts")) {
             this.calcs = specs.onyxBolts()
         } else if (this.calcs.flags.includes("Keris")) {
@@ -180,6 +190,26 @@ export class Dps {
                 this.calcs = specs.generalBolt(bolt)
             }
         })
+
+
+
+        if (this.calcs.flags.includes("Corporeal beast")) {
+            this.calcs = specs.corporealBeast();
+        }
+
+        if (this.calcs.flags.includes("Enchanted ruby bolts")) {
+            this.calcs = specs.rubyBolts()
+        }
+
+        if (this.calcs.flags.includes("Barbarian Assault")) {
+            this.calcs = specs.barbarianAssault();
+        }
+
+        if (this.calcs.flags.includes("Zulrah")) {
+            this.calcs = specs.zulrah();
+        }
+
+
     }
 
     output() {
