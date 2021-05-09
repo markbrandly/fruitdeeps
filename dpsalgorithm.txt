@@ -5,6 +5,8 @@ Stuff to do before release:
 		shades gadderhammer
 		cox monster scaling O.O
 
+		speed up ruby bolts overhit calc
+
 		tooltips
 		label x axis on optimization graph
 

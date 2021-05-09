@@ -12,6 +12,7 @@ for (let i = 0; i < 2; i++) {
 }
 
 
+
 function reducer(state = defaultState, action) {
     let newState = { ...state }
     var player = {}

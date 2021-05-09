@@ -68,6 +68,15 @@ body {
     // text-shadow: 0 0.125em 0.125em rgba(0,0,0,0.5);
 }
 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]:hover,
+input[type="number"]:focus {
+    -moz-appearance: number-input !important;
+}
+
 .color-1 {
     color: $color1;
 }

@@ -42,7 +42,7 @@ export class SpecialWeapons {
         const newDist = Array(max + 1).fill(0);
 
         for (let dmg = 0; dmg < oldDist.length; dmg++) {
-            newDist[dmg * hpMult] = oldDist[dmg]
+            newDist[Math.trunc(dmg * hpMult)] = oldDist[dmg]
         }
 
         dps.maxHit = max
