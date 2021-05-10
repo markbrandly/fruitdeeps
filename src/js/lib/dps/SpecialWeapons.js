@@ -1,3 +1,41 @@
+function pickaxeToLevel(pickName) {
+    switch (pickName) {
+        case "3rd age pickaxe":
+        case "Crystal pickaxe (Active)":
+        case "Crystal pickaxe (Inactive)":
+        case "Crystal pickaxe (The Gauntlet)":
+        case "Corrupted pickaxe":
+        case "Infernal pickaxe (Charged)":
+        case "Infernal pickaxe (Uncharged)":
+        case "Dragon pickaxe":
+        case "Dragon pickaxe (upgraded)":
+        case "Dragon pickaxe(or)":
+            return 61;
+
+        case "Rune pickaxe":
+        case "Gilded pickaxe":
+            return 41;
+
+        case "Adamant pickaxe":
+            return 31;
+
+        case "Mithril pickaxe":
+            return 21;
+
+        case "Black pickaxe":
+            return 11;
+
+        case "Steel pickaxe":
+            return 6;
+
+        case "Iron pickaxe":
+        case "Bronze pickaxe":
+            return 1
+    }
+    return 0;
+}
+
+
 export class SpecialWeapons {
     constructor(state, calcs) {
         this.state = state
@@ -45,7 +83,7 @@ export class SpecialWeapons {
             newDist[Math.trunc(dmg * hpMult)] = oldDist[dmg]
         }
 
-        dps.maxHit = max
+        dps.maxList[0] = max
         dps.hitDistList[0] = newDist;
 
         return dps
@@ -266,6 +304,10 @@ export class SpecialWeapons {
             dps.maxList[hitNum] += rank;
         }
 
+        if ("maxHitSpec" in dps) {
+            dps.maxHitSpec += rank;
+        }
+
         return dps;
     }
 
@@ -327,6 +369,29 @@ export class SpecialWeapons {
     }
 
     guardians() {
+        const dps = this.calcs;
+        const pick = pickaxeToLevel(this.state.player.equipment.weapon.name)
+        const boost = (50 + pick + this.state.player.misc.mining) / 150;
+        console.log('boost', boost)
+        const oldDistList = dps.hitDistList
+        const newDistList = [];
 
+        for (var i = 0; i < oldDistList.length; i++) {
+            let oldDist = oldDistList[i]
+            let newDist = Array(Math.trunc((oldDist.length - 1) * boost) + 1).fill(0)
+
+            for (let dmg = 0; dmg < oldDist.length; dmg++) {
+                newDist[Math.trunc(dmg * boost)] += oldDist[dmg];
+            }
+            newDistList.push(newDist);
+        }
+
+        dps.hitDistList = newDistList;
+
+        for (let i = 0; i < dps.maxList.length; i++) {
+            dps.maxList[i] = Math.trunc(dps.maxList[i] * boost);
+        }
+
+        return dps
     }
 }

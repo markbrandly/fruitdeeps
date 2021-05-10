@@ -191,6 +191,10 @@ export class Dps {
             }
         })
 
+        if (this.calcs.flags.includes("Guardians")) {
+            this.calcs = specs.guardians();
+        }
+
 
 
         if (this.calcs.flags.includes("Corporeal beast")) {

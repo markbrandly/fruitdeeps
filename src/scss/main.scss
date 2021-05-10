@@ -60,6 +60,8 @@ $radius:0.125em;
 
 html {
     overflow-y: scroll;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -582,5 +584,13 @@ input[type="number"]:focus {
 
     .flex-child+.flex-child {
         margin-left: 0
+    }
+
+    .highlight-section {
+        width: 100vw;
+        position: relative;
+        margin-left: -50vw;
+        left: 50%;
+        padding: 1.5em 3em;
     }
 }
