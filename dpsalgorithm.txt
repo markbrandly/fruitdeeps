@@ -1,7 +1,6 @@
 Stuff to do before release:
 
 	calc stuff:
-		guardian (some mining formula or smth)
 		shades gadderhammer
 		cox monster scaling O.O
 
