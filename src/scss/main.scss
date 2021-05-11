@@ -179,6 +179,16 @@ input[type="number"]:focus {
     position: relative;
 }
 
+.escape-notif {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    margin-top: -0.5em;
+    font-size: 0.75em;
+    line-height: 1em;
+    color: #999;
+}
+
 .auto-complete-input {
     width: 100%;
     border: none;

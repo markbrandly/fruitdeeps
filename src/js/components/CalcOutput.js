@@ -63,7 +63,7 @@ export class CalcOutput extends Component {
                               <XAxis dataKey="damage" name="Damage" stroke="#ddd" />
                               <YAxis stroke="#ddd" tickFormatter={toPercent}/>
                               <Tooltip className="highlight-section"/>
-                              <Bar dataKey="likelihood" fill="#9eff74" />
+                              <Bar dataKey="likelihood" fill="#9eff74" tickFormatter={toPercent} />
                             </BarChart>
                           </ResponsiveContainer>
                     </div>

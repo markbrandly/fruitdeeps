@@ -23,6 +23,9 @@ Stuff to do before release:
 		save/load sets
 
 
+search bar
+esc
+
 ruelite integration
 
 
@@ -34,17 +37,29 @@ Questions for the calc to answer:
 	mason: when should you switch from dwh to bgs at scorpia
 
 special attacks to incl:
+
+	d claws
+		dps
+		expected damage
+		max hit
+
+	dds
+	blowy p
+	bgs
+	dwh
+	c hally
+	d bow
+
 	Abby dagger
 	abyssal whip
 	Darklight / arclight
-	d claws
-	dds
+
 	dlong
 	d mace
 	d sword
-	dwh
+
 	ags
-	bgs
+
 	sgs
 	ss
 	sbs
@@ -52,16 +67,16 @@ special attacks to incl:
 	g hammer
 	barrelchest
 	bone dagger
-	c hally
+
 	ballista
 	acb
 	dcb
 	dcb the other one
-	d bow
+
 	mlb / mcb
 	msb
 	dthrown
-	blowy p
+
 
 	dawnbringer
 	nightmare staves
