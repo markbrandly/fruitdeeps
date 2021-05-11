@@ -29,13 +29,13 @@ export class DefenderTableDisplay extends Component {
 						<tr>
 							<td>
 								<div class='stat-wrap'>
-									<img src="/assets/svg/combat icon.svg" />
+									<img src="/assets/svg/combat_icon.svg" />
 									{this.props.monster.combat}
 								</div>
 							</td>
 							<td>
 								<div class='stat-wrap'>
-									<img src="/assets/svg/hitpoints icon.svg" />
+									<img src="/assets/svg/hitpoints_icon.svg" />
 									
 									<MonsterStat value={this.props.monster.stats.hitpoints} stat="hitpoints" onChange={this.handleChange} />
 								</div>
@@ -44,13 +44,13 @@ export class DefenderTableDisplay extends Component {
 						<tr>
 							<td>
 								<div class='stat-wrap'>
-									<img src="/assets/svg/defence icon.svg" />
+									<img src="/assets/svg/defence_icon.svg" />
 									<MonsterStat value={this.props.monster.stats.def} stat="def" onChange={this.handleChange} />
 								</div>
 							</td>
 							<td>
 								<div class='stat-wrap'>
-									<img src="/assets/svg/magic icon.svg"/>
+									<img src="/assets/svg/magic_icon.svg"/>
 									<MonsterStat value={this.props.monster.stats.mage} stat="mage" onChange={this.handleChange} />
 								</div>
 							</td>

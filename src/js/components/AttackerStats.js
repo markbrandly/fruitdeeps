@@ -80,19 +80,19 @@ export class AttackerStats extends Component {
             <div class='highlight-section flex-container-vertical'>
 				<table class="stats-table">
 					<tr>
-						<StatPicker stat="attack" imgSrc="./assets/svg/attack icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
-						<StatPicker stat="strength" imgSrc="./assets/svg/strength icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="attack" imgSrc="./assets/svg/attack_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="strength" imgSrc="./assets/svg/strength_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr>
-						<StatPicker stat="defence" imgSrc="./assets/svg/defence icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
-						<StatPicker stat="ranged" imgSrc="./assets/svg/ranged icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="defence" imgSrc="./assets/svg/defence_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="ranged" imgSrc="./assets/svg/ranged_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr>
-						<StatPicker stat="prayer" imgSrc="./assets/svg/prayer icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
-						<StatPicker stat="magic" imgSrc="./assets/svg/magic icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="prayer" imgSrc="./assets/svg/prayer_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="magic" imgSrc="./assets/svg/magic_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr>
-						<HpPicker imgSrc="./assets/svg/hitpoints icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<HpPicker imgSrc="./assets/svg/hitpoints_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr class="center">
 						<td>Current</td>
@@ -100,7 +100,7 @@ export class AttackerStats extends Component {
 					</tr>
 				</table>
 				<div class="center stat-wrap">
-					<img src="./assets/svg/combat icon.svg" />
+					<img src="./assets/svg/combat_icon.svg" />
 					{this.props.player.combat}
 				</div>
 				<div>

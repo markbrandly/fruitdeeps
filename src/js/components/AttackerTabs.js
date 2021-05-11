@@ -52,12 +52,12 @@ export class AttackerTabs extends Component {
         return (
             <div>
 				<div class='tabs'>
-					<Tab tab="0" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/equipment icon.svg"></Tab>
-					<Tab tab="1" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/stats icon.svg"></Tab>
-					<Tab tab="2" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/prayer icon.svg"></Tab>
-					<Tab tab="3" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/spellbook icon.svg"></Tab>
-					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/toggles icon.svg"></Tab>
-					<Tab tab="5" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/export icon.svg"></Tab>
+					<Tab tab="0" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/equipment_icon.svg"></Tab>
+					<Tab tab="1" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/stats_icon.svg"></Tab>
+					<Tab tab="2" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/prayer_icon.svg"></Tab>
+					<Tab tab="3" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/spellbook_icon.svg"></Tab>
+					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/toggles_icon.svg"></Tab>
+					<Tab tab="5" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/export_icon.svg"></Tab>
 				</div>
 				{displayBox}
 			</div>

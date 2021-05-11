@@ -24,7 +24,7 @@ class AttackerSwitcherInner extends Component {
             <div class="flex-container-vertical">
 				<div class="flex-container-vertical">
 					<h2 class="flex-valign">
-						<img style={{height:"0.75em"}}src="/assets/svg/attack icon.svg" />
+						<img style={{height:"0.75em"}}src="/assets/svg/attack_icon.svg" />
 						<span class="space-left">Set {i+1}</span>
 					</h2>
 
