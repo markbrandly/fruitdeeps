@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { BonusRow } from "./BonusRow.js";
 
+function hpLimit(dmg, hp) {
+    if (dmg <= hp) {
+        return dmg;
+    } else {
+        return <span>{hp}<span class="sub-text"> {"(" + dmg + ")"}</span></span>
+    }
+}
+
 function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -23,11 +31,11 @@ class OutputTable extends Component {
     render() {
         return (
             <div>
-				<span class='color-grey'>{this.props.name}</span>
-				<table class="bonus-table">
-					{this.props.rows}
-				</table>
-			</div>
+                <span class='color-grey'>{this.props.name}</span>
+                <table class="bonus-table">
+                    {this.props.rows}
+                </table>
+            </div>
         )
     }
 }
@@ -59,42 +67,45 @@ export class CalcOutputNumbers extends Component {
         const rows = []
         rows.push(
             <tr>
-				<td>Type</td>
-				<td class={color}>{this.props.calcs.attackType}</td>
-			</tr>
+                <td>Type</td>
+                <td class={color}>{this.props.calcs.attackType}</td>
+            </tr>
         )
         rows.push(
             <tr>
-				<td>Style</td>
-				<td>{this.props.calcs.attackStyle}</td>
-			</tr>
+                <td>Style</td>
+                <td>{this.props.calcs.attackStyle}</td>
+            </tr>
         )
         rows.push(
             <tr>
-				<td>Speed</td>
-				<td>{this.props.calcs.attackSpeed}</td>
-			</tr>
+                <td>Speed</td>
+                <td>{this.props.calcs.attackSpeed}</td>
+            </tr>
         )
         return <OutputTable name="Attack" rows={rows} />
     }
 
     damage() {
         const rows = []
+        const hp = this.props.calcs.npcHp
+
         rows.push(
             <tr>
-				<td>Max hit</td>
-				<td>{this.props.calcs.maxHit}</td>
-			</tr>
+                <td>Max hit</td>
+                <td>{hpLimit(this.props.calcs.maxHit, hp)}</td>
+            </tr>
         )
 
         //for scythe and darkbow
         if (this.props.calcs.maxList.length > 1) {
             for (let i = 0; i < this.props.calcs.maxList.length; i++) {
+                let maxOutput = this
                 rows.push(
                     <tr>
-						<td>Max hit <span class='sub-text'>(hit {i + 1})</span></td>
-						<td>{this.props.calcs.maxList[i]}</td>
-					</tr>
+                        <td>Max hit <span class='sub-text'>(hit {i + 1})</span></td>
+                        <td>{hpLimit(this.props.calcs.maxList[i], hp)}</td>
+                    </tr>
                 )
             }
         }
@@ -102,9 +113,9 @@ export class CalcOutputNumbers extends Component {
         if ("maxHitSpec" in this.props.calcs) {
             rows.push(
                 <tr>
-					<td>Max hit <span class='sub-text'>(proc)</span></td>
-					<td>{this.props.calcs.maxHitSpec}</td>
-				</tr>
+                    <td>Max hit <span class='sub-text'>(proc)</span></td>
+                    <td>{hpLimit(this.props.calcs.maxHitSpec, hp)}</td>
+                </tr>
             )
         }
 
@@ -116,25 +127,25 @@ export class CalcOutputNumbers extends Component {
         const rows = []
         rows.push(
             <tr>
-				<td>Raw</td>
-				<td>{(this.props.calcs.rawAcc * 100).toFixed(decimals-1) + "%"}</td>
-			</tr>
+                <td>Raw</td>
+                <td>{(this.props.calcs.rawAcc * 100).toFixed(decimals-1) + "%"}</td>
+            </tr>
         )
 
         if ("specAcc" in this.props.calcs) {
             rows.push(
                 <tr>
-					<td><span class='sub-text'>(with proc)</span></td>
-					<td>{(this.props.calcs.specAcc * 100).toFixed(decimals-1) + "%"}</td>
-				</tr>
+                    <td><span class='sub-text'>(with proc)</span></td>
+                    <td>{(this.props.calcs.specAcc * 100).toFixed(decimals-1) + "%"}</td>
+                </tr>
             )
         }
 
         rows.push(
             <tr>
-				<td>p(dmg {">"} 0)</td>
-				<td  class="color-1">{(this.props.calcs.acc1plus * 100).toFixed(decimals-1)+ "%"}</td>
-			</tr>
+                <td>p(dmg {">"} 0)</td>
+                <td  class="color-1">{(this.props.calcs.acc1plus * 100).toFixed(decimals-1)+ "%"}</td>
+            </tr>
         )
 
         return <OutputTable name="Accuracy" rows={rows} />
@@ -153,9 +164,9 @@ export class CalcOutputNumbers extends Component {
 
         rows.push(
             <tr>
-				<td>Raw {this.props.calcs.flags.includes("Enchanted ruby bolts") ? momentary : null}</td>
-				<td>{this.props.calcs.dps.toFixed(decimals)}</td>
-			</tr>
+                <td>Raw {this.props.calcs.flags.includes("Enchanted ruby bolts") ? momentary : null}</td>
+                <td>{this.props.calcs.dps.toFixed(decimals)}</td>
+            </tr>
         )
 
         if ("overhit" in this.props) {
@@ -164,16 +175,16 @@ export class CalcOutputNumbers extends Component {
 
         rows.push(
             <tr>
-				<td>Overhit</td>
-				<td class="color-1">{this.props.ttk !== null ? overhitDps.toFixed(decimals) : "..."}</td>
-			</tr>
+                <td>Overhit</td>
+                <td class="color-1">{this.props.ttk !== null ? overhitDps.toFixed(decimals) : "..."}</td>
+            </tr>
         )
 
         rows.push(
             <tr>
-				<td>Overhit <span class='sub-text'>(cont.)</span></td>
-				<td class="color-1">{this.props.ttk !== null ? overhitCont.toFixed(decimals) : "..."}</td>
-			</tr>
+                <td>Overhit <span class='sub-text'>(cont.)</span></td>
+                <td class="color-1">{this.props.ttk !== null ? overhitCont.toFixed(decimals) : "..."}</td>
+            </tr>
         )
 
         return <OutputTable name="Dps" rows={rows} />
@@ -187,31 +198,31 @@ export class CalcOutputNumbers extends Component {
 
         rows.push(
             <tr>
-				<td>Seconds</td>
-				<td>{this.props.ttk !== null ? secondsToHms(ttk * 0.6) : '...'}</td>
-			</tr>
+                <td>Seconds</td>
+                <td>{this.props.ttk !== null ? secondsToHms(ttk * 0.6) : '...'}</td>
+            </tr>
         )
 
         rows.push(
             <tr>
-				<td>Seconds <span class='sub-text'>(cont.)</span></td>
-				<td>{this.props.ttk !== null ? secondsToHms(contTtk * 0.6) : '...'}</td>
-			</tr>
+                <td>Seconds <span class='sub-text'>(cont.)</span></td>
+                <td>{this.props.ttk !== null ? secondsToHms(contTtk * 0.6) : '...'}</td>
+            </tr>
         )
 
 
         rows.push(
             <tr>
-				<td>Ticks</td>
-				<td class='color-1'>{this.props.ttk !== null ? ttk.toFixed(decimals) : '...'}</td>
-			</tr>
+                <td>Ticks</td>
+                <td class='color-1'>{this.props.ttk !== null ? ttk.toFixed(decimals) : '...'}</td>
+            </tr>
         )
 
         rows.push(
             <tr>
-				<td>Ticks <span class='sub-text'>(cont.)</span></td>
-				<td class='color-1'>{this.props.ttk !== null ? contTtk.toFixed(decimals) : '...'}</td>
-			</tr>
+                <td>Ticks <span class='sub-text'>(cont.)</span></td>
+                <td class='color-1'>{this.props.ttk !== null ? contTtk.toFixed(decimals) : '...'}</td>
+            </tr>
         )
 
         return <OutputTable name="Time to kill" rows={rows} />
@@ -220,18 +231,18 @@ export class CalcOutputNumbers extends Component {
     render() {
         return (
             <div class="flex-container flex-child">
-				<div class='flex-child flex-container-vertical'>
-					{this.attack()}
-					{this.damage()}
-					{this.accuracy()}
-				</div>
-				<div class='flex-child'>
-					<div class='highlight-section flex-container-vertical'>
-						{this.dps()}
-						{this.ttk()}
-					</div>
-				</div>
-			</div>
+                <div class='flex-child flex-container-vertical'>
+                    {this.attack()}
+                    {this.damage()}
+                    {this.accuracy()}
+                </div>
+                <div class='flex-child'>
+                    <div class='highlight-section flex-container-vertical'>
+                        {this.dps()}
+                        {this.ttk()}
+                    </div>
+                </div>
+            </div>
         )
     }
 }

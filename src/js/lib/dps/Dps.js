@@ -104,6 +104,7 @@ export class Dps {
     setHitDist() {
         const acc = this.calcs.accuracy
         const max = this.calcs.maxHit
+        const hp = this.state.monster.stats.hitpoints;
 
         let hitDistList = []
 
@@ -135,9 +136,22 @@ export class Dps {
             maxHit += this.calcs.maxList[i]
         }
 
+        let newDist = hitDist
+        if (hitDist.length > (hp + 1)) {
+            newDist = Array(hp + 1).fill(0);
+            for (var dmg = 0; dmg < hitDist.length; dmg++) {
+                if (dmg > hp) {
+                    newDist[hp] += hitDist[dmg]
+                } else {
+                    newDist[dmg] += hitDist[dmg]
+                }
+            }
+        }
+
+        this.calcs.npcHp = hp;
         this.calcs.maxHit = maxHit
 
-        this.calcs.hitDist = hitDist;
+        this.calcs.hitDist = newDist;
 
     }
 

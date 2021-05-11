@@ -44,25 +44,29 @@ export class SpecialWeapons {
 
     keris() {
 
-        var dps = this.calcs
+        const dps = this.calcs
         const speed = dps.attackSpeed
         const acc = this.calcs.accuracy
-        dps.baseMax = dps.maxHit
-        dps.maxHit = Math.floor(dps.maxHit * 4 / 3)
-        dps.maxHitSpec = dps.baseMax * 3
+        const baseMax = dps.maxHit
+        const newMax = Math.floor(dps.maxHit * 4 / 3)
+        const specMax = baseMax * 3;
 
-        let kerisDist = Array(dps.maxHitSpec + 1).fill(0);
+
+
+        let kerisDist = Array(specMax + 1).fill(0);
 
         kerisDist[0] += 1 - acc
 
-        for (let h1 = 0; h1 <= dps.maxHit; h1 += 1) {
-            kerisDist[h1] += acc * 50 / 51 / (dps.maxHit + 1)
+        for (let h1 = 0; h1 <= newMax; h1 += 1) {
+            kerisDist[h1] += acc * 50 / 51 / (newMax + 1)
         }
 
-        for (let h2 = 0; h2 <= dps.maxHitSpec; h2 += 1) {
-            kerisDist[h2] += acc / 51 / (dps.maxHitSpec + 1)
+        for (let h2 = 0; h2 <= baseMax; h2 += 1) {
+            kerisDist[h2 * 3] += acc / 51 / (baseMax + 1)
         }
 
+        dps.maxHit = newMax;
+        dps.maxHitSpec = specMax;
         dps.hitDistList[0] = kerisDist;
 
         return dps
