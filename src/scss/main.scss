@@ -32,7 +32,7 @@ $radius:0.125em;
 }
 
 @mixin icon-filter {
-    filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 0px black) contrast(1.4) saturate(1.25)
+    filter: drop-shadow(1px 1px 1px #444) drop-shadow(-1px -1px 1px #777) contrast(1.4) saturate(1.25)
 }
 
 @mixin no-select {
@@ -452,6 +452,10 @@ input[type="number"]:focus {
 .monster-image {
     @include icon-filter;
     max-height: 10em;
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
 }
 
 .stats-table {

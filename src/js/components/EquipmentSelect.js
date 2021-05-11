@@ -45,6 +45,12 @@ export class EquipmentSelect extends AutofillSearchInput {
 					tabIndex="0"
 				>
 					{item.name}
+                    <span class={this.state.highlightIndex == i ? "" : "hidden"}> ↵</span>
+                    <span style={{float:"right", color:"#aaa"}}>
+                        
+                        <img style={{maxHeight:"1em"}} src={'./assets/item_images/' + item.name + '.png'} />
+
+                    </span>
 				</li>)
         });
     }
