@@ -80,19 +80,19 @@ export class AttackerStats extends Component {
             <div class='highlight-section flex-container-vertical'>
 				<table class="stats-table">
 					<tr>
-						<StatPicker stat="attack" imgSrc="./assets/other_icons/attack_icon.webp" player={this.props.player} setPlayer={this.props.setPlayer} />
-						<StatPicker stat="strength" imgSrc="./assets/other_icons/strength_icon.webp" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="attack" imgSrc="./assets/svg/attack icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="strength" imgSrc="./assets/svg/strength icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr>
-						<StatPicker stat="defence" imgSrc="./assets/other_icons/defence_icon.webp" player={this.props.player} setPlayer={this.props.setPlayer} />
-						<StatPicker stat="ranged" imgSrc="./assets/other_icons/ranged_icon.webp" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="defence" imgSrc="./assets/svg/defence icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="ranged" imgSrc="./assets/svg/ranged icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr>
-						<StatPicker stat="prayer" imgSrc="./assets/other_icons/prayer_icon.png" player={this.props.player} setPlayer={this.props.setPlayer} />
-						<StatPicker stat="magic" imgSrc="./assets/other_icons/magic_icon.webp" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="prayer" imgSrc="./assets/svg/prayer icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<StatPicker stat="magic" imgSrc="./assets/svg/magic icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr>
-						<HpPicker imgSrc="./assets/other_icons/hitpoints_icon.webp" player={this.props.player} setPlayer={this.props.setPlayer} />
+						<HpPicker imgSrc="./assets/svg/hitpoints icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 					</tr>
 					<tr class="center">
 						<td>Current</td>
@@ -100,7 +100,7 @@ export class AttackerStats extends Component {
 					</tr>
 				</table>
 				<div class="center stat-wrap">
-					<img src="assets/other_icons/combat_icon.webp" />
+					<img src="./assets/svg/combat icon.svg" />
 					{this.props.player.combat}
 				</div>
 				<div>

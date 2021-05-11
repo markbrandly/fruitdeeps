@@ -52,12 +52,12 @@ export class AttackerTabs extends Component {
         return (
             <div>
 				<div class='tabs'>
-					<Tab tab="0" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/worn_equipment.webp"></Tab>
-					<Tab tab="1" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/skills_icon.webp"></Tab>
-					<Tab tab="2" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/prayer_icon.png"></Tab>
-					<Tab tab="3" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/other_icons/spellbook.png"></Tab>
-					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/relic.png"></Tab>
-					<Tab tab="5" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="https://oldschool.runescape.wiki/images/7/71/Strange_implement.png?4fd87"></Tab>
+					<Tab tab="0" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/equipment icon.svg"></Tab>
+					<Tab tab="1" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/stats icon.svg"></Tab>
+					<Tab tab="2" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/prayer icon.svg"></Tab>
+					<Tab tab="3" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/spellbook icon.svg"></Tab>
+					<Tab tab="4" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/toggles icon.svg"></Tab>
+					<Tab tab="5" tabSelected={this.state.tabSelected} setTab={this.setTab} imgSrc="/assets/svg/export icon.svg"></Tab>
 				</div>
 				{displayBox}
 			</div>

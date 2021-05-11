@@ -349,34 +349,36 @@ input[type="number"]:focus {
     font-size: 0.75em;
     cursor: pointer;
 
-    &.tab-selected {
-        background-color: #333;
-        cursor: initial;
-
-        .attacker-tab-icon {
-            opacity: 1;
-        }
-    }
-
+    &.tab-selected,
     &:hover {
-        .attacker-tab-icon {
-            opacity: 1;
-        }
+        background-color: #333;
     }
 
     img {
         max-height: 1.5em;
+        height: 1.25em;
     }
+
+    cursor:pointer;
+
+    user-select:none;
+}
+
+.large-icon {
+    height: 0.75em;
+}
+
+
+label {
+    user-select: none;
 }
 
 .attacker-tab-icon {
-    @include icon-filter;
     max-width: 100%;
     max-height: 100%;
     height: auto;
     width: auto;
     cursor: pointer;
-    opacity: 0.5;
 }
 
 .tab+.tab {
@@ -481,6 +483,7 @@ input[type="number"]:focus {
 
     img {
         margin-right: 0.25em;
+        max-height: 1em;
     }
 }
 
