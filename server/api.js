@@ -12,12 +12,12 @@ const blackList = [
 
 
 var searchItemSql = `SELECT a.itemId as itemId, a.itemName as itemName,
-		a.itemType as itemType, c.weaponType as category, c.attackSpeed as speed
-		FROM rsitems.items a 
+        a.itemType as itemType, c.weaponType as category, c.attackSpeed as speed
+        FROM rsitems.items a 
         left join rsitems.weapon_info c
         on a.itemId = c.itemId
-		WHERE a.itemName  
-		like ?`
+        WHERE a.itemName  
+        like ?`
 
 
 blackList.forEach((item) => {
@@ -58,6 +58,23 @@ exports.searchItems = function(str, limit, fn) {
                 }
                 items.push(itemObj)
                 if (items.length == resLen && !fnCalled) {
+                    items.sort((a, b) => {
+                        let aSum = 0;
+                        a.bonuses.forEach((bonus) => {
+                            aSum += bonus;
+                        })
+                        let bSum = 0;
+                        b.bonuses.forEach((bonus) => {
+                            bSum += bonus;
+                        })
+
+                        if (bSum < aSum) {
+                            return -1;
+                        } else if (bSum > aSum) {
+                            return 1;
+                        }
+                        return 0;
+                    })
                     fnCalled = true
                     fn(items);
                 }
@@ -70,9 +87,9 @@ exports.searchItems = function(str, limit, fn) {
 exports.searchMonsterNames = function(str, limit, fn) {
     str = "%".concat(str).concat("%")
     const sql = "select name from rsitems.monster \
-		where name is not null and name like ? \
-		group by name \
-		limit ?";
+        where name is not null and name like ? \
+        group by name \
+        limit ?";
 
     db.con.query(sql, [str, limit], (error, results) => {
         var nameList = results.map((result) => { return result.name })
@@ -82,13 +99,13 @@ exports.searchMonsterNames = function(str, limit, fn) {
 
 exports.getMonstersByName = function(str, fn) {
     const sql = `
-		select a.idmonster, a.name, a.version, a.combat, b.localPath, a.version_number
-		from rsitems.monster as a
-		left join rsitems.image as b 
-    	on a.imageId = b.imageId 
-		where a.name = ?
-		order by a.version
-		`
+        select a.idmonster, a.name, a.version, a.combat, b.localPath, a.version_number
+        from rsitems.monster as a
+        left join rsitems.image as b 
+        on a.imageId = b.imageId 
+        where a.name = ?
+        order by a.version
+        `
 
     const statsql = "select * from rsitems.monster_stat where monsterId = ?"
 

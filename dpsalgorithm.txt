@@ -44,8 +44,18 @@ special attacks to incl:
 		max hit
 
 	dds
+		dps
+		expected damage
+		max hit
 	blowy p
+		dps
+		expected damage
+		max hit
 	bgs
+		accuracy
+		dps
+		expected damage
+		max hit
 	dwh
 	c hally
 	d bow

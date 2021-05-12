@@ -264,6 +264,29 @@ export class SpecialWeapons {
         return dps
     }
 
+    dragonstoneBolts() {
+        const dps = this.calcs
+        const specChance = this.calcs.flags.includes("Kandarin hard diary") ? 0.066 : 0.06
+        const ranged = this.state.player.boostedStats.ranged
+        const boost = Math.trunc(ranged / 5);
+        const acc = dps.accuracy
+        const m1 = dps.maxHit
+        const m2 = m1 + boost;
+
+        const newDist = Array(m2 + 1).fill(0);
+        newDist[0] += (1 - acc)
+        for (let dmg = 0; dmg <= m1; dmg++) {
+            newDist[dmg] += (1 - specChance) * acc / (m1 + 1)
+            newDist[dmg + boost] += specChance * acc / (m1 + 1)
+        }
+
+        dps.hitDistList[0] = newDist;
+        dps.maxHitSpec = m2;
+
+        return dps;
+
+    }
+
     onyxBolts() {
         const dps = this.calcs
         const specChance = this.calcs.flags.includes("Kandarin hard diary") ? 0.121 : 0.11
@@ -275,11 +298,11 @@ export class SpecialWeapons {
 
         newDist[0] += 1 - acc
 
-        for (dmg = 0; dmg <= m1; dmg++) {
+        for (let dmg = 0; dmg <= m1; dmg++) {
             newDist[dmg] += acc * (1 - specChance) / (m1 + 1)
         }
 
-        for (dmg = 0; dmg <= m2; dmg++) {
+        for (let dmg = 0; dmg <= m2; dmg++) {
             newDist[dmg] += acc * specChance / (m2 + 1)
         }
 

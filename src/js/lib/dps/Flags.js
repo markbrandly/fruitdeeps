@@ -51,7 +51,7 @@ const flagDescriptions = {
     "Enchanted pearl bolts fiery": "6% chance of a guranteed hit with [visible ranged level / 15] extra damage",
     "Enchanted ruby bolts": "6% chance of a guaranteed hit that hits for 20% of the opponent's hp, capped at 100",
     "Enchanted diamond bolts": "10% chance of a guaranteed hit with a 15% increased max hit",
-    "Enchanted dragonstone bolts": "6% chance of a guaranteed hit with [visible ranged level / 20] extra damage",
+    "Enchanted dragonstone bolts": "6% chance to do [visible ranged level / 5] extra damage",
     "Enchanted onyx bolts": "11% chance to deal an extra 20% damage against alive monsters",
 
     "Kandarin hard diary": "Increases enchanted bolt proc chance by 10%",

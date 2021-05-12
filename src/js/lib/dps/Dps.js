@@ -180,7 +180,6 @@ export class Dps {
             "Enchanted opal bolts",
             "Enchanted jade bolts",
             "Enchanted pearl bolts fiery",
-            "Enchanted dragonstone bolts"
         ]
         const specs = new SpecialWeapons(this.state, this.calcs)
         if (this.calcs.flags.includes("Enchanted diamond bolts")) {
@@ -197,6 +196,8 @@ export class Dps {
             this.calcs = specs.ahrims()
         } else if (this.calcs.flags.includes("Dharok's set")) {
             this.calcs = specs.dharoks()
+        } else if (this.calcs.flags.includes("Enchanted dragonstone bolts")) {
+            this.calcs = specs.dragonstoneBolts();
         }
 
         someBolts.forEach((bolt) => {
