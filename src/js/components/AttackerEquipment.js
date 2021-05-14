@@ -17,17 +17,25 @@ class LoadoutCell extends Component {
         if (this.props.player.equipment[this.props.slotname].name) {
             img = (
                 <img 
-					class='item-icon' 
+					class='item-icon'
+
 					src={'./assets/item_images/'+ this.props.player.equipment[this.props.slotname].name + '.png'}
-					onClick={()=> {this.unequipItem(this.props.slotname)}}
+
 				/>
             )
         }
-        return (
-            <div class='loadout-cell'>
-				{img}
-			</div>
-        )
+        if (this.props.player.equipment[this.props.slotname].name != "") {
+            return (
+                <div class='loadout-cell' onClick={()=> {this.unequipItem(this.props.slotname)}} data-tooltip={"unequip " + this.props.player.equipment[this.props.slotname].name}>
+					{img}
+				</div>
+            )
+        } else {
+            return (
+                <div class='loadout-cell'>
+				</div>
+            )
+        }
     }
 }
 

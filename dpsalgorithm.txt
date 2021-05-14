@@ -20,6 +20,13 @@ Stuff to do before release:
 
 	UI stuff:
 
+		fix stats icon
+		load times for switching tabs
+		expand/minify graphs
+		dps as a function of defence graph
+
+		dwh + beegs on npc defence
+
 		save/load sets
 
 
@@ -57,6 +64,11 @@ special attacks to incl:
 		expected damage
 		max hit
 	dwh
+		max hit
+		dps
+		expected damage
+		expected defence reduction
+		p(dmg > 0)
 	c hally
 	d bow
 

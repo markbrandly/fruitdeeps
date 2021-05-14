@@ -7,7 +7,7 @@ const blackList = [
     '(0)', '(25)', '(50)', '(75)', '(100)',
     '(1)', '(2)', '(3)', '(4)', '(5)', '(6)', '(7)', '(8)', '(9)', '(10)',
     'Craw\'s bow (Uncharged)', 'Tome of fire (Empty)', 'Tome of fire (Empty)',
-    '(Nightmare Zone)'
+    '(Nightmare Zone)', "(New)"
 ]
 
 

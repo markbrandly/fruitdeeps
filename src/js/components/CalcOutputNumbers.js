@@ -13,11 +13,11 @@ function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
     var m = Math.floor(d % 3600 / 60);
-    var s = (d % 3600 % 60).toFixed(decimals);
+    var s = (d % 3600 % 60).toFixed(1);
 
     var hDisplay = h > 0 ? h + 'h ' : "";
     var mDisplay = m > 0 ? m + 'm ' : "";
-    var sDisplay = s > 0 ? s + 's ' : "";
+    var sDisplay = s > 0 ? s + 's' : "";
     return hDisplay + mDisplay + sDisplay;
 }
 
@@ -199,31 +199,31 @@ export class CalcOutputNumbers extends Component {
         rows.push(
             <tr>
                 <td>Seconds</td>
-                <td>{this.props.ttk !== null ? secondsToHms(ttk * 0.6) : '...'}</td>
+                <td>{this.props.ttk !== null ? <span>{secondsToHms(ttk * 0.6)} <span class='sub-text'> (+{secondsToHms(this.props.calcs.attackSpeed * 0.6)})</span></span> : '...'}</td>
             </tr>
         )
 
-        rows.push(
-            <tr>
-                <td>Seconds <span class='sub-text'>(cont.)</span></td>
-                <td>{this.props.ttk !== null ? secondsToHms(contTtk * 0.6) : '...'}</td>
-            </tr>
-        )
+        // rows.push(
+        //     <tr>
+        //         <td>Seconds <span class='sub-text'>(cont.)</span></td>
+        //         <td>{this.props.ttk !== null ? secondsToHms(contTtk * 0.6) : '...'}</td>
+        //     </tr>
+        // )
 
 
         rows.push(
             <tr>
                 <td>Ticks</td>
-                <td class='color-1'>{this.props.ttk !== null ? ttk.toFixed(decimals) : '...'}</td>
+                <td class='color-1'>{this.props.ttk !== null ? (<span>{ttk.toFixed(2)} <span class='sub-text'> (+{this.props.calcs.attackSpeed})</span></span>) : '...'}</td>
             </tr>
         )
 
-        rows.push(
-            <tr>
-                <td>Ticks <span class='sub-text'>(cont.)</span></td>
-                <td class='color-1'>{this.props.ttk !== null ? contTtk.toFixed(decimals) : '...'}</td>
-            </tr>
-        )
+        // rows.push(
+        //     <tr>
+        //         <td>Ticks <span class='sub-text'>(cont.)</span></td>
+        //         <td class='color-1'>{this.props.ttk !== null ? contTtk.toFixed(decimals) : '...'}</td>
+        //     </tr>
+        // )
 
         return <OutputTable name="Time to kill" rows={rows} />
     }

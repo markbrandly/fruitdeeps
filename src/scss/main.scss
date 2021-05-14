@@ -6,8 +6,11 @@ $spacing-full: 1.5em;
 $box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
 $box-shadow-inset: 0 8px 6px -6px rgba(0, 0, 0, 0.5) inset;
 $icon-border-width: 0.6px;
+//blue
 $color1:#74c7ff;
+//red
 $color2:#ff8274;
+//green
 $color3:#9eff74;
 $radius:0.125em;
 
@@ -128,6 +131,14 @@ input[type="number"]:focus {
         font-family: $font2;
         color: #eee;
     }
+}
+
+.recharts-label tspan {
+    color: #eee;
+}
+
+.recharts-surface {
+    transition: height 0.1s;
 }
 
 .recharts-default-tooltip {
@@ -371,6 +382,7 @@ input[type="number"]:focus {
 
 label {
     user-select: none;
+    cursor: pointer;
 }
 
 .attacker-tab-icon {
@@ -392,11 +404,6 @@ label {
     height: auto;
     width: auto;
     cursor: pointer;
-
-
-    &:hover {
-        opacity: 0.5;
-    }
 }
 
 
@@ -458,6 +465,23 @@ label {
     max-height: 100%;
     height: auto;
     width: auto;
+    max-height: 15em;
+}
+
+
+.info-badge-holder {
+    margin-top: -0.25em;
+
+    .info-badge {
+        background-color: #222;
+        color: $color1;
+        padding: 0.25em;
+        border-radius: 0.25em;
+        margin-right: 0.25em;
+        margin-top: 0.25em;
+        display: inline-block;
+    }
+
 }
 
 .stats-table {
@@ -610,5 +634,134 @@ label {
         margin-left: -50vw;
         left: 50%;
         padding: 1.5em 3em;
+    }
+}
+
+//tooltip stuff
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    //-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    //filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 5px;
+    margin-left: -80px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #222;
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #222;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    //-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    //filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+
+$toggle-background-color-on: $color1;
+$toggle-background-color-off: #aaa;
+$toggle-control-color: white;
+$toggle-width: 2em;
+$toggle-height: 1em;
+$toggle-gutter: 0.1em;
+$toggle-radius: 50%;
+$toggle-control-speed: .15s;
+$toggle-control-ease: ease-in;
+
+// These are our computed variables
+// change at your own risk.
+$toggle-radius: $toggle-height / 2;
+$toggle-control-size: $toggle-height - ($toggle-gutter * 2);
+
+.toggle-control {
+    display: block;
+    position: relative;
+    padding-left: $toggle-width;
+    cursor: pointer;
+    user-select: none;
+
+
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    input:checked~.control {
+        background-color: $toggle-background-color-on;
+
+        &:after {
+            left: $toggle-width - $toggle-control-size - $toggle-gutter;
+        }
+    }
+
+    .control {
+        box-shadow: 0px 0px 1px #222;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: $toggle-height;
+        width: $toggle-width;
+        border-radius: $toggle-radius;
+        background-color: $toggle-background-color-off;
+        transition: background-color $toggle-control-speed $toggle-control-ease;
+        height: $toggle-height;
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: $toggle-gutter;
+            top: $toggle-gutter;
+            width: $toggle-control-size;
+            height: $toggle-control-size;
+            border-radius: $toggle-radius;
+            background: $toggle-control-color;
+            transition: left $toggle-control-speed $toggle-control-ease;
+        }
     }
 }

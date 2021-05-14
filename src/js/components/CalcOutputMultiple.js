@@ -93,7 +93,7 @@ export class CalcOutputMultiple extends Component {
             <div class="flex-container-vertical">
 				{outputBlocks}
 				{false ? <CalcOutputTtkChart data={this.state.ttkManager.map((ttk) => ttk.ttk.ttkList)}/> : null}
-				{showChart ? <CalcOutputOptimizationGraph calcsList={calcsList} state={this.props.state} /> : null}
+				<CalcOutputOptimizationGraph calcsList={calcsList} state={this.props.state} />
 			</div>
         )
     }
