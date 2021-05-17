@@ -366,8 +366,7 @@ input[type="number"]:focus {
     }
 
     img {
-        max-height: 1.5em;
-        height: 1.25em;
+        height: 1.75em;
     }
 
     cursor:pointer;
@@ -406,7 +405,33 @@ label {
     cursor: pointer;
 }
 
+button {
+    border: 1px solid #222;
+    margin-right: 0.25em;
+    margin-top: 0.25em;
+    padding: 0.5em;
+    font-family: 'Roboto Slab';
+    color: #74c7ff;
+    font-size: 0.75em;
+    border-radius: 0.25em;
+    cursor: pointer;
+    background-color: #222;
 
+    &.selected {
+        background-color: #444;
+        color: #eee;
+        text-decoration: underline;
+    }
+
+    &.seamless {
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
 
 
 
@@ -473,13 +498,15 @@ label {
     margin-top: -0.25em;
 
     .info-badge {
-        background-color: #222;
-        color: $color1;
-        padding: 0.25em;
+        background-color: #444;
+        color: #eee;
+        padding: 0.5em;
         border-radius: 0.25em;
         margin-right: 0.25em;
         margin-top: 0.25em;
         display: inline-block;
+        font-size: 0.75em;
+        border: 1px solid #222;
     }
 
 }
@@ -634,12 +661,14 @@ label {
         margin-left: -50vw;
         left: 50%;
         padding: 1.5em 3em;
+        box-shadow: 0 0.25em 0.25em rgb(0 0 0 / 40%);
     }
 }
 
 //tooltip stuff
 /* Add this attribute to the element that needs a tooltip */
-[data-tooltip] {
+[data-tooltip],
+[data-tooltip-left] {
     position: relative;
     z-index: 2;
     cursor: pointer;
@@ -647,7 +676,9 @@ label {
 
 /* Hide the tooltip content by default */
 [data-tooltip]:before,
-[data-tooltip]:after {
+[data-tooltip]:after,
+[data-tooltip-left]:before,
+[data-tooltip-left]:after {
     visibility: hidden;
     //-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     //filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -656,12 +687,12 @@ label {
 }
 
 /* Position tooltip above the element */
-[data-tooltip]:before {
+[data-tooltip]:before,
+[data-tooltip-left]:before {
     position: absolute;
     bottom: 100%;
     left: 50%;
     margin-bottom: 5px;
-    margin-left: -80px;
     padding: 7px;
     width: 160px;
     -webkit-border-radius: 3px;
@@ -669,14 +700,26 @@ label {
     border-radius: 3px;
     background-color: #222;
     color: #fff;
-    content: attr(data-tooltip);
+
     text-align: center;
     font-size: 14px;
     line-height: 1.2;
 }
 
+[data-tooltip]:before {
+    margin-left: -80px;
+    content: attr(data-tooltip);
+}
+
+[data-tooltip-left]:before {
+    margin-left: -140px;
+    content: attr(data-tooltip-left);
+}
+
+
 /* Triangle hack to make tooltip look like a speech bubble */
-[data-tooltip]:after {
+[data-tooltip]:after,
+[data-tooltip-left]:after {
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -692,7 +735,9 @@ label {
 
 /* Show tooltip content on hover */
 [data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
+[data-tooltip]:hover:after,
+[data-tooltip-left]:hover:before,
+[data-tooltip-left]:hover:after {
     visibility: visible;
     //-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     //filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);

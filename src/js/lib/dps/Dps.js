@@ -228,6 +228,10 @@ export class Dps {
             this.calcs = specs.zulrah();
         }
 
+        if (this.calcs.flags.includes("Verzik P1")) {
+            this.calcs = specs.verzik();
+        }
+
 
     }
 

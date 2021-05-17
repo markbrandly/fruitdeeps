@@ -2,6 +2,7 @@ import { OverhitSwitcher } from "../dps/overhit/OverhitSwitcher.js"
 
 import { TtkOptimization } from '../dps/overhit/TtkOptimization.js'
 
+import { DpsDefence } from '../dps/overhit/DpsDefence.js'
 
 self.addEventListener('message', function(e) {
     if (e.data.type === "Overhit") {
@@ -18,6 +19,11 @@ self.addEventListener('message', function(e) {
         const output = ttkOpt.output()
         console.log(output)
         self.postMessage(output)
+    } else if (e.data.type === "DpsDefence") {
+        let calcsList = e.data.calcsList
+        let state = e.data.state
+        var dpsDef = new DpsDefence(state, calcsList)
+        self.postMessage(dpsDef.output())
     }
 
 })

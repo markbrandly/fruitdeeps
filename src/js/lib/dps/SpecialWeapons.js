@@ -421,4 +421,36 @@ export class SpecialWeapons {
 
         return dps
     }
+
+    verzik() {
+        const dps = this.calcs
+        const oldDistList = dps.hitDistList
+        const newDistList = []
+
+        let capMax = 10;
+        if (this.calcs.attackType === "Ranged") {
+            capMax = 3;
+        } else if (this.calcs.attackType === "Mage") {
+            capMax = 3;
+        }
+
+        if (this.state.player.equipment.weapon.name !== "Dawnbringer") {
+            for (let i = 0; i < oldDistList.length; i++) {
+                let oldDist = oldDistList[i]
+                let newDist = Array(Math.min(capMax + 1, oldDist.length)).fill(0);
+                for (let hit = 0; hit < oldDist.length; hit++) {
+                    for (let capRoll = 0; capRoll <= capMax; capRoll++) {
+                        newDist[Math.min(capRoll, hit)] += oldDist[hit] / (capMax + 1)
+                    }
+                }
+                newDistList.push(newDist)
+            }
+
+            for (let maxIndex = 0; maxIndex < dps.maxList.length; maxIndex++) {
+                dps.maxList[maxIndex] = Math.min(dps.maxList[maxIndex], capMax);
+            }
+            dps.hitDistList = newDistList
+        }
+        return dps;
+    }
 }

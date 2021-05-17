@@ -19,9 +19,9 @@ export class Accuracy {
 
     compareRolls(atk, def) {
         if (atk > def) {
-            return Math.max(0, Math.min(1, 1 - (def + 2) / (2 * (atk + 1))))
+            return Math.max(0, Math.min(1, 1 - (def + 1) / (2 * atk)))
         } else {
-            return Math.max(0, Math.min(1, atk / (2 * (def + 1))))
+            return Math.max(0, Math.min(1, (atk - 1) / (2 * def)))
         }
     }
 
@@ -212,7 +212,11 @@ export class Accuracy {
         const playerBonus = player.bonuses[3] //Magic attack
 
 
-        const npcRoll = this.generalFormula(monster.stats.mage + 9, npcBonus)
+        let npcRoll = this.generalFormula(monster.stats.mage + 9, npcBonus)
+
+        if (this.flags.includes("Verzik P1") || this.flags.includes("Ice demon")) {
+            npcRoll = this.generalFormula(monster.stats.def + 9, npcBonus);
+        }
         var playerRoll = this.generalFormula(effectiveMagic, playerBonus)
 
         //apply black mask/salve bonus

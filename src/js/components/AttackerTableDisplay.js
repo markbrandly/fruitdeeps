@@ -38,6 +38,18 @@ export class AttackerTableDisplay extends Component {
         super(props)
         this.handleSetBonus = this.handleSetBonus.bind(this)
         this.handleClearBonus = this.handleClearBonus.bind(this)
+        this.handleSetSpeed = this.handleSetSpeed.bind(this)
+    }
+
+    handleSetSpeed(e) {
+        e.persist()
+        const player = this.props.player
+        let newSpeed = parseFloat(e.target.value)
+        if (newSpeed <= 0) {
+            newSpeed = 0;
+        }
+        player.setMisc('manualSpeed', newSpeed)
+        this.props.setPlayer(player.minimize())
     }
 
     handleSetBonus(e) {
@@ -113,8 +125,15 @@ export class AttackerTableDisplay extends Component {
 						<td class="color-grey">{player.equipment.weapon.category}</td>
 					</tr>
 					<tr>
-						<td>Speed:</td>
+						<td>Base speed:</td>
 						<td class='color-grey'>{player.equipment.weapon.speed}</td>
+					</tr>
+					<tr>
+						<td class='single-line'>Manual speed:</td>
+						<td class='color-grey' onChange={this.handleSetSpeed}>
+							<input type="number"  value={player.misc.manualSpeed}
+								class="input-invisible align-right" />
+						</td>
 					</tr>
 					</table>
 				</div>

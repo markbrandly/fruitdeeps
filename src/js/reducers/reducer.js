@@ -30,6 +30,11 @@ function reducer(state = defaultState, action) {
             newState.playerList.push({})
             return newState
 
+        case "DELETE_PLAYER":
+            newState.playerList = [...newState.playerList]
+            newState.playerList.splice(action.index, 1);
+            return newState
+
         case "SET_MONSTER":
             return {
                 ...state,

@@ -259,7 +259,7 @@ export class MaxHit {
                     maxHit = this.generalFormula(magic, 56)
                     break;
                 case "Starter staff":
-                    maxHit = spallBook.maxLookup("Fire Strike")
+                    maxHit = spellBook.maxLookup("Fire Strike")
                     break;
                 case "Dawnbringer":
                     maxHit = Math.floor(magic / 6) - 1

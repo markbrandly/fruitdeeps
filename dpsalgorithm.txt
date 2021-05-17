@@ -1,5 +1,8 @@
 Stuff to do before release:
 
+    vitur and ice demon:
+    https://twitter.com/JagexAsh/status/1132007580308525063
+
 	calc stuff:
 		shades gadderhammer
 		cox monster scaling O.O
@@ -46,29 +49,14 @@ Questions for the calc to answer:
 special attacks to incl:
 
 	d claws
-		dps
-		expected damage
-		max hit
-
 	dds
-		dps
-		expected damage
-		max hit
-	blowy p
-		dps
-		expected damage
-		max hit
 	bgs
-		accuracy
-		dps
-		expected damage
-		max hit
 	dwh
-		max hit
-		dps
-		expected damage
-		expected defence reduction
-		p(dmg > 0)
+	msb
+	blowy p
+
+
+
 	c hally
 	d bow
 
@@ -96,7 +84,7 @@ special attacks to incl:
 	dcb the other one
 
 	mlb / mcb
-	msb
+
 	dthrown
 
 

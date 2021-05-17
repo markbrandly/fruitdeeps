@@ -159,8 +159,11 @@ export class CalcOutputNumbers extends Component {
         const contTtk = this.props.ttk
         const ttk = this.props.ttk - this.props.calcs.attackSpeed
 
+
         const overhitDps = hp / ttk / 0.6
         const overhitCont = hp / contTtk / 0.6
+
+        console.log('ttk output', ttk, hp, this.props.calcs.attackSpeed, overhitDps, overhitCont)
 
         rows.push(
             <tr>

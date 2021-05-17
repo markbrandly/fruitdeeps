@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { CalcOutput } from "./CalcOutput.js";
 import { CalcOutputTtkChart } from "./CalcOutputTtkChart.js";
 import { CalcOutputOptimizationGraph } from "./CalcOutputOptimizationGraph.js";
+import { DpsOverDefenceGraph } from "./DpsOverDefenceGraph.js";
 import { Dps } from "../lib/dps/Dps.js";
 import Worker from 'worker-loader!../lib/workers/Worker.js';
 
@@ -77,9 +78,9 @@ export class CalcOutputMultiple extends Component {
             let nottk = (typeof this.state.ttkManager[i] !== 'undefined') && (this.generateId(this.stateInputs[i]) == this.state.ttkManager[i].id)
             return (
                 <div class="flex-child">
-					<h2>Set {i+1}</h2>
-					<CalcOutput calcs={calcsList[i]} ttk={nottk ? this.state.ttkManager[i].ttk.ttk : null}/>
-				</div>
+                    <h2>Set {i+1}</h2>
+                    <CalcOutput calcs={calcsList[i]} ttk={nottk ? this.state.ttkManager[i].ttk.ttk : null}/>
+                </div>
             )
         })
 
@@ -91,10 +92,19 @@ export class CalcOutputMultiple extends Component {
 
         return (
             <div class="flex-container-vertical">
-				{outputBlocks}
-				{false ? <CalcOutputTtkChart data={this.state.ttkManager.map((ttk) => ttk.ttk.ttkList)}/> : null}
-				<CalcOutputOptimizationGraph calcsList={calcsList} state={this.props.state} />
-			</div>
+                {outputBlocks}
+                {false ? <CalcOutputTtkChart data={this.state.ttkManager.map((ttk) => ttk.ttk.ttkList)}/> : null}
+                <div>
+                    <h2 class="flex-valign">
+                        <img style={{height:"0.75em"}}src="/assets/svg/stats_icon.svg" />
+                        <span class="space-left">Set Comparison Graphs</span>
+                    </h2>
+                    <div class='flex-container-vertical'  style={{padding:"1em", border:'1px dashed #666'}}>
+                        <CalcOutputOptimizationGraph calcsList={calcsList} state={this.props.state} />
+                            <DpsOverDefenceGraph calcsList={calcsList} state={this.props.state} />
+                    </div>
+                </div> <
+            /div>
         )
     }
 }

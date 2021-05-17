@@ -58,15 +58,8 @@ export class CalcOutputOptimizationGraph extends Component {
         const lines = this.props.calcsList.map((calcs, i) => <Line type="monotone" dot={false} dataKey={"Set " + (i + 1)} stroke={colors[i % 4]} strokeWidth={3}/>)
         return (
             <div>
-                    <h2 class="flex-valign">
-                        <img style={{height:"0.75em"}}src="/assets/svg/stats_icon.svg" />
-                        <span class="space-left">Set Comparison Graphs</span>
-                    </h2>
-
-                <div style={{padding:"1em", border:'1px dashed #666'}}>
-                    <h3>Optimal Switching @ {this.props.state.monster.name} ({this.state.continuous ? "Continuous" : "Discontinuous"})
-
-                    <span style={{float:"right", display:"inline-flex"}} data-tooltip="Continuous attacking assumes the player immediately switches to a new monster after killing the current one">
+                    <h3 style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>Optimal Switching @ {this.props.state.monster.name} ({this.state.continuous ? "Continuous" : "Discontinuous"})
+                    <span style={{display:"inline-flex"}} data-tooltip-left="Continuous attacking assumes the player immediately switches to a new monster after killing the current one">
                         <label class="sub-text" for="continuousToggle" style={{marginRight:"0.5em", display:"inline-block"}}>Continuous</label>
                         <label class="toggle-control" for="continuousToggle">
                           <input type="checkbox" id="continuousToggle"checked={this.state.continuous} onClick={this.toggleContinuous} />
@@ -87,7 +80,7 @@ export class CalcOutputOptimizationGraph extends Component {
                                     <XAxis dataKey="hitpoint" name="Hitpoints" stroke="#ddd">
                                         <Label value="Hitpoints" offset={0} position="insideBottom" margin={5}  dy={10} fill="#eeeeee" style={{fontFamily: "Roboto Slab"}}/>
                                     </XAxis>
-                                    <YAxis stroke="#ddd">
+                                    <YAxis stroke="#ddd" type="number">
                                      <Label value="TtK" offset={0} position="insideLeft" angle="-90" margin={5}  dy={10} fill="#eeeeee" style={{fontFamily: "Roboto Slab"}}/>
                                     </YAxis>
                                     <Tooltip className="highlight-section" />
@@ -97,8 +90,7 @@ export class CalcOutputOptimizationGraph extends Component {
                             </ResponsiveContainer>
                         </div>
                     </div>
-                </div> <
-            /div>
+                </div>
         )
         //<Label value="Pages of my website" offset={0} position="insideBottom" />
     }

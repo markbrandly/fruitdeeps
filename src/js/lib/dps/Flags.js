@@ -82,11 +82,12 @@ const flagDescriptions = {
 
     "Tier 6": "10% increased damage and accuracy",
 
-    "Ice demon": "Ice demon takes 1/3 damage from range and melee, and 150% damage from fire spells",
+    "Ice demon": "Ice demon takes 1/3 damage from range and melee, and 150% damage from fire spells; magic defence uses defence level",
     "Guardians": "Only pickaxes damage Guardians, and with a multiplier",
     "Zulrah": "Hits above 50 are re-rolled and melee does no damage",
     "Corporeal beast": "All hits are halved, except hits from spears, magic, or halberds on stab",
     "Barbarian Assault": "Each hit does extra damage according to the player's Attacker rank",
+    "Verzik P1": "All hits, except those from Dawnbringer, are damage capped; magic defence uses defence level"
 
 }
 
@@ -518,6 +519,10 @@ export class Flags {
 
         if (this.state.monster.name == "Guardian") {
             flags.push("Guardians");
+        }
+
+        if (this.state.monster.name === "Verzik Vitur" && this.state.monster.combat === 1040) {
+            flags.push("Verzik P1");
         }
 
         return flags

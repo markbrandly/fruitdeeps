@@ -69,12 +69,15 @@ export class CalcOutput extends Component {
             <div class='flex-container-vertical' style={{    padding: '1em', border: '1px dashed #666'}}>
                 <CalcOutputNumbers calcs={calcs} ttk={this.props.ttk}/>
                 <div>
-                    <div class="center">
+                    <div class="color-grey" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                         Hit Distribution {this.state.expand ? "" : " (dmg > 0)"}
-                        <label class="toggle-control" style={{float:"right"}} data-tooltip={this.state.expand ? "Shrink" : "Expand"} >
-                          <input type="checkbox" checked={this.state.expand} onClick={this.toggleExpand}/>
-                          <span class="control"></span>
-                        </label>
+                        <span style={{display:"inline-flex"}}>
+                            <span class="sub-text" style={{marginRight:"0.5em", display:"inline-block"}}>Expand</span>
+                            <label class="toggle-control" style={{float:"right"}}>
+                              <input type="checkbox" checked={this.state.expand} onClick={this.toggleExpand}/>
+                              <span class="control"></span>
+                            </label>
+                        </span>
 
                     </div>
                     <div width="100%" height="10em" style={{position: "relative"}}>
