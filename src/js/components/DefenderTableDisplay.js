@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
 import { BonusRow } from './BonusRow.js';
 
+const attributeList = [
+    "dragon",
+    "fiery",
+    "spectral",
+    "undead",
+    "kalphite",
+    "vampyre",
+    "demon",
+    "shade",
+    "leafy",
+    "penance",
+    "xerician"
+]
+
 const MonsterStat = (props) => {
     return (
         <input type="number" class="input-invisible" min="1" value={props.value} data-stat={props.stat} onChange={props.onChange} />
+    )
+}
+
+const MonsterBonus = props => {
+    return (
+        <td className={(props.value > 0 ? "color-3 " : props.value < 0 ? "color-1" : "color-grey")}>
+        <input type="number"  class="input-invisible align-right" min="0" value={props.value} data-stat={props.stat} onChange={props.onChange} />
+    	</td>
     )
 }
 
@@ -11,6 +33,7 @@ export class DefenderTableDisplay extends Component {
     constructor(props) {
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        this.toggleAttribute = this.toggleAttribute.bind(this)
     }
 
     handleChange(e) {
@@ -18,6 +41,22 @@ export class DefenderTableDisplay extends Component {
         let stat = e.target.getAttribute("data-stat")
         let value = e.target.value
         this.props.setMonsterStat(stat, value)
+    }
+
+    toggleAttribute(e) {
+        e.persist()
+        let attribute = e.target.value
+        let monster = this.props.monster
+        let newMonster = {}
+        newMonster = Object.assign(newMonster, monster)
+
+        if (newMonster.attributes.includes(attribute)) {
+            newMonster.attributes = newMonster.attributes.filter(e => e !== attribute);
+        } else {
+            newMonster.attributes.push(attribute)
+        }
+        console.log(newMonster.attributes, attribute)
+        this.props.setMonster(newMonster)
     }
 
     render() {
@@ -60,18 +99,45 @@ export class DefenderTableDisplay extends Component {
 				<div>
 					<h3>Attack Bonus</h3>
 					<table class="bonus-table">
-						<BonusRow bonusName="Magic" bonusValue={this.props.monster.stats.amagic} />
+					<tr>
+					<td>
+						Magic
+					</td>
+						<MonsterBonus value={this.props.monster.stats.amagic} stat="amagic" onChange={this.handleChange} />
+						</tr>
 					</table>
 				</div>
 				<div>
 					<h3>Defence bonus</h3>
 					<table class='bonus-table'>
-						<BonusRow bonusName="Stab" bonusValue={this.props.monster.stats.dstab} />
-						<BonusRow bonusName="Slash" bonusValue={this.props.monster.stats.dslash} />
-						<BonusRow bonusName="Crush" bonusValue={this.props.monster.stats.dcrush} />
-						<BonusRow bonusName="Magic" bonusValue={this.props.monster.stats.dmagic} />
-						<BonusRow bonusName="Range" bonusValue={this.props.monster.stats.drange} />
+					<tr>
+						<td>Stab</td>
+						<MonsterBonus value={this.props.monster.stats.dstab} stat="dstab" onChange={this.handleChange} />
+					</tr>
+					<tr>
+						<td>Slash</td>
+						<MonsterBonus value={this.props.monster.stats.dslash} stat="dslash" onChange={this.handleChange} />
+					</tr>
+					<tr>
+						<td>Crush</td>
+						<MonsterBonus value={this.props.monster.stats.dcrush} stat="dcrush" onChange={this.handleChange} />
+					</tr>
+					<tr>
+						<td>Magic</td>
+						<MonsterBonus value={this.props.monster.stats.dmagic} stat="dmagic" onChange={this.handleChange} />
+					</tr>
+					<tr>
+						<td>Range</td>
+						<MonsterBonus value={this.props.monster.stats.drange} stat="drange" onChange={this.handleChange} />
+					</tr>
+						
 					</table>
+				</div>
+				<div>
+						<h3>Attributes</h3>
+						{attributeList.map((attribute) =>
+							<button value={attribute} onClick={this.toggleAttribute} className={this.props.monster.attributes.includes(attribute) ? "selected" : ""}>{attribute}</button>
+						)}
 				</div>
 			</div>
         )

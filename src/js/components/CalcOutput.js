@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label } from 'recharts';
 import { CalcOutputNumbers } from "./CalcOutputNumbers.js";
 import { CalcOutputText } from "./CalcOutputText.js";
 import { Flags } from "../lib/dps/Flags.js";
@@ -19,7 +19,7 @@ export class CalcOutput extends Component {
 
         // this.handleWorker = this.handleWorker.bind(this)
         // this.generateId = this.generateId.bind(this)
-        this.state = { expand: false }
+        this.state = { expand: false, spec: false }
         this.toggleExpand = this.toggleExpand.bind(this)
     }
 
@@ -34,7 +34,7 @@ export class CalcOutput extends Component {
 
 
     render() {
-        const calcs = this.props.calcs
+        const calcs = this.state.spec ? this.props.calcs.specCalcs : this.props.calcs
         const hitDist = calcs.hitDist
         const data = hitDist.map((likelihood, dmg) => {
             return {
@@ -63,11 +63,21 @@ export class CalcOutput extends Component {
             data.shift()
         }
 
+        console.log(calcs)
+
 
         return (
 
             <div class='flex-container-vertical' style={{    padding: '1em', border: '1px dashed #666'}}>
-                <CalcOutputNumbers calcs={calcs} ttk={this.props.ttk}/>
+                {
+                    this.props.calcs.specCalcs !== null
+                    &&
+                    (<div>
+                        <button className={this.state.spec ? "" : "selected"} onClick={()=>this.setState({spec: false})} >Standard</button>
+                        <button className={this.state.spec ? "selected" : ""} onClick={()=>this.setState({spec: true})}>{this.props.calcs.specCalcs.specName}</button>
+                    </div>)
+                }            
+                <CalcOutputNumbers calcs={calcs} ttk={this.props.ttk} spec={this.state.spec}/>
                 <div>
                     <div class="color-grey" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                         Hit Distribution {this.state.expand ? "" : " (dmg > 0)"}
@@ -92,13 +102,17 @@ export class CalcOutput extends Component {
                                 left: marginSides + 3,
                                 bottom: 5,
                               }}
+                              stackOffset="expand"
 
                             >
                               <CartesianGrid strokeDasharray="3 3" stroke="#666" />
-                              <XAxis dataKey="damage" name="Damage" stroke="#ddd" />
-                              <YAxis stroke="#ddd" tickFormatter={toPercent}/>
+                              <XAxis dataKey="damage" name="Damage" stroke="#ddd"/>
+                              <YAxis stroke="#ddd" tickFormatter={toPercent} type="number" />
                               <Tooltip className="highlight-section" fill="#666"/>
                               <Bar dataKey="likelihood" fill="#9eff74" tickFormatter={toPercent} isAnimationActive={false} />
+                              <ReferenceLine x={Math.trunc(calcs.eDmg)} stroke="#ff8274" style={{strokeDasharray: "15,10"}}>
+                                <Label value="" angle="-90" dx={-14} dy={18} position="insideTop"  fill="#ff8274" style={{fontFamily: "Roboto Slab", fontSize:"0.75em"}}/>
+                                </ReferenceLine>
                             </BarChart>
                           </ResponsiveContainer>
                     </div>

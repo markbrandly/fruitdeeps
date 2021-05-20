@@ -9,24 +9,13 @@ Stuff to do before release:
 
 		speed up ruby bolts overhit calc
 
-		tooltips
-		label x axis on optimization graph
-
-		custom npc stats
 
 		fill out the set feature
 		special attacks!!
 
-		list npc attributes
-
 		two options in the auto search menu bug
 
 	UI stuff:
-
-		fix stats icon
-		load times for switching tabs
-		expand/minify graphs
-		dps as a function of defence graph
 
 		dwh + beegs on npc defence
 
@@ -49,6 +38,10 @@ Questions for the calc to answer:
 special attacks to incl:
 
 	d claws
+			dps
+			hit distribution
+			accuracy
+			
 	dds
 	bgs
 	dwh

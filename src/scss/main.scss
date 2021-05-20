@@ -407,8 +407,7 @@ label {
 
 button {
     border: 1px solid #222;
-    margin-right: 0.25em;
-    margin-top: 0.25em;
+    margin: 0.125em;
     padding: 0.5em;
     font-family: 'Roboto Slab';
     color: #74c7ff;
@@ -418,7 +417,7 @@ button {
     background-color: #222;
 
     &.selected {
-        background-color: #444;
+        border-color: #aaa;
         color: #eee;
         text-decoration: underline;
     }
@@ -502,11 +501,10 @@ button {
         color: #eee;
         padding: 0.5em;
         border-radius: 0.25em;
-        margin-right: 0.25em;
-        margin-top: 0.25em;
+        margin: 0.125em;
         display: inline-block;
         font-size: 0.75em;
-        border: 1px solid #222;
+        border: 1px solid #aaa;
     }
 
 }
@@ -662,6 +660,9 @@ button {
         left: 50%;
         padding: 1.5em 3em;
         box-shadow: 0 0.25em 0.25em rgb(0 0 0 / 40%);
+        border-bottom-left-radius: 0.25em;
+        border-bottom-right-radius: 0.25em;
+        border-top-right-radius: 0.25em;
     }
 }
 

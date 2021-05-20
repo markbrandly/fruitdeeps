@@ -63,6 +63,7 @@ export class AttackerTableDisplay extends Component {
     handleClearBonus() {
         const player = this.props.player
         player.clearCustomBonuses();
+        player.setMisc('manualSpeed', 0);
         this.props.setPlayer(player.minimize());
     }
 
@@ -74,7 +75,7 @@ export class AttackerTableDisplay extends Component {
         }
 
         let clearButton = null
-        if (customSum > 0) {
+        if (customSum > 0 || player.misc.manualSpeed > 0) {
             clearButton = (
                 <div>
 					<button onClick={this.handleClearBonus}>Clear custom bonuses</button>
@@ -104,8 +105,6 @@ export class AttackerTableDisplay extends Component {
 						<BonusSelectRow onChange={this.handleSetBonus} bonusName="Prayer" bonusIndex="13" player={player} />
 					</table>
 				</div>
-				{clearButton}
-
 				<div>
 					<h3>Weapon</h3>
 					<table class="bonus-table">
@@ -121,15 +120,15 @@ export class AttackerTableDisplay extends Component {
 					)}
 
 					<tr>
-						<td>Category:</td>
+						<td>Category</td>
 						<td class="color-grey">{player.equipment.weapon.category}</td>
 					</tr>
 					<tr>
-						<td>Base speed:</td>
+						<td>Base speed</td>
 						<td class='color-grey'>{player.equipment.weapon.speed}</td>
 					</tr>
 					<tr>
-						<td class='single-line'>Manual speed:</td>
+						<td class='single-line'>Manual speed{player.misc.manualSpeed > 0 ? <span class="color-grey">*</span> : ""}</td>
 						<td class='color-grey' onChange={this.handleSetSpeed}>
 							<input type="number"  value={player.misc.manualSpeed}
 								class="input-invisible align-right" />
@@ -137,6 +136,7 @@ export class AttackerTableDisplay extends Component {
 					</tr>
 					</table>
 				</div>
+				{clearButton}
 			</div>
 
         )

@@ -315,7 +315,10 @@ export class SpecialWeapons {
     barbarianAssault() {
         const dps = this.calcs
         const m1 = dps.maxHit
-        const rank = this.state.player.misc.baRank
+        let rank = this.state.player.misc.baRank
+        if (dps.specName === "Slice and Dice") {
+            rank = rank * 4
+        }
         const m2 = m1 + rank
 
         for (var i = 0; i < dps.hitDistList.length; i++) {
@@ -328,11 +331,11 @@ export class SpecialWeapons {
         }
 
         for (let hitNum = 0; hitNum < dps.maxList.length; hitNum++) {
-            dps.maxList[hitNum] += rank;
+            dps.maxList[hitNum] += this.state.player.misc.baRank;
         }
 
         if ("maxHitSpec" in dps) {
-            dps.maxHitSpec += rank;
+            dps.maxHitSpec += this.state.player.misc.baRank;
         }
 
         return dps;

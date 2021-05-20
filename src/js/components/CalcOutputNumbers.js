@@ -119,6 +119,13 @@ export class CalcOutputNumbers extends Component {
             )
         }
 
+        rows.push(
+            <tr>
+                <td>Expected</td>
+                <td>{this.props.calcs.eDmg.toFixed(2)}</td>
+            </tr>
+        )
+
         return <OutputTable name="Damage" rows={rows} />
 
     }
@@ -176,19 +183,21 @@ export class CalcOutputNumbers extends Component {
             console.log(this.props.overhit)
         }
 
-        rows.push(
-            <tr>
+        if (!this.props.spec) {
+            rows.push(
+                <tr>
                 <td>Overhit</td>
                 <td class="color-1">{this.props.ttk !== null ? overhitDps.toFixed(decimals) : "..."}</td>
             </tr>
-        )
+            )
 
-        rows.push(
-            <tr>
+            rows.push(
+                <tr>
                 <td>Overhit <span class='sub-text'>(cont.)</span></td>
                 <td class="color-1">{this.props.ttk !== null ? overhitCont.toFixed(decimals) : "..."}</td>
             </tr>
-        )
+            )
+        }
 
         return <OutputTable name="Dps" rows={rows} />
     }
@@ -242,7 +251,7 @@ export class CalcOutputNumbers extends Component {
                 <div class='flex-child'>
                     <div class='highlight-section flex-container-vertical'>
                         {this.dps()}
-                        {this.ttk()}
+                        {this.props.spec || this.ttk()}
                     </div>
                 </div>
             </div>

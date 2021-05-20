@@ -78,7 +78,7 @@ export class CalcOutputMultiple extends Component {
             let nottk = (typeof this.state.ttkManager[i] !== 'undefined') && (this.generateId(this.stateInputs[i]) == this.state.ttkManager[i].id)
             return (
                 <div class="flex-child">
-                    <h2>Set {i+1}</h2>
+                    <h2>Set {i+1}<span class='sub-text'> @ {this.props.state.monster.name}</span></h2>
                     <CalcOutput calcs={calcsList[i]} ttk={nottk ? this.state.ttkManager[i].ttk.ttk : null}/>
                 </div>
             )

@@ -46,24 +46,18 @@ export class Accuracy {
             effectiveAtt = Math.floor(effectiveAtt * 11 / 10)
         }
 
-        var npcBonus = 0
         var playerBonus = 0
         switch (attackType) {
             case "Stab":
                 playerBonus = player.bonuses[0]
-                npcBonus = monster.stats.dstab
                 break;
             case "Slash":
                 playerBonus = player.bonuses[1]
-                npcBonus = monster.stats.dslash
                 break;
             case "Crush":
                 playerBonus = player.bonuses[2]
-                npcBonus = monster.stats.dcrush
                 break;
         }
-
-        const npcRoll = this.generalFormula(monster.stats.def + 9, npcBonus)
         var playerRoll = this.generalFormula(effectiveAtt, playerBonus)
 
         //apply black mask/salve bonus
@@ -114,8 +108,7 @@ export class Accuracy {
             playerRoll = Math.floor(playerRoll * 11 / 10)
         }
 
-
-        return this.compareRolls(playerRoll, npcRoll)
+        return playerRoll
     }
 
     ranged() {
@@ -137,10 +130,8 @@ export class Accuracy {
             effectiveRanged = Math.floor(effectiveRanged * 11 / 10)
         }
 
-        const npcBonus = monster.stats.drange
         const playerBonus = player.bonuses[4] //ranged attack
 
-        const npcRoll = this.generalFormula(monster.stats.def + 9, npcBonus)
         var playerRoll = this.generalFormula(effectiveRanged, playerBonus)
 
         //apply black mask/salve bonus
@@ -184,8 +175,7 @@ export class Accuracy {
             playerRoll = Math.floor(playerRoll * 11 / 10)
         }
 
-
-        return this.compareRolls(playerRoll, npcRoll)
+        return playerRoll
     }
 
     magic() {
@@ -208,11 +198,7 @@ export class Accuracy {
             effectiveMagic = Math.floor(effectiveMagic * 29 / 20)
         }
 
-        const npcBonus = monster.stats.dmagic
         const playerBonus = player.bonuses[3] //Magic attack
-
-
-        let npcRoll = this.generalFormula(monster.stats.mage + 9, npcBonus)
 
         if (this.flags.includes("Verzik P1") || this.flags.includes("Ice demon")) {
             npcRoll = this.generalFormula(monster.stats.def + 9, npcBonus);
@@ -244,10 +230,12 @@ export class Accuracy {
             playerRoll = Math.floor(playerRoll * 11 / 10)
         }
 
-        let acc = this.compareRolls(playerRoll, npcRoll)
-        if (this.flags.includes("Brimstone ring")) {
-            acc = 0.75 * acc + 0.25 * this.compareRolls(playerRoll, Math.ceil(npcRoll * 9 / 10))
-        }
+        // let acc = this.compareRolls(playerRoll, npcRoll)
+        // if (this.flags.includes("Brimstone ring")) {
+        //     acc = 0.75 * acc + 0.25 * this.compareRolls(playerRoll, Math.ceil(npcRoll * 9 / 10))
+        // }
+
+        return playerRoll
 
         if (this.flags.includes("Double Cast Bug Abuse")) {
             return 1
@@ -256,11 +244,35 @@ export class Accuracy {
         return acc
     }
 
+    npcRoll() {
+        const player = this.state.player
+        const monster = this.state.monster
+        let npcBonus = 0
+        if (this.vertex == "Melee") {
+            const attackType = player.attackStyle.type
+            switch (attackType) {
+                case "Stab":
+                    npcBonus = monster.stats.dstab
+                    break;
+                case "Slash":
+                    npcBonus = monster.stats.dslash
+                    break;
+                case "Crush":
+                    npcBonus = monster.stats.dcrush
+                    break;
+            }
+            return this.generalFormula(monster.stats.def + 9, npcBonus)
+        } else if (this.vertex == "Ranged") {
+            return this.generalFormula(monster.stats.def + 9, monster.stats.drange)
+        } else if (this.vertex == "Magic") {
+            return this.generalFormula(monster.stats.mage + 9, monster.stats.dmagic)
+        } else { return 0 }
+    }
+
     output() {
         if (this.vertex == "Melee") {
             return this.melee()
         } else if (this.vertex == "Ranged") {
-            console.log('ranged')
             return this.ranged()
         } else if (this.vertex == "Magic") {
             return this.magic()

@@ -30,7 +30,6 @@ export class MaxHit {
         this.state = state
         this.flags = calcs.flags
         this.vertex = calcs.vertex
-        console.log('this.vertex', this.vertex)
         var prayerBook = new PrayerBook()
         this.prayerModifiers = prayerBook.getModifiers(this.state.player.prayers)
     }

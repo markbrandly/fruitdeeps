@@ -57,6 +57,7 @@ export class AttackerStats extends Component {
         super(props)
         this.checkboxChange = this.checkboxChange.bind(this)
         this.checkList = props.bonusList
+        this.boostClick = this.boostClick.bind(this)
     }
 
     checkboxChange(e) {
@@ -70,10 +71,22 @@ export class AttackerStats extends Component {
         this.props.setPlayer(player.minimize())
     }
 
+    boostClick(e) {
+        const player = this.props.player
+        if (this.props.player.boostList.includes(e.target.value)) {
+            player.removeBoost(e.target.value)
+        } else {
+            player.addBoost(e.target.value)
+        }
+        this.props.setPlayer(player.minimize())
+    }
+
     render() {
 
         const boosts = (new PotionDrinker()).boostList();
+
         const potionInput = boosts.map((boost, i) => {
+            return (<button value={boost} onClick={this.boostClick} className={this.props.player.boostList.includes(boost) ? "selected" : ""}>{boost}</button>)
             return (<div><input type="checkbox" value={boost} id={"stat-boost-" + i} onChange={this.checkboxChange} checked={this.props.player.boostList.includes(boost)} /> <label for={"stat-boost-" + i}>{boost}</label> </div>)
         })
         return (
@@ -105,7 +118,18 @@ export class AttackerStats extends Component {
 				</div>
 				<div>
 					<h3>Boosts:</h3>
-					{potionInput}
+					<div>
+						{potionInput.slice(0,5)}
+					</div>
+					<div>
+						{potionInput.slice(5,7)}
+					</div>
+					<div>
+						{potionInput.slice(7, 10)}
+					</div>
+					<div>
+						{potionInput.slice(10)}
+					</div>
 				</div>
 			</div>
         )

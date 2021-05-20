@@ -3,10 +3,19 @@ import { MaxHit } from "./MaxHit.js";
 import { Accuracy } from "./Accuracy.js";
 import { AttackSpeed } from "./AttackSpeed.js";
 import { SpecialWeapons } from "./SpecialWeapons.js";
+import { SpecialAttacks } from "./SpecialAttacks.js";
 import { HitDistribution } from "./HitDistribution.js";
 import Player from "../Player.js";
 
 import { Overhit } from "./overhit/Overhit.js";
+
+const pickSpec = (weapon) => {
+    switch (weapon) {
+        case "Dragon claws":
+            return "Slice and Dice";
+    }
+    return null
+}
 
 export class Dps {
     constructor(stateObj) {
@@ -14,7 +23,6 @@ export class Dps {
             ...stateObj,
             player: new Player(stateObj.player)
         }
-        console.log(this.state.player)
         this.calcs = {
             vertex: "Melee",
             flags: [],
@@ -25,18 +33,15 @@ export class Dps {
             acc1plus: 0,
             overhit1: 0,
             overhit2: 0,
-            hitpoints: this.state.monster.stats.hitpoints
+            hitpoints: this.state.monster.stats.hitpoints,
+            specName: null,
+            specCalcs: null
         }
-        this.setVertex();
-        this.setFlags();
-        this.setMaxHit();
-        this.setAccuracy();
-        this.setAttackSpeed();
 
-        this.setHitDist();
+    }
 
-        this.setDps();
-        this.setAccOverOne();
+    setSpecName(name) {
+        this.calcs.specName = name
     }
 
     setVertex() {
@@ -92,7 +97,15 @@ export class Dps {
 
     setAccuracy() {
         var acc = new Accuracy(this.state, this.calcs)
-        this.calcs.accuracy = acc.output()
+        this.calcs.playerRoll = acc.output();
+        this.calcs.npcRoll = acc.npcRoll();
+        this.calcs.accuracy = acc.compareRolls(this.calcs.playerRoll, this.calcs.npcRoll);
+        if (this.calcs.flags.includes("Double Cast Bug Abuse")) {
+            this.calcs.accuracy = 1
+        }
+        if (this.calcs.flags.includes("Brimstone ring")) {
+            this.calcs.accuracy = 0.75 * this.calcs.accuracy + 0.25 * acc.compareRolls(this.calcs.playerRoll, Math.ceil(this.calcs.npcRoll * 9 / 10))
+        }
         this.calcs.rawAcc = this.calcs.accuracy
     }
 
@@ -163,10 +176,14 @@ export class Dps {
         let hitDist = this.calcs.hitDist
         let dps = 0;
 
+        let eDmg = 0;
+
         for (let dmg = 0; dmg < hitDist.length; dmg++) {
             dps += dmg * hitDist[dmg] / speed / 0.6
+            eDmg += dmg * hitDist[dmg]
         }
 
+        this.calcs.eDmg = eDmg
         this.calcs.dps = dps
     }
 
@@ -182,6 +199,14 @@ export class Dps {
             "Enchanted pearl bolts fiery",
         ]
         const specs = new SpecialWeapons(this.state, this.calcs)
+        const specialAttacks = new SpecialAttacks(this.state, this.calcs);
+
+        if (this.calcs.specName !== null) {
+            this.calcs = specialAttacks.applySpec(this.calcs.specName)
+        }
+
+
+
         if (this.calcs.flags.includes("Enchanted diamond bolts")) {
             this.calcs = specs.diamondBolts()
         } else if (this.calcs.flags.includes("Enchanted onyx bolts")) {
@@ -236,7 +261,24 @@ export class Dps {
     }
 
     output() {
-        console.log(this.calcs)
+        const weapon = this.state.player.equipment.weapon.name
+        const spec = pickSpec(weapon);
+        this.setVertex();
+        this.setFlags();
+        this.setMaxHit();
+        this.setAccuracy();
+        this.setAttackSpeed();
+
+        this.setHitDist();
+
+        this.setDps();
+        this.setAccOverOne();
+
+        if (spec !== null && this.calcs.specName === null) {
+            const specDps = new Dps(this.state);
+            specDps.setSpecName(spec);
+            this.calcs.specCalcs = specDps.output();
+        }
         return this.calcs
     }
 }

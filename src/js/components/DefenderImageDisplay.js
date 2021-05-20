@@ -24,8 +24,8 @@ export class DefenderImageDisplay extends Component {
             <div class="highlight-section flex-container-vertical">
 				<h3 class='center'>{this.props.monster.name}</h3>
 				
-				{this.state.monList.length ? 
-					(<DefenderVersionSelect monList={this.state.monList} setMonster={this.props.setMonster} />) 
+				{this.state.monList.length > 1 ? 
+					(<DefenderVersionSelect monList={this.state.monList} monster={this.props.monster} setMonster={this.props.setMonster} />) 
 					:""
 				}
 

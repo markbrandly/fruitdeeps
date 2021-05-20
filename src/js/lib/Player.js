@@ -105,6 +105,10 @@ export default class Player {
             }
         }
 
+        if (item.slot == "weapon" || item.slot == "2h") {
+            this.misc.manualSpeed = 0;
+        }
+
         if (item.slot === "2h") {
             this.equipment.weapon = item;
             this.unequip("shield");
@@ -118,14 +122,15 @@ export default class Player {
             delete this.equipment[item.slot].slots
         }
 
-        this.customBonuses = new Array(14).fill(0)
     }
 
     unequip(slot) {
         if (slots.includes(slot)) {
             this.equipment[slot] = { ...nullItem, slot: slot };
         }
-        this.customBonuses = new Array(14).fill(0)
+        if (slot === "weapon") {
+            this.misc.manualSpeed = 0;
+        }
     }
 
     addBoost(boost) {

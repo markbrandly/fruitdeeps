@@ -4,128 +4,137 @@
  */
 
 const boosts = [
-	"Attack",
-	"Super attack", 
-	"Strength",
-	"Super strength",
-	"Zamorak brew",
-	"Ranging", 
-	"Super ranging",
-	"Magic", 
-	"Super magic", 
-	"Imbued heart",
-	"Overload (+)"
+    "Attack",
+    "Super attack",
+    "Strength",
+    "Super strength",
+    "Zamorak brew",
+    "Ranging",
+    "Super ranging",
+    "Magic",
+    "Super magic",
+    "Imbued heart",
+    "Super combat",
+    "Overload (+)"
 ]
 
 const stats = ['attack', 'strength', 'ranged', 'magic', 'hitpoints', 'prayer', 'defence']
 
 
- export class PotionDrinker{
- 	constructor(){
- 		this.potionEffects = {
- 			Attack: (statObj) => {
- 				return {
- 					...statObj,
- 					attack: statObj.attack + Math.floor(statObj.attack / 10) + 3
- 				}
- 			},
+export class PotionDrinker {
+    constructor() {
+        this.potionEffects = {
+            Attack: (statObj) => {
+                return {
+                    ...statObj,
+                    attack: statObj.attack + Math.floor(statObj.attack / 10) + 3
+                }
+            },
 
- 			"Super attack": (statObj) => {
- 				return {
- 					...statObj,
- 					attack: statObj.attack + Math.floor(statObj.attack * 0.15) + 5
- 				}
- 			},
+            "Super attack": (statObj) => {
+                return {
+                    ...statObj,
+                    attack: statObj.attack + Math.floor(statObj.attack * 0.15) + 5
+                }
+            },
 
- 			"Strength": (statObj) =>{
- 				return {
- 					...statObj,
- 					strength: statObj.strength + Math.floor(statObj.strength / 10) + 3
- 				}
- 			},
+            "Strength": (statObj) => {
+                return {
+                    ...statObj,
+                    strength: statObj.strength + Math.floor(statObj.strength / 10) + 3
+                }
+            },
 
- 			"Super strength": (statObj) => {
- 				return {
- 					...statObj,
- 					strength: statObj.strength + Math.floor(statObj.strength * 0.15) + 5
- 				}
- 			},
+            "Super strength": (statObj) => {
+                return {
+                    ...statObj,
+                    strength: statObj.strength + Math.floor(statObj.strength * 0.15) + 5
+                }
+            },
 
- 			"Zamorak brew": (statObj) => {
- 				return {
- 					...statObj,
- 					attack: statObj.attack + Math.floor(statObj.attack / 5) + 2,
- 					strength: statObj.strength + Math.floor(statObj.strength * 0.12) + 2
- 				}
- 			},
+            "Zamorak brew": (statObj) => {
+                return {
+                    ...statObj,
+                    attack: statObj.attack + Math.floor(statObj.attack / 5) + 2,
+                    strength: statObj.strength + Math.floor(statObj.strength * 0.12) + 2
+                }
+            },
 
- 			"Ranging": (statObj) => {
- 				return {
- 					...statObj,
- 					ranged: statObj.ranged + Math.floor(statObj.ranged / 10) + 4
- 				}
- 			},
+            "Ranging": (statObj) => {
+                return {
+                    ...statObj,
+                    ranged: statObj.ranged + Math.floor(statObj.ranged / 10) + 4
+                }
+            },
 
- 			"Super ranging": (statObj) => {
- 				return {
- 					...statObj,
- 					ranged: statObj.ranged + Math.floor(statObj.ranged * 0.15) + 5
- 				}
- 			},
+            "Super ranging": (statObj) => {
+                return {
+                    ...statObj,
+                    ranged: statObj.ranged + Math.floor(statObj.ranged * 0.15) + 5
+                }
+            },
 
- 			"Magic": (statObj) => {
- 				return {
- 					...statObj,
- 					magic: statObj.magic + 4
- 				}
- 			},
+            "Magic": (statObj) => {
+                return {
+                    ...statObj,
+                    magic: statObj.magic + 4
+                }
+            },
 
- 			"Super magic": (statObj) => {
- 				return {
- 					...statObj,
- 					magic: statObj.magic + Math.floor(statObj.magic * 0.15) + 5
- 				} 
- 			},
+            "Super magic": (statObj) => {
+                return {
+                    ...statObj,
+                    magic: statObj.magic + Math.floor(statObj.magic * 0.15) + 5
+                }
+            },
 
- 			"Imbued heart": (statObj) => {
- 				return {
- 					...statObj,
- 					magic: statObj.magic + Math.floor(statObj.magic / 10) + 1
- 				}
- 			},
+            "Imbued heart": (statObj) => {
+                return {
+                    ...statObj,
+                    magic: statObj.magic + Math.floor(statObj.magic / 10) + 1
+                }
+            },
 
- 			"Overload (+)": (statObj) => {
- 				var boostObj = {...statObj};
- 				['attack', 'strength', 'magic', 'ranged', 'defence'].forEach((stat)=>{
- 					boostObj[stat] = boostObj[stat] + Math.floor(boostObj[stat] * 0.16) + 6;
- 				});
- 				return boostObj;
- 			}
- 		}
- 	}
+            "Super combat": (statObj) => {
+                var boostObj = { ...statObj };
+                ['attack', 'strength', 'defence'].forEach((stat) => {
+                    boostObj[stat] = boostObj[stat] + Math.floor(boostObj[stat] * 0.15) + 5;
+                });
+                return boostObj;
+            },
 
- 	boostList(){
- 		return boosts;
- 	}
+            "Overload (+)": (statObj) => {
+                var boostObj = { ...statObj };
+                ['attack', 'strength', 'magic', 'ranged', 'defence'].forEach((stat) => {
+                    boostObj[stat] = boostObj[stat] + Math.floor(boostObj[stat] * 0.16) + 6;
+                });
+                return boostObj;
+            }
+        }
+    }
 
- 	consolidateBoosts(boostedStatsList){
- 		var maxBoosts = {}
- 		stats.forEach((stat) => {
- 			boostedStatsList.forEach((boostObj) => {
- 				if(!(stat in maxBoosts) || boostObj[stat] > maxBoosts[stat]){
- 					maxBoosts[stat] = boostObj[stat]
- 				}
- 			})
- 		})
- 		return maxBoosts
- 	}
+    boostList() {
+        return boosts;
+    }
 
- 	boostStats(stats, boostList){
- 		var boostedStatsList = boostList.map((boost) => {
- 			return this.potionEffects[boost](stats)
- 		})
- 		boostedStatsList.push({...stats})
- 		return this.consolidateBoosts(boostedStatsList)
- 	}
+    consolidateBoosts(boostedStatsList) {
+        var maxBoosts = {}
+        stats.forEach((stat) => {
+            boostedStatsList.forEach((boostObj) => {
+                if (!(stat in maxBoosts) || boostObj[stat] > maxBoosts[stat]) {
+                    maxBoosts[stat] = boostObj[stat]
+                }
+            })
+        })
+        return maxBoosts
+    }
 
- }
+    boostStats(stats, boostList) {
+        var boostedStatsList = boostList.map((boost) => {
+            return this.potionEffects[boost](stats)
+        })
+        boostedStatsList.push({ ...stats })
+        return this.consolidateBoosts(boostedStatsList)
+    }
+
+}
