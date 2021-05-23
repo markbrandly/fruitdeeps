@@ -47,9 +47,9 @@ export class MaxHit {
         if (this.flags.includes("Zulrah")) {
             return 0;
         }
-        if (this.flags.includes("Guardians") && !player.equipment.weapon.name.includes("pickaxe")) {
-            return 0;
-        }
+        // if (this.flags.includes("Guardians") && !player.equipment.weapon.name.includes("pickaxe")) {
+        //     return 0;
+        // }
 
         //Start with visible stats
         var effectiveStr = player.boostedStats.strength

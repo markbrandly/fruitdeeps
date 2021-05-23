@@ -4,18 +4,23 @@ import { Accuracy } from "./Accuracy.js";
 import { AttackSpeed } from "./AttackSpeed.js";
 import { SpecialWeapons } from "./SpecialWeapons.js";
 import { SpecialAttacks } from "./SpecialAttacks.js";
-import { HitDistribution } from "./HitDistribution.js";
+import { HitFreqStore } from "./HitFreqStore.js";
 import Player from "../Player.js";
 
 import { Overhit } from "./overhit/Overhit.js";
 
-const pickSpec = (weapon) => {
-    switch (weapon) {
-        case "Dragon claws":
-            return "Slice and Dice";
-    }
-    return null
-}
+// const pickSpec = (weapon) => {
+//     switch (weapon) {
+//         case "Dragon claws":
+//             return "Slice and Dice";
+//         case "Dragon dagger (Unpoisoned)":
+//         case "Dragon dagger (Poison)":
+//         case "Dragon dagger (Poison+)":
+//         case "Dragon dagger (Poison++)":
+//             return "Puncture";
+//     }
+//     return null
+// }
 
 export class Dps {
     constructor(stateObj) {
@@ -35,9 +40,66 @@ export class Dps {
             overhit2: 0,
             hitpoints: this.state.monster.stats.hitpoints,
             specName: null,
-            specCalcs: null
+            specCalcs: null,
+            eHealing: 0,
+            ePrayer: 0,
+            eDefReduction: 0,
         }
 
+    }
+
+    pickSpec(weapon) {
+        switch (weapon) {
+            case "Dragon claws":
+                return "Slice and Dice";
+
+            case "Dragon dagger (Unpoisoned)":
+            case "Dragon dagger (Poison)":
+            case "Dragon dagger (Poison+)":
+            case "Dragon dagger (Poison++)":
+                return "Puncture";
+
+            case "Dark bow":
+            case "Dark bow (Yellow)":
+            case "Dark bow (Blue)":
+            case "Dark bow (White)":
+            case "Dark bow (Green)":
+                return this.state.player.equipment.ammo.name.includes("Dragon") ? "Descent of Dragons" : "Descent of Darkness";
+            case "Armadyl crossbow":
+                return "Armadyl eye";
+
+            case "Magic shortbow":
+            case "Magic shortbow (i)":
+                return "Snapshot"
+
+            case "Magic longbow":
+            case "Magic comp bow":
+                return "Powershot"
+
+            case "Armadyl godsword":
+            case "Armadyl godsword (or)":
+                return "The Judgement"
+
+            case "Saradomin godsword":
+            case "Saradomin godsword (or)":
+                return "Healing Blade"
+
+            case "Bandos godsword":
+            case "Bandos godsword (or)":
+                return "Warstrike"
+
+            case "Crystal halberd":
+                return "Sweep";
+            case "Dragon warhammer":
+                return "Smash";
+
+                // case "Volatile nightmare staff":
+                //     return "Immolate"
+        }
+        if (weapon.includes("Toxic blowpipe")) {
+            return "Toxic Siphon"
+        }
+        return null
     }
 
     setSpecName(name) {
@@ -80,19 +142,19 @@ export class Dps {
         this.calcs.maxHit = max.output()
 
         this.calcs.maxList = [this.calcs.maxHit]
-        if (this.calcs.flags.includes("Dark bow")) {
-            this.calcs.maxList.push(this.calcs.maxHit)
-        } else if (this.calcs.flags.includes("Scythe of vitur")) {
-            this.calcs.maxList.push(Math.trunc(this.calcs.maxHit / 2))
-            this.calcs.maxList.push(Math.trunc(this.calcs.maxHit / 4));
-        }
+        // if (this.calcs.flags.includes("Dark bow")) {
+        //     this.calcs.maxList.push(this.calcs.maxHit)
+        // } else if (this.calcs.flags.includes("Scythe of vitur")) {
+        //     this.calcs.maxList.push(Math.trunc(this.calcs.maxHit / 2))
+        //     this.calcs.maxList.push(Math.trunc(this.calcs.maxHit / 4));
+        // }
 
-        let maxHit = 0;
-        for (var i = 0; i < this.calcs.maxList.length; i++) {
-            maxHit += this.calcs.maxList[i]
-        }
+        // let maxHit = 0;
+        // for (var i = 0; i < this.calcs.maxList.length; i++) {
+        //     maxHit += this.calcs.maxList[i]
+        // }
 
-        this.calcs.maxHit = maxHit
+        // this.calcs.maxHit = maxHit
     }
 
     setAccuracy() {
@@ -119,34 +181,63 @@ export class Dps {
         const max = this.calcs.maxHit
         const hp = this.state.monster.stats.hitpoints;
 
-        let hitDistList = []
+        let hitStore = new HitFreqStore();
 
-        //Initiate an array of Hit distributions from an array of max hits
-        for (var i = 0; i < this.calcs.maxList.length; i++) {
-            hitDistList.push(HitDistribution(this.calcs.maxList[i], acc));
+        // let hitList = []
+
+        // hitList.push({ dmg: [0], p: 1 - acc })
+        hitStore.store([0], 1 - acc);
+
+        for (var dmg = 0; dmg <= max; dmg++) {
+            // hitList.push({ dmg: [dmg], p: acc / (max + 1) })
+            hitStore.store([dmg], acc / (max + 1))
         }
 
-        this.calcs.hitDistList = hitDistList;
+        this.calcs.hitStore = hitStore
+
 
         this.applySpecials();
+        hitStore = this.calcs.hitStore
 
-        hitDistList = this.calcs.hitDistList;
+        let hitList = hitStore.getFreqs();
+
+        // hitDistList = this.calcs.hitDistList;
 
         //Combine Hit distributions into one
-        let hitDist = [1]
-        hitDistList.forEach((dist) => {
-            let newDist = Array(dist.length + hitDist.length - 1).fill(0);
-            for (var i = 0; i < dist.length; i++) {
-                for (var j = 0; j < hitDist.length; j++) {
-                    newDist[i + j] += dist[i] * hitDist[j];
-                }
-            }
-            hitDist = [...newDist];
-        })
+        // let hitDist = [1]
+        // hitDistList.forEach((dist) => {
+        //     let newDist = Array(dist.length + hitDist.length - 1).fill(0);
+        //     for (var i = 0; i < dist.length; i++) {
+        //         for (var j = 0; j < hitDist.length; j++) {
+        //             newDist[i + j] += dist[i] * hitDist[j];
+        //         }
+        //     }
+        //     hitDist = [...newDist];
+        // })
 
-        let maxHit = 0;
-        for (var i = 0; i < this.calcs.maxList.length; i++) {
-            maxHit += this.calcs.maxList[i]
+
+
+
+
+        let hitDist = [];
+        for (let index = 0; index < hitList.length; index++) {
+            let hit = hitList[index]
+            let sum = 0;
+            // console.log(hit)
+            for (let hitNum = 0; hitNum < hit.dmg.length; hitNum++) {
+                sum += hit.dmg[hitNum];
+            }
+            if (hitDist[sum] === undefined) {
+                hitDist[sum] = hit.p
+            } else {
+                hitDist[sum] += hit.p
+            }
+        }
+
+        for (let hit = 0; hit < hitDist.length; hit++) {
+            if (hitDist[hit] === undefined) {
+                hitDist[hit] = 0;
+            }
         }
 
         let newDist = hitDist
@@ -161,8 +252,14 @@ export class Dps {
             }
         }
 
-        this.calcs.npcHp = hp;
+        let maxHit = 0;
+        for (var i = 0; i < this.calcs.maxList.length; i++) {
+            maxHit += this.calcs.maxList[i]
+        }
+
         this.calcs.maxHit = maxHit
+
+        this.calcs.npcHp = hp;
 
         this.calcs.hitDist = newDist;
 
@@ -203,6 +300,13 @@ export class Dps {
 
         if (this.calcs.specName !== null) {
             this.calcs = specialAttacks.applySpec(this.calcs.specName)
+        }
+
+
+        if (this.calcs.flags.includes("Scythe of vitur")) {
+            this.calcs = specs.scythe()
+        } else if (this.calcs.flags.includes("Dark bow")) {
+            this.calcs = specs.darkbow();
         }
 
 
@@ -262,7 +366,7 @@ export class Dps {
 
     output() {
         const weapon = this.state.player.equipment.weapon.name
-        const spec = pickSpec(weapon);
+        const spec = this.pickSpec(weapon);
         this.setVertex();
         this.setFlags();
         this.setMaxHit();

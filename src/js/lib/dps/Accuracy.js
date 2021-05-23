@@ -19,9 +19,9 @@ export class Accuracy {
 
     compareRolls(atk, def) {
         if (atk > def) {
-            return Math.max(0, Math.min(1, 1 - (def + 1) / (2 * atk)))
+            return Math.max(0, Math.min(1, 1 - (def + 2) / (2 * (atk + 1))))
         } else {
-            return Math.max(0, Math.min(1, (atk - 1) / (2 * def)))
+            return Math.max(0, Math.min(1, atk / (2 * (def + 1))))
         }
     }
 
@@ -187,22 +187,21 @@ export class Accuracy {
         var effectiveMagic = player.boostedStats.magic;
         effectiveMagic = Math.floor(effectiveMagic * this.prayerModifiers.magic)
 
-        if (attackType == "Magic" && attackStyle == "Accurate") {
-            effectiveMagic += 3
-        } else if (attackType == "Magic" && attackStyle == "Long Ranged") {
-            effectiveMagic += 1
-        }
-        effectiveMagic += 8
-
         if (this.flags.includes("Elite void mage") || this.flags.includes("Void mage")) {
             effectiveMagic = Math.floor(effectiveMagic * 29 / 20)
         }
 
+        if (attackType == "Magic" && attackStyle == "Accurate") {
+            effectiveMagic += 2
+        }
+        effectiveMagic += 9
+
+
         const playerBonus = player.bonuses[3] //Magic attack
 
-        if (this.flags.includes("Verzik P1") || this.flags.includes("Ice demon")) {
-            npcRoll = this.generalFormula(monster.stats.def + 9, npcBonus);
-        }
+        // if (this.flags.includes("Verzik P1") || this.flags.includes("Ice demon")) {
+        //     npcRoll = this.generalFormula(monster.stats.def + 9, npcBonus);
+        // }
         var playerRoll = this.generalFormula(effectiveMagic, playerBonus)
 
         //apply black mask/salve bonus
@@ -265,6 +264,9 @@ export class Accuracy {
         } else if (this.vertex == "Ranged") {
             return this.generalFormula(monster.stats.def + 9, monster.stats.drange)
         } else if (this.vertex == "Magic") {
+            if (this.flags.includes("Verzik P1") || this.flags.includes("Ice demon") || this.flags.includes("Verzik")) {
+                return this.generalFormula(monster.stats.def + 9, monster.stats.dmagic)
+            }
             return this.generalFormula(monster.stats.mage + 9, monster.stats.dmagic)
         } else { return 0 }
     }

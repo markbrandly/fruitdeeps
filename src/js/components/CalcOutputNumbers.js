@@ -46,6 +46,7 @@ export class CalcOutputNumbers extends Component {
         this.attack = this.attack.bind(this)
         this.damage = this.damage.bind(this)
         this.accuracy = this.accuracy.bind(this)
+        this.special = this.special.bind(this)
         this.dps = this.dps.bind(this)
     }
 
@@ -240,6 +241,24 @@ export class CalcOutputNumbers extends Component {
         return <OutputTable name="Time to kill" rows={rows} />
     }
 
+    special() {
+        let calcs = this.props.calcs
+        if (!(calcs.eHealing > 0 || calcs.eDefReduction > 0 || calcs.ePrayer > 0)) {
+            return null
+        }
+        return (
+            <div>
+                <span class='color-grey'>Special</span>
+                <table class='bonus-table'>
+                   {calcs.eHealing > 0 && <tr><td>Expected healing</td><td>{calcs.eHealing.toFixed(3)}</td></tr>}
+                  {(calcs.ePrayer > 0) && <tr><td>Expected prayer regeneration</td><td>{calcs.ePrayer.toFixed(3)}</td></tr>}
+                   {(calcs.eDefReduction > 0) && <tr><td>Expected def reduction</td><td>{calcs.eDefReduction.toFixed(3)}</td></tr>}
+
+                </table>
+            </div>
+        )
+    }
+
     render() {
         return (
             <div class="flex-container flex-child">
@@ -252,6 +271,7 @@ export class CalcOutputNumbers extends Component {
                     <div class='highlight-section flex-container-vertical'>
                         {this.dps()}
                         {this.props.spec || this.ttk()}
+                        {this.special()}
                     </div>
                 </div>
             </div>

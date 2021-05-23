@@ -34,7 +34,8 @@ export class CalcOutput extends Component {
 
 
     render() {
-        const calcs = this.state.spec ? this.props.calcs.specCalcs : this.props.calcs
+        let specMode = this.state.spec && this.props.calcs.specCalcs !== null
+        const calcs = specMode ? this.props.calcs.specCalcs : this.props.calcs
         const hitDist = calcs.hitDist
         const data = hitDist.map((likelihood, dmg) => {
             return {
@@ -110,9 +111,6 @@ export class CalcOutput extends Component {
                               <YAxis stroke="#ddd" tickFormatter={toPercent} type="number" />
                               <Tooltip className="highlight-section" fill="#666"/>
                               <Bar dataKey="likelihood" fill="#9eff74" tickFormatter={toPercent} isAnimationActive={false} />
-                              <ReferenceLine x={Math.trunc(calcs.eDmg)} stroke="#ff8274" style={{strokeDasharray: "15,10"}}>
-                                <Label value="" angle="-90" dx={-14} dy={18} position="insideTop"  fill="#ff8274" style={{fontFamily: "Roboto Slab", fontSize:"0.75em"}}/>
-                                </ReferenceLine>
                             </BarChart>
                           </ResponsiveContainer>
                     </div>

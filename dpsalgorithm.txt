@@ -15,6 +15,10 @@ Stuff to do before release:
 
 		two options in the auto search menu bug
 
+		guthans
+		blood fury
+		blood spells
+
 	UI stuff:
 
 		dwh + beegs on npc defence
@@ -37,49 +41,53 @@ Questions for the calc to answer:
 
 special attacks to incl:
 
-	d claws
-			dps
-			hit distribution
-			accuracy
-			
-	dds
-	bgs
-	dwh
-	msb
-	blowy p
+
+	done:
+		dds
+		d claw
+		d bow
+		acb
+		msb
+		mlb / mcb
+		ags
+		c hally
+		blowy p
+		sgs
+		bgs
+		dwh
+		
+	to do:
+		dawnbringer
+		volatile nightmare staff
+
+
+		expected defence reduction
+			bone dagger
 
 
 
-	c hally
-	d bow
 
-	Abby dagger
-	abyssal whip
-	Darklight / arclight
-
-	dlong
-	d mace
-	d sword
-
-	ags
-
-	sgs
-	ss
-	sbs
-	zgs
-	g hammer
-	barrelchest
-	bone dagger
-
-	ballista
-	acb
-	dcb
-	dcb the other one
-
-	mlb / mcb
-
-	dthrown
+		expected healing:
 
 
-	dawnbringer
-	nightmare staves
+			eldritch staff
+
+
+		bad specs:
+			Abby dagger
+			abyssal whip
+			Darklight / arclight
+			dlong
+			d mace
+			d sword
+			ss
+			sbs
+			zgs
+			g hammer
+			barrelchest
+			ballista
+			dcb
+			dcb the other one
+			dthrown
+
+

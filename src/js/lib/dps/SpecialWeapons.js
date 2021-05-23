@@ -1,3 +1,5 @@
+import { HitFreqStore } from "./HitFreqStore.js";
+
 function pickaxeToLevel(pickName) {
     switch (pickName) {
         case "3rd age pickaxe":
@@ -45,7 +47,6 @@ export class SpecialWeapons {
     keris() {
 
         const dps = this.calcs
-        const speed = dps.attackSpeed
         const acc = this.calcs.accuracy
         const baseMax = dps.maxHit
         const newMax = Math.floor(dps.maxHit * 4 / 3)
@@ -53,21 +54,25 @@ export class SpecialWeapons {
 
 
 
-        let kerisDist = Array(specMax + 1).fill(0);
+        // let kerisHitList = [{ dmg: [0], p: 1 - acc }]
+        let kerisHitStore = new HitFreqStore();
+        kerisHitStore.store([0], 1 - acc)
 
-        kerisDist[0] += 1 - acc
 
         for (let h1 = 0; h1 <= newMax; h1 += 1) {
-            kerisDist[h1] += acc * 50 / 51 / (newMax + 1)
+            // kerisHitList.push({ dmg: [h1], p: acc * 50 / 51 / (newMax + 1) })
+            kerisHitStore.store([h1], acc * 50 / 51 / (newMax + 1))
         }
 
         for (let h2 = 0; h2 <= baseMax; h2 += 1) {
-            kerisDist[h2 * 3] += acc / 51 / (baseMax + 1)
+            // kerisHitList.push({ dmg: [h2 * 3], p: acc / 51 / (baseMax + 1) });
+            kerisHitStore.store([h2 * 3], acc / 51 / (baseMax + 1))
         }
 
+        dps.maxList[newMax]
         dps.maxHit = newMax;
         dps.maxHitSpec = specMax;
-        dps.hitDistList[0] = kerisDist;
+        dps.hitStore = kerisHitStore;
 
         return dps
     }
@@ -77,18 +82,88 @@ export class SpecialWeapons {
         const dps = this.calcs
         const currentHp = this.state.player.misc.currentHitpoints
         const baseHp = this.state.player.stats.hitpoints
-
+        const acc = this.calcs.accuracy
         const hpMult = Math.max(1, 1 + (baseHp - currentHp) * baseHp / 10000)
+        const oldMax = dps.maxHit
         const max = Math.floor(dps.maxHit * hpMult)
-        const oldDist = dps.hitDistList[0]
-        const newDist = Array(max + 1).fill(0);
 
-        for (let dmg = 0; dmg < oldDist.length; dmg++) {
-            newDist[Math.trunc(dmg * hpMult)] = oldDist[dmg]
+
+        let dharokStore = new HitFreqStore();
+        // const dharokList = [{ dmg: [0], p: 1 - acc }]
+        dharokStore.store([0], 1 - acc)
+
+        for (let dmg = 0; dmg <= oldMax; dmg++) {
+            // dharokList.push({ dmg: [Math.trunc(dmg * hpMult)], p: acc / (oldMax + 1) })
+            dharokStore.store([Math.trunc(dmg * hpMult)], acc / (oldMax + 1))
         }
 
-        dps.maxList[0] = max
-        dps.hitDistList[0] = newDist;
+        dps.maxList = [max]
+        dps.hitStore = dharokStore
+        dps.maxHit = max
+        return dps
+    }
+
+
+    darkbow() {
+        const dps = this.calcs
+        const acc = this.calcs.accuracy
+        const m1 = this.calcs.maxHit
+
+        let hitList = dps.hitStore.getFreqs();
+
+        let dbowHitStore = new HitFreqStore();
+
+        for (let i = 0; i < hitList.length; i++) {
+            for (let j = 0; j < hitList.length; j++) {
+                dbowHitStore.store([hitList[i].dmg[0], hitList[j].dmg[0]], hitList[i].p * hitList[j].p);
+            }
+        }
+
+        dps.hitStore = dbowHitStore;
+        dps.maxList = [m1, m1]
+        dps.maxHit = m1 + m1
+        return dps
+
+    }
+
+    scythe() {
+        const dps = this.calcs
+        const acc = this.calcs.accuracy
+        const m1 = this.calcs.maxHit
+
+
+        let m2 = Math.trunc(m1 / 2)
+        let m3 = Math.trunc(m1 / 4)
+
+        let scytheHitStore = new HitFreqStore();
+        // let scytheHitList = []
+
+        for (let hit1 = 0; hit1 <= m1; hit1++) {
+            let p1 = acc / (m1 + 1)
+            if (hit1 === 0) {
+                p1 += 1 - acc
+            }
+
+            for (let hit2 = 0; hit2 <= m2; hit2++) {
+                let p2 = acc / (m2 + 1)
+                if (hit2 === 0) {
+                    p2 += 1 - acc
+                }
+
+                for (let hit3 = 0; hit3 <= m3; hit3++) {
+                    let p3 = acc / (m3 + 1)
+                    if (hit3 === 0) {
+                        p3 += 1 - acc
+                    }
+                    scytheHitStore.store([hit1, hit2, hit3], p1 * p2 * p3)
+                }
+
+            }
+        }
+
+        dps.hitStore = scytheHitStore
+        dps.maxList = [m1, m2, m3]
+        dps.maxHit = m1 + m2 + m3
 
         return dps
     }
@@ -105,41 +180,38 @@ export class SpecialWeapons {
 
         dps.maxHitSpec = dps.maxHit + 1
 
-        const oldDist = dps.hitDistList[0]
-        const newDist = Array(specMax + 1).fill(0);
-
-        for (let dmg = 0; dmg < oldDist.length; dmg++) {
-            newDist[dmg] += (1 - specChance) * oldDist[dmg]
-        }
-
+        // const veracsHitList = [{ dmg: [0], p: 1 - (0.25 + 0.75 * acc) }]
+        let veracHitStore = new HitFreqStore();
+        veracHitStore.store([0], 1 - (0.25 + 0.75 * acc))
         for (let dmg = 0; dmg <= max; dmg++) {
-            newDist[dmg + 1] += specChance / (max + 1)
+            veracHitStore.store([dmg], 0.75 * acc / (max + 1))
+            veracHitStore.store([dmg + 1], 0.25 / (max + 1))
         }
 
         dps.rawAcc = acc
         dps.accuracy = specChance + (1 - specChance) * dps.accuracy
         dps.specAcc = dps.accuracy
-        dps.hitDistList[0] = newDist
-
+        dps.hitStore = veracHitStore
         return dps
     }
 
     //Karils set effect: 25% chance of 50% extra damage
     karils() {
         const dps = this.calcs
-
+        const acc = dps.accuracy
         const m1 = dps.maxHit
         const m2 = Math.floor(dps.maxHit / 2)
         const mSum = m1 + m2
 
-        const oldDist = dps.hitDistList[0];
-        const newDist = Array(mSum + 1).fill(0);
-        for (let dmg = 0; dmg < oldDist.length; dmg++) {
-            newDist[dmg] += oldDist[dmg] * 0.75;
-            newDist[Math.trunc(dmg * 3 / 2)] += oldDist[dmg] * 0.25
+        // let karilsHitList = [{ dmg: [0], p: 1 - acc }]
+        let karilsHitStore = new HitFreqStore();
+        karilsHitStore.store([0], 1 - acc)
+        for (let dmg = 0; dmg <= m1; dmg++) {
+            karilsHitStore.store([dmg], 0.75 * acc / (m1 + 1))
+            karilsHitStore.store([dmg, Math.trunc(dmg / 2)], 0.25 * acc / (m1 + 1))
         }
 
-        dps.hitDistList[0] = newDist;
+        dps.hitStore = karilsHitStore
         dps.maxList = [m1, m2];
         dps.maxHit = mSum
         return dps
@@ -154,16 +226,18 @@ export class SpecialWeapons {
         const acc = dps.accuracy
 
 
-        const newDist = Array(m2 + 1).fill(0);
-        newDist[0] = 1 - acc
+        // const ahrimsHitList = [{ dmg: [0], p: 1 - acc }]
+        let ahrimsHitStore = new HitFreqStore();
+        ahrimsHitStore.store([0], 1 - acc)
         for (let dmg = 0; dmg <= m1; dmg++) {
-            newDist[dmg] += acc * 0.75 / (m1 + 1);
+            ahrimsHitStore.store([dmg], 0.75 * acc / (m1 + 1))
+
         }
         for (let dmg = 0; dmg <= m2; dmg++) {
-            newDist[dmg] += acc * 0.25 / (m2 + 1);
+            ahrimsHitStore.store([dmg], 0.25 * acc / (m2 + 1))
         }
 
-        dps.hitDistList[0] = newDist;
+        dps.hitStore = ahrimsHitStore
         dps.maxHitSpec = m2
         return dps
     }
@@ -188,17 +262,22 @@ export class SpecialWeapons {
         specChance = this.calcs.flags.includes("Kandarin hard diary") ? specChance * 11 / 10 : specChance
 
 
-        const newDist = Array(m2 + 1).fill(0);
-        newDist[0] += (1 - specChance) * (1 - acc)
+        let boltHitStore = new HitFreqStore();
+        boltHitStore.store([0], (1 - specChance) * (1 - acc))
+        // const boltHitList = [{ dmg: [0], p: (1 - specChance) * (1 - acc) }]
+        // const newDist = Array(m2 + 1).fill(0);
+        // newDist[0] += (1 - specChance) * (1 - acc)
 
         for (let dmg = 0; dmg <= m1; dmg++) {
-            newDist[dmg] += (1 - specChance) * acc / (m1 + 1)
-            newDist[dmg + boost] += specChance / (m1 + 1)
+            // boltHitList.push({ dmg: [dmg], p: (1 - specChance) * acc / (m1 + 1) })
+            // boltHitList.push({ dmg: [dmg + boost], p: specChance / (m1 + 1) })
+            boltHitStore.store([dmg], (1 - specChance) * acc / (m1 + 1))
+            boltHitStore.store([dmg + boost], specChance / (m1 + 1))
         }
 
 
 
-        dps.hitDistList[0] = newDist
+        dps.hitStore = boltHitStore
         //max hit of the spec
         dps.maxHitSpec = m2
         dps.rawAcc = acc
@@ -210,6 +289,7 @@ export class SpecialWeapons {
 
     rubyBolts() {
         const dps = this.calcs
+        const acc = dps.accuracy
         const hp = this.state.monster.stats.hitpoints
         let specDmg = Math.trunc(hp / 5)
         if (dps.flags.includes("Corporeal beast")) {
@@ -219,17 +299,18 @@ export class SpecialWeapons {
         const max = dps.maxHit
         const specChance = this.calcs.flags.includes("Kandarin hard diary") ? 0.066 : 0.06
 
-        const oldDist = dps.hitDistList[0];
-        const newDist = Array(Math.max(specDmg, max) + 1).fill(0);
-
-        for (let dmg = 0; dmg < oldDist.length; dmg++) {
-            newDist[dmg] += (1 - specChance) * oldDist[dmg];
+        const rubiesHitStore = new HitFreqStore();
+        rubiesHitStore.store([0], (1 - specChance) * (1 - acc));
+        // let rubiesHitList = [{ dmg: [0], p: (1 - specChance) * (1 - acc) }]
+        for (let dmg = 0; dmg <= max; dmg++) {
+            // rubiesHitList.push({ dmg: [dmg], p: (1 - specChance) * acc / (max + 1) })
+            rubiesHitStore.store([dmg], (1 - specChance) * acc / (max + 1))
         }
+        rubiesHitStore.store([specDmg], specChance)
 
-        newDist[specDmg] += specChance
 
         dps.specChance = specChance
-        dps.hitDistList[0] = newDist;
+        dps.hitStore = rubiesHitStore;
         dps.maxHitSpec = specDmg
         dps.specAcc = specChance + (1 - specChance) * dps.accuracy
         return dps
@@ -243,20 +324,26 @@ export class SpecialWeapons {
         const acc = dps.accuracy
         dps.specChance = specChance
 
-        const newDist = Array(Math.max(m1, m2) + 1).fill(0)
+        // const newDist = Array(Math.max(m1, m2) + 1).fill(0)
 
-        newDist[0] += (1 - acc) * (1 - specChance)
+        // newDist[0] += (1 - acc) * (1 - specChance)
+
+        // let diamondHitList = [{ dmg: [0], p: (1 - specChance) * (1 - acc) }]
+        const diamondHitStore = new HitFreqStore();
+        diamondHitStore.store([0], (1 - specChance) * (1 - acc))
 
         for (let dmg = 0; dmg <= m1; dmg++) {
-            newDist[dmg] += acc * (1 - specChance) / (m1 + 1)
+            // diamondHitList.push({ dmg: [dmg], p: acc * (1 - specChance) / (m1 + 1) })
+            diamondHitStore.store([dmg], acc * (1 - specChance) / (m1 + 1))
         }
 
         for (let dmg = 0; dmg <= m2; dmg++) {
-            newDist[dmg] += specChance / (m2 + 1)
+            // diamondHitList.push({ dmg: [dmg], p: specChance / (m2 + 1) })
+            diamondHitStore.store([dmg], specChance / (m2 + 1))
         }
 
 
-        dps.hitDistList[0] = newDist;
+        dps.hitStore = diamondHitStore
         dps.rawAcc = dps.accuracy
         dps.accuracy = specChance + (1 - specChance) * dps.accuracy
         dps.specAcc = dps.accuracy
@@ -273,14 +360,17 @@ export class SpecialWeapons {
         const m1 = dps.maxHit
         const m2 = m1 + boost;
 
-        const newDist = Array(m2 + 1).fill(0);
-        newDist[0] += (1 - acc)
+        // let dstoneHitList = [{ dmg: 0, p: 1 - acc }]
+        const dstoneHitStore = new HitFreqStore();
+        dstoneHitStore.store([0], 1 - acc)
         for (let dmg = 0; dmg <= m1; dmg++) {
-            newDist[dmg] += (1 - specChance) * acc / (m1 + 1)
-            newDist[dmg + boost] += specChance * acc / (m1 + 1)
+            // dstoneHitList.push({ dmg: [dmg], p: (1 - specChance) * acc / (m1 + 1) });
+            // dstoneHitList.push({ dmg: [dmg + boost], p: specChance * acc / (m1 + 1) });
+            dstoneHitStore.store([dmg], (1 - specChance) * acc / (m1 + 1));
+            dstoneHitStore.store([dmg + boost], specChance * acc / (m1 + 1))
         }
 
-        dps.hitDistList[0] = newDist;
+        dps.hitStore = dstoneHitStore;
         dps.maxHitSpec = m2;
 
         return dps;
@@ -294,19 +384,22 @@ export class SpecialWeapons {
         const m1 = dps.maxHit
         const m2 = Math.floor(dps.maxHit * 6 / 5)
 
-        const newDist = Array(Math.max(m1, m2) + 1).fill(0);
-
-        newDist[0] += 1 - acc
+        // let onyxHitList = [{ dmg: [0], p: 1 - acc }]
+        let onyxHitStore = new HitFreqStore();
+        onyxHitStore.store([0], 1 - acc);
 
         for (let dmg = 0; dmg <= m1; dmg++) {
-            newDist[dmg] += acc * (1 - specChance) / (m1 + 1)
+            // onyxHitList.push({ dmg: [dmg], p: acc * (1 - specChance) / (m1 + 1) })
+            onyxHitStore.store([dmg], acc * (1 - specChance) / (m1 + 1))
+
         }
 
         for (let dmg = 0; dmg <= m2; dmg++) {
-            newDist[dmg] += acc * specChance / (m2 + 1)
+            // onyxHitList.push({ dmg: [dmg], p: acc * specChance / (m2 + 1) });
+            onyxHitStore.store([dmg], acc * specChance / (m2 + 1))
         }
 
-        dps.hitDistList[0] = newDist
+        dps.hitStore = onyxHitStore
         dps.maxHitSpec = m2
 
         return dps
@@ -316,18 +409,17 @@ export class SpecialWeapons {
         const dps = this.calcs
         const m1 = dps.maxHit
         let rank = this.state.player.misc.baRank
-        if (dps.specName === "Slice and Dice") {
-            rank = rank * 4
-        }
         const m2 = m1 + rank
 
-        for (var i = 0; i < dps.hitDistList.length; i++) {
-            let dist = dps.hitDistList[i]
-            let newDist = Array(dist.length + rank).fill(0)
-            for (var dmg = 0; dmg < dist.length; dmg++) {
-                newDist[dmg + rank] = dist[dmg];
+        let hitList = dps.hitStore.getFreqs();
+
+        let barbHitStore = new HitFreqStore();
+        for (var i = 0; i < hitList.length; i++) {
+            let hit = { dmg: [], p: hitList[i].p }
+            for (let j = 0; j < hitList[i].dmg.length; j++) {
+                hit.dmg[j] = hitList[i].dmg[j] + rank
             }
-            dps.hitDistList[i] = newDist;
+            barbHitStore.store(hit.dmg, hit.p)
         }
 
         for (let hitNum = 0; hitNum < dps.maxList.length; hitNum++) {
@@ -338,24 +430,24 @@ export class SpecialWeapons {
             dps.maxHitSpec += this.state.player.misc.baRank;
         }
 
+        dps.hitStore = barbHitStore;
+
         return dps;
     }
 
     corporealBeast() {
         const dps = this.calcs;
-        const oldDistList = dps.hitDistList
 
-        const newDistList = []
-        for (var i = 0; i < oldDistList.length; i++) {
-            let oldDist = oldDistList[i]
-            let newDist = Array(Math.trunc((oldDist.length + 1) / 2)).fill(0)
-            for (let j = 0; j < oldDist.length; j++) {
-                newDist[Math.trunc(j / 2)] += oldDist[j]
+        let hitList = dps.hitStore.getFreqs()
+        const corpHitStore = new HitFreqStore();
+        for (var i = 0; i < hitList.length; i++) {
+            let hit = { dmg: [], p: hitList[i].p }
+            for (let j = 0; j < hitList[i].dmg.length; j++) {
+                hit.dmg[j] = Math.trunc(hitList[i].dmg[j] / 2);
             }
-            console.log(oldDist, newDist)
-            newDistList.push(newDist);
+            corpHitStore.store(hit.dmg, hit.p)
         }
-        dps.hitDistList = newDistList;
+        dps.hitStore = corpHitStore
         for (let i = 0; i < dps.maxList.length; i++) {
             dps.maxList[i] = Math.trunc(dps.maxList[i] / 2)
         }
@@ -365,27 +457,52 @@ export class SpecialWeapons {
 
     zulrah() {
         const dps = this.calcs;
-        const oldDistList = dps.hitDistList
+        const dmgCap = 50;
+        const oldDistList = dps.hitStore.getFreqs()
+        let capHitStore = new HitFreqStore();
 
-        const newDistList = [];
-
-        for (var i = 0; i < oldDistList.length; i++) {
-            let oldDist = oldDistList[i]
-            let newDist = Array(Math.min(oldDist.length, 51)).fill(0)
-
-            for (let dmg = 0; dmg < oldDist.length; dmg++) {
-                if (dmg > 50) {
-                    for (let roll = 0; roll <= 5; roll++) {
-                        newDist[45 + roll] += oldDist[dmg] / 6
-                    }
-                } else {
-                    newDist[dmg] += oldDist[dmg]
-                }
+        for (let i = 0; i < oldDistList.length; i++) {
+            let hitItem = oldDistList[i];
+            for (let dmgIndex = 0; dmgIndex < hitItem.dmg.length; dmgIndex++) {
+                hitItem.dmg[dmgIndex] = Math.min(dmgCap + 1, hitItem.dmg[dmgIndex])
             }
-            newDistList.push(newDist);
+            capHitStore.store(hitItem.dmg, hitItem.p);
         }
 
-        dps.hitDistList = newDistList;
+        let hitList = capHitStore.getFreqs();
+        let zulrahHitStore = new HitFreqStore();
+
+
+        for (let i = 0; i < hitList.length; i++) {
+            let toAppend = [hitList[i]]
+
+            for (let dmgIndex = 0; dmgIndex < hitList[i].dmg.length; dmgIndex++) {
+                let newAppend = []
+                for (let appendIndex = 0; appendIndex < toAppend.length; appendIndex++) {
+                    if (toAppend[appendIndex].dmg[dmgIndex] > dmgCap) {
+                        for (let dmg = 45; dmg <= 50; dmg++) {
+                            let hitObj = { dmg: [...toAppend[appendIndex].dmg], p: toAppend[appendIndex].p }
+                            hitObj.dmg[dmgIndex] = dmg;
+                            hitObj.p = hitObj.p / 6
+                            newAppend.push(hitObj)
+                        }
+                    } else {
+                        newAppend.push(toAppend[appendIndex]);
+                    }
+                }
+                toAppend = newAppend
+            }
+
+            for (let j = 0; j < toAppend.length; j++) {
+                zulrahHitStore.store(toAppend[j].dmg, toAppend[j].p);
+            }
+
+        }
+
+        // const newDistList = [];
+
+
+        dps.hitStore = zulrahHitStore;
 
         for (let i = 0; i < dps.maxList.length; i++) {
             dps.maxList[i] = Math.min(50, dps.maxList[i])
@@ -401,22 +518,34 @@ export class SpecialWeapons {
     guardians() {
         const dps = this.calcs;
         const pick = pickaxeToLevel(this.state.player.equipment.weapon.name)
-        const boost = (50 + pick + this.state.player.misc.mining) / 150;
-        console.log('boost', boost)
-        const oldDistList = dps.hitDistList
-        const newDistList = [];
+        const guardiansHitStore = new HitFreqStore();
 
-        for (var i = 0; i < oldDistList.length; i++) {
-            let oldDist = oldDistList[i]
-            let newDist = Array(Math.trunc((oldDist.length - 1) * boost) + 1).fill(0)
-
-            for (let dmg = 0; dmg < oldDist.length; dmg++) {
-                newDist[Math.trunc(dmg * boost)] += oldDist[dmg];
+        if (pick === 0) {
+            dps.maxHit = 0;
+            for (var i = 0; i < dps.maxList.length; i++) {
+                dps.maxList[i] = 0;
             }
-            newDistList.push(newDist);
+            guardiansHitStore.store([0], 1);
+            dps.hitStore = guardiansHitStore;
+            return dps;
         }
 
-        dps.hitDistList = newDistList;
+        const boost = (50 + pick + this.state.player.misc.mining) / 150;
+        console.log('boost', boost)
+
+
+        const hitDist = dps.hitStore.getFreqs()
+
+
+        for (var i = 0; i < hitDist.length; i++) {
+
+            for (let dmg = 0; dmg < hitDist[i].dmg.length; dmg++) {
+                hitDist[i].dmg[dmg] = Math.trunc(hitDist[i].dmg[dmg] * boost)
+            }
+            guardiansHitStore.store(hitDist[i].dmg, hitDist[i].p)
+        }
+
+        dps.hitStore = guardiansHitStore
 
         for (let i = 0; i < dps.maxList.length; i++) {
             dps.maxList[i] = Math.trunc(dps.maxList[i] * boost);
@@ -437,23 +566,51 @@ export class SpecialWeapons {
             capMax = 3;
         }
 
+        let hitStore = dps.hitStore
+        let capHitStore = new HitFreqStore();
+
+        let hitList = hitStore.getFreqs();
+        for (let i = 0; i < hitList.length; i++) {
+            let dmg = hitList[i].dmg
+            let cappedDmg = []
+            for (let j = 0; j < dmg.length; j++) {
+                cappedDmg.push(Math.min(dmg[j], capMax))
+            }
+            capHitStore.store(cappedDmg, hitList[i].p)
+        }
+
+        hitList = capHitStore.getFreqs();
+        console.log(hitList)
+        let verzikHitStore = new HitFreqStore();
+
         if (this.state.player.equipment.weapon.name !== "Dawnbringer") {
-            for (let i = 0; i < oldDistList.length; i++) {
-                let oldDist = oldDistList[i]
-                let newDist = Array(Math.min(capMax + 1, oldDist.length)).fill(0);
-                for (let hit = 0; hit < oldDist.length; hit++) {
-                    for (let capRoll = 0; capRoll <= capMax; capRoll++) {
-                        newDist[Math.min(capRoll, hit)] += oldDist[hit] / (capMax + 1)
+            for (let hitListIndex = 0; hitListIndex < hitList.length; hitListIndex++) {
+                let toAppend = [hitList[hitListIndex]]
+                for (let hitNum = 0; hitNum < hitList[hitListIndex].dmg.length; hitNum++) {
+                    let newAppend = []
+                    for (let appendIndex = 0; appendIndex < toAppend.length; appendIndex++) {
+                        let dmg = toAppend[appendIndex].dmg[hitNum]
+                        for (let verzikRoll = 0; verzikRoll <= Math.min(capMax, dmg); verzikRoll++) {
+                            let hitObj = { dmg: [...toAppend[appendIndex].dmg], p: toAppend[appendIndex].p }
+                            hitObj.dmg[hitNum] = verzikRoll;
+                            if (verzikRoll === dmg) {
+                                hitObj.p = hitObj.p / (capMax + 1) * (capMax - dmg + 1)
+                            } else {
+                                hitObj.p = hitObj.p / (capMax + 1);
+                            }
+                            newAppend.push(hitObj);
+                        }
                     }
+                    toAppend = newAppend;
                 }
-                newDistList.push(newDist)
+                for (let appendIndex = 0; appendIndex < toAppend.length; appendIndex++) {
+                    verzikHitStore.store(toAppend[appendIndex].dmg, toAppend[appendIndex].p)
+                }
             }
 
-            for (let maxIndex = 0; maxIndex < dps.maxList.length; maxIndex++) {
-                dps.maxList[maxIndex] = Math.min(dps.maxList[maxIndex], capMax);
-            }
-            dps.hitDistList = newDistList
+            dps.hitStore = verzikHitStore
         }
+
         return dps;
     }
 }
