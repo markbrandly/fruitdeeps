@@ -14,11 +14,7 @@ for (let i = 0; i < 2; i++) {
 
 
 function reducer(state = defaultState, action) {
-    let newState = { ...state }
-    var player = {}
-    if ("index" in action) {
-        player = new Player(newState.playerList[action.index])
-    }
+    const newState = { ...state }
     switch (action.type) {
         case "SET_PLAYER":
             newState.playerList = [...newState.playerList]
@@ -41,7 +37,7 @@ function reducer(state = defaultState, action) {
                 monster: action.monster
             }
 
-        case "MONSTER_SET_STAT":
+        case "MONSTER_SET_STAT": {
             const monster = { ...state.monster }
             let value = parseInt(action.value)
             if (action.stat === 'hitpoints' && value === 0) {
@@ -53,6 +49,7 @@ function reducer(state = defaultState, action) {
                 ...state,
                 monster: monster
             }
+        }
         default:
             return state
     }
