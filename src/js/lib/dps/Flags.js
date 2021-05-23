@@ -88,7 +88,9 @@ const flagDescriptions = {
     "Corporeal beast": "All hits are halved, except hits from spears, magic, or halberds on stab",
     "Barbarian Assault": "Each hit does extra damage according to the player's Attacker rank",
     "Verzik P1": "All hits, except those from Dawnbringer, are damage capped; magic defence uses defence level",
-    "Tekton": "Dragon warhammer and Bandos godsword will drain additional defence on misses"
+    "Verzik": "Magic defence uses defence level",
+    "Tekton": "Dragon warhammer and Bandos godsword will drain additional defence on misses",
+    "Maiden freeze": "When freezing Nylocas Matomenos, a special accuracy formula is used"
 }
 
 
@@ -521,12 +523,16 @@ export class Flags {
             flags.push("Guardians");
         }
 
-        if (this.state.monster.name === "Verzik Vitur" && this.state.monster.combat === 1040) {
-            flags.push("Verzik P1");
+        if (this.state.monster.name === "Verzik Vitur") {
+            flags.push(this.state.monster.combat === 1040 ? "Verzik P1" : "Verzik");
         }
 
         if (this.state.monster.name.includes("Tekton")) {
             flags.push("Tekton")
+        }
+
+        if (this.state.monster.name.includes("Nylocas Matomenos") && this.state.player.spell !== null && this.state.player.spell.includes("Ice")) {
+            flags.push("Maiden freeze")
         }
 
         return flags

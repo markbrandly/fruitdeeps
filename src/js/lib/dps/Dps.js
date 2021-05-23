@@ -168,6 +168,20 @@ export class Dps {
         if (this.calcs.flags.includes("Brimstone ring")) {
             this.calcs.accuracy = 0.75 * this.calcs.accuracy + 0.25 * acc.compareRolls(this.calcs.playerRoll, Math.ceil(this.calcs.npcRoll * 9 / 10))
         }
+
+
+        if (this.calcs.flags.includes("Maiden freeze")) {
+            let minRoll = acc.generalFormula(this.state.player.stats.magic + 9, 0)
+            let maxRoll = acc.generalFormula(this.state.player.stats.magic + 9, 140)
+            if (this.calcs.playerRoll >= maxRoll) {
+                this.calcs.accuracy = 1;
+            } else if (this.calcs.playerRoll < minRoll) {
+                this.calcs.accuracy = 0;
+            } else {
+                this.calcs.accuracy = (this.calcs.playerRoll - minRoll + 1) / (maxRoll - minRoll + 1)
+            }
+        }
+
         this.calcs.rawAcc = this.calcs.accuracy
     }
 

@@ -78,7 +78,7 @@ export class CalcOutput extends Component {
                         <button className={this.state.spec ? "selected" : ""} onClick={()=>this.setState({spec: true})}>{this.props.calcs.specCalcs.specName}</button>
                     </div>)
                 }            
-                <CalcOutputNumbers calcs={calcs} ttk={this.props.ttk} spec={this.state.spec}/>
+                <CalcOutputNumbers calcs={calcs} ttk={this.props.ttk} spec={specMode}/>
                 <div>
                     <div class="color-grey" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                         Hit Distribution {this.state.expand ? "" : " (dmg > 0)"}

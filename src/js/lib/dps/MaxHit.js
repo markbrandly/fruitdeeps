@@ -317,7 +317,7 @@ export class MaxHit {
             maxHit = Math.floor(maxHit * 11 / 10)
         }
 
-        if (this.flags.includes("Ice demon") && (spell.includes("Fire") || spell.includes("Flame"))) {
+        if (this.flags.includes("Ice demon") && spell !== null && (spell.includes("Fire") || spell.includes("Flame"))) {
             maxHit = Math.floor(maxHit * 3 / 2)
         }
         return maxHit
