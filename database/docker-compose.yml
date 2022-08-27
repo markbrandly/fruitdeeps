@@ -1,0 +1,12 @@
+version: "3"
+services:
+  docker-mysql:
+    image: mysql:8.0.11
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: rsitems
+    ports:
+      - 8083:3306
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/schema.sql

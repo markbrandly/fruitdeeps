@@ -1,7 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-database.js
-passwords.js
-database/docker-compose.yml
+.env
 
 
 # dependencies

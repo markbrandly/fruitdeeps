@@ -1,6 +1,6 @@
 {
   "private": true,
-  "//type": "module",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,6 +10,7 @@
   "dependencies": {
     "@zeit/next-workers": "^1.0.1-canary.1",
     "csv-parser": "^3.0.0",
+    "dotenv": "^16.0.1",
     "image-data-uri": "^2.0.1",
     "knex": "^2.2.0",
     "mysql": "^2.18.1",
