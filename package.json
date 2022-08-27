@@ -1,48 +1,31 @@
 {
-  "name": "dps-react",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "//type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.7.0",
-    "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-middleware": "^2.25.0",
-    "worker-loader": "^3.0.4",
-    "workerize-loader": "^1.3.0"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --dir ."
   },
   "dependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^4.2.2",
-    "cssnano": "^4.1.10",
-    "csv-parser": "^2.3.3",
-    "express": "^4.17.1",
-    "google-charts": "^2.0.0",
-    "html-loader": "^1.3.0",
-    "html-webpack-plugin": "^4.4.1",
+    "@zeit/next-workers": "^1.0.1-canary.1",
+    "csv-parser": "^3.0.0",
     "image-data-uri": "^2.0.1",
-    "mini-css-extract-plugin": "^1.6.0",
+    "knex": "^2.2.0",
     "mysql": "^2.18.1",
-    "postcss-loader": "^3.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-google-charts": "^3.0.15",
-    "react-redux": "^7.2.1",
-    "react-vis": "^1.11.7",
-    "recharts": "^1.8.5",
-    "redux": "^4.0.5",
-    "request": "^2.88.2",
-    "sass": "^1.26.10",
-    "sass-loader": "^10.0.2",
-    "style-loader": "^1.2.1"
+    "next": "latest",
+    "node-sass": "^7.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "recharts": "^2.1.9",
+    "worker-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-next": "12.2.5",
+    "sass": "^1.54.5",
+    "worker-plugin": "^5.0.1"
   }
 }

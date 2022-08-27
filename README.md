@@ -1,4 +1,1 @@
-#fruitdeeps
-https://fruitdeeps.app/
-
-Solves overhit combinatorics problems for Old School RuneScape
+This is a starter template for [Learn Next.js](https://nextjs.org/learn).
