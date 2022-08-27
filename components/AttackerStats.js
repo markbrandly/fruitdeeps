@@ -12,7 +12,7 @@ class StatPicker extends Component {
         return (
             <td>
 				<div className="stat-wrap">
-					<Image alt="" layout="fill" style={{width:"1em"}} src={this.props.imgSrc} />
+					<img style={{width:"1em"}} src={this.props.imgSrc} />
 					<span>{this.props.player.boostedStats[this.props.stat]}/</span>
 					<input className="input-invisible" type="number" min="0" max="99" value={this.props.player.stats[this.props.stat]} onChange={(e) => {
 						player.setStat(this.props.stat, e.target.value);
@@ -40,7 +40,7 @@ class HpPicker extends Component {
         return (
             <td colSpan="2">
 				<div className="stat-wrap">
-					<Image layout='fill' alt="" style={{width:"1em"}} src={this.props.imgSrc} />
+					<img style={{width:"1em"}} src={this.props.imgSrc} />
 					<input className="input-invisible" type="number" min="0" max="99" value={this.props.player.misc.currentHitpoints} onChange={(e) => {this.setMisc('currentHitpoints', e.target.value)}} />
 					<pre> / </pre>
 					<input className="input-invisible" type="number" min="10" max="99" value={this.props.player.stats.hitpoints} onChange={(e) => {
@@ -114,7 +114,7 @@ export class AttackerStats extends Component {
 					</tr>
 				</table>
 				<div className="center stat-wrap">
-					<Image layout='fill' alt="" src="/assets/svg/combat_icon.svg" />
+					<img src="/assets/svg/combat_icon.svg" />
 					{this.props.player.combat}
 				</div>
 				<div>

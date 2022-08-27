@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MonsterSelect } from './MonsterSelect.js';
 import { DefenderVersionSelect } from './DefenderVersionSelect.js';
+import ImageFallback from "./ImageFallback.js"
 import Image from "next/image";
 
 export class DefenderImageDisplay extends Component {
@@ -31,7 +32,7 @@ export class DefenderImageDisplay extends Component {
 				}
 
 				<div className='center'>
-					<img alt="" className="monster-image" src={'https://oldschool.runescape.wiki/w/Special:Redirect/file?wpvalue=' + this.props.monster.image} />
+					<ImageFallback className="monster-image" src={'https://oldschool.runescape.wiki/w/Special:Redirect/file?wpvalue=' + this.props.monster.image} fallback="https://oldschool.runescape.wiki/images/Man_%28blue%29.png"/>
 				</div>
 				<MonsterSelect setMonList={this.setMonList} />
 			</div>

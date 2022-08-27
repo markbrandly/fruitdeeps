@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { EquipmentSelect } from "./EquipmentSelect.js";
+import ImageFallback from "./ImageFallback.js"
 import Image from "next/image";
 
 class LoadoutCell extends Component {
@@ -17,13 +18,14 @@ class LoadoutCell extends Component {
         var img = "";
         if (this.props.player.equipment[this.props.slotname].name) {
             img = (
-                <img
+                <ImageFallback
                     className="item-icon"
                     src={
                         "./assets/item_images/" +
                         this.props.player.equipment[this.props.slotname].id +
                         ".png"
                     }
+                    fallback="https://oldschool.runescape.wiki/images/Null.png"
                 />
             );
         }
