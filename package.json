@@ -1,13 +1,31 @@
 {
   "private": true,
+  "//type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint --dir ."
   },
   "dependencies": {
+    "@zeit/next-workers": "^1.0.1-canary.1",
+    "csv-parser": "^3.0.0",
+    "image-data-uri": "^2.0.1",
+    "knex": "^2.2.0",
+    "mysql": "^2.18.1",
     "next": "latest",
+    "node-sass": "^7.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "recharts": "^2.1.9",
+    "worker-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-next": "12.2.5",
+    "sass": "^1.54.5",
+    "worker-plugin": "^5.0.1"
   }
 }

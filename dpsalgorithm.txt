@@ -1,0 +1,93 @@
+Stuff to do before release:
+
+    vitur and ice demon:
+    https://twitter.com/JagexAsh/status/1132007580308525063
+
+	calc stuff:
+		shades gadderhammer
+		cox monster scaling O.O
+
+		speed up ruby bolts overhit calc
+
+
+		fill out the set feature
+		special attacks!!
+
+		two options in the auto search menu bug
+
+		guthans
+		blood fury
+		blood spells
+
+	UI stuff:
+
+		dwh + beegs on npc defence
+
+		save/load sets
+
+
+search bar
+esc
+
+ruelite integration
+
+
+stuff to test:
+	thammaron's sceptre multiplicative or additive ?
+
+
+Questions for the calc to answer:
+	mason: when should you switch from dwh to bgs at scorpia
+
+special attacks to incl:
+
+
+	done:
+		dds
+		d claw
+		d bow
+		acb
+		msb
+		mlb / mcb
+		ags
+		c hally
+		blowy p
+		sgs
+		bgs
+		dwh
+		
+	to do:
+		dawnbringer
+		volatile nightmare staff
+
+
+		expected defence reduction
+			bone dagger
+
+
+
+
+		expected healing:
+
+
+			eldritch staff
+
+
+		bad specs:
+			Abby dagger
+			abyssal whip
+			Darklight / arclight
+			dlong
+			d mace
+			d sword
+			ss
+			sbs
+			zgs
+			g hammer
+			barrelchest
+			ballista
+			dcb
+			dcb the other one
+			dthrown
+
+
