@@ -26,7 +26,7 @@ const bonuslist = [
 	"drange",
 ];
 
-fs.createReadStream("./wiki_monster_data.csv")
+fs.createReadStream("./importstuff/wiki_monster_data.csv")
 	.pipe(csv())
 	.on("data", async (row) => {
 		//Check if row is populated

@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
-
-
 dotenv.config()
+
 
 const pass = {
 	username: 'root',
