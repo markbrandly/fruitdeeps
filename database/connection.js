@@ -8,7 +8,7 @@ export default knex({
 		database: "rsitems",
 		user: user.username,
 		password: user.password,
-		port: "8083",
+		port: "3306",
 		// user: "root",
 		// password: "root",
 		charset: "utf8",
