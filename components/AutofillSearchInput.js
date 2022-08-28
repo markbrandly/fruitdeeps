@@ -49,7 +49,7 @@ export class AutofillSearchInput extends Component {
         } else if (e.key == "ArrowUp") {
             e.preventDefault()
             this.upRef.current.focus()
-        } else if (e.key == "Enter") {
+        } else if (e.key == "Enter" && this.state.searchList.length > 0) {
             this.inputRef.current.focus()
             this.inputRef.current.select()
             this.selectItem(this.state.searchList[this.state.highlightIndex]);
