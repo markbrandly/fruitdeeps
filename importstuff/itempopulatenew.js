@@ -116,7 +116,7 @@ const addSlot = (slot, callback) => {
 						}
 
 						if (slot === '2h' || slot === 'weapon'){
-							item.category = value.weapon['weapon_type']
+							item.category = categoryTable[value.weapon['weapon_type']]
 							item.speed = value.weapon.attack_speed
 						}
 
