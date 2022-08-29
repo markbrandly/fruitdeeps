@@ -5,7 +5,7 @@ var con = mysql.createConnection({
 	host: "localhost",
 	user: pass.username,
 	password: pass.password,
-	port: "8083",
+	port: pass.port,
 	multipleStatements: true,
 });
 

@@ -15,7 +15,7 @@ const darts = {
 }
 
 const customs = [
-    {"name":"Osmumten's fang","slot":"2h","bonuses":[105,75,0,0,0,0,0,0,0,0,103,0,0,0],"id":26219,"category":"Stab Sword","speed":5},
+    {"name":"Osmumten's fang","slot":"weapon","bonuses":[105,75,0,0,0,0,0,0,0,0,103,0,0,0],"id":26219,"category":"Stab Sword","speed":5},
     {"name":"Elidinis' ward","slot":"shield","bonuses":[0,0,0,0,0,5,3,9,0,6,0,0,3,0],"id":25985},
     {"name":"Elidinis' ward (f)","slot":"shield","bonuses":[0,0,0,25,0,53,55,73,2,52,0,0,5,4],"id":27251},
     {"name":"Tumeken's shadow","slot":"weapon","bonuses":[0,0,0,35,0,0,0,0,20,0,0,0,0,1],"id":27277,"category":"Powered Staff","speed":5},

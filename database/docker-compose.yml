@@ -7,6 +7,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: rsitems
     ports:
-      - 3306:3306
+      - ${MYSQL_PORT}:3306
     volumes:
       - ./init-db.sql:/docker-entrypoint-initdb.d/schema.sql
