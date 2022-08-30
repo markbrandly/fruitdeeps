@@ -74,18 +74,18 @@ const boxBonusList = [
 // const slot = "weapon";
 
 const slots = [
-	// "cape",
-	// "head",
-	// "neck",
-	// "ammo",
+	"cape",
+	"head",
+	"neck",
+	"ammo",
 	"weapon",
-	// "shield",
-	// "body",
-	// "legs",
-	// "hands",
-	// "feet",
-	// "ring",
-	// "2h",
+	"shield",
+	"body",
+	"legs",
+	"hands",
+	"feet",
+	"ring",
+	"2h",
 ];
 
 const nameList = [];
