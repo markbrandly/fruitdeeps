@@ -1,11 +1,12 @@
-const accuracyFormula = (atk, def) => {
-    let clamp = (n) => Math.max(0, Math.min(1, n))
+import api from './lib/api.js'
 
-    if (atk > def) {
-        return clamp(1 - (def + 2)*(2*def+3)/(atk+1)/(atk+1)/6)
-    } else {
-        return clamp(atk * (4 * atk + 5) / 6 / (atk + 1) / (def + 1))
-    }
+var example = {
+    "name": "the goat",
+    "image": "Sotetseg.png",
+    "version": "",
+    versionNumber: 0,
+    "combat": 995,
+    "stats": { "amagic": 0, "arange": 0, "att": 250, "attbns": 0, "dcrush": 70, "def": 200, "dmagic": 30, "drange": 150, "dslash": 70, "dstab": 70, "hitpoints": 4000, "mage": 250, "mbns": 0, "range": 0, "rngbns": 0, "str": 250, "strbns": 48 }, 
+    "attributes": ['vampyre']
 }
 
-console.log(accuracyFormula(1000,10000))
