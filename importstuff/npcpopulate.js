@@ -161,4 +161,6 @@ fs.createReadStream("./importstuff/wiki_monster_data.csv")
 			let npc = npcList[i]
 			await api.addNpc(npc).then(() => console.log(npc.name))
 		}
+		console.log("all npcs complete")
+		process.exit()
 	});
