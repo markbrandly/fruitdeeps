@@ -10,3 +10,7 @@ services:
       - ${MYSQL_PORT}:3306
     volumes:
       - ./init-db.sql:/docker-entrypoint-initdb.d/schema.sql
+    deploy:
+      resources:
+        limits:
+          memory: 512M
