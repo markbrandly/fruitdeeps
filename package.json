@@ -1,6 +1,6 @@
 {
   "private": true,
-  "type": "module",
+  "t//ype": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

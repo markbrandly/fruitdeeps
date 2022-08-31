@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { BonusRow } from "./BonusRow.js";
 
 const BonusSelectRow = (props) => {
@@ -48,6 +48,50 @@ const BonusSelectRow = (props) => {
         </tr>
     );
 };
+
+const BonusSwitcher = (props) => {
+    const [type, setType] = useState('atk')
+
+    return <div>
+        <button className={type === 'atk' ? 'selected' : ''} onClick={() => setType('atk')}>Attack bonus</button>
+        {' '}
+        <button className={type === 'def' ? 'selected' : ''}
+        
+        onClick={() => setType('def')}>Defence bonus</button>
+        <table className="bonus-table">
+            <BonusSelectRow
+                onChange={props.handleSetBonus}
+                bonusName="Stab"
+                bonusIndex={type === 'atk' ? 0 : 5}
+                player={props.player}
+            />
+            <BonusSelectRow
+                onChange={props.handleSetBonus}
+                bonusName="Slash"
+                bonusIndex={type === 'atk' ? 1 : 6}
+                player={props.player}
+            />
+            <BonusSelectRow
+                onChange={props.handleSetBonus}
+                bonusName="Crush"
+                bonusIndex={type === 'atk' ? 2 : 7}
+                player={props.player}
+            />
+            <BonusSelectRow
+                onChange={props.handleSetBonus}
+                bonusName="Magic"
+                bonusIndex={type === 'atk' ? 3 : 8}
+                player={props.player}
+            />
+            <BonusSelectRow
+                onChange={props.handleSetBonus}
+                bonusName="Range"
+                bonusIndex={type === 'atk' ? 4 : 9}
+                player={props.player}
+            />
+        </table>
+    </div>
+}
 
 export class AttackerTableDisplay extends Component {
     constructor(props) {
@@ -106,41 +150,7 @@ export class AttackerTableDisplay extends Component {
 
         return (
             <div className="flex-child flex-container-vertical">
-                <div>
-                    <h3>Attack bonus</h3>
-                    <table className="bonus-table">
-                        <BonusSelectRow
-                            onChange={this.handleSetBonus}
-                            bonusName="Stab"
-                            bonusIndex="0"
-                            player={player}
-                        />
-                        <BonusSelectRow
-                            onChange={this.handleSetBonus}
-                            bonusName="Slash"
-                            bonusIndex="1"
-                            player={player}
-                        />
-                        <BonusSelectRow
-                            onChange={this.handleSetBonus}
-                            bonusName="Crush"
-                            bonusIndex="2"
-                            player={player}
-                        />
-                        <BonusSelectRow
-                            onChange={this.handleSetBonus}
-                            bonusName="Magic"
-                            bonusIndex="3"
-                            player={player}
-                        />
-                        <BonusSelectRow
-                            onChange={this.handleSetBonus}
-                            bonusName="Range"
-                            bonusIndex="4"
-                            player={player}
-                        />
-                    </table>
-                </div>
+                <BonusSwitcher handleSetBonus={this.handleSetBonus} player={player} />
                 <div>
                     <h3>Other bonuses</h3>
                     <table className="bonus-table">
