@@ -2,7 +2,7 @@ import csv
 import mwparserfromhell
 import requests
 
-output_file = 'wiki_monster_data.csv'
+output_file = './importstuff/wiki_monster_data.csv'
 
 template_name = 'Infobox Monster'
 

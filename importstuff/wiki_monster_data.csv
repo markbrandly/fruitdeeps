@@ -199,10 +199,10 @@ Hobgoblin,1,Hobgoblin (unused),Hobgoblin,[[File:Hobgoblin (unused).png|150px]],1
 Hobgoblin,2,Hobgoblin (GWD),Hobgoblin,[[File:Hobgoblin (God Wars Dungeon).png|150px]],2241,47,1,,49,33,31,36,1,1,8,10,0,0,0,0,1,1,0,0,0
 Hobgoblin,3,Hobgoblin,Hobgoblin,[[File:Hobgoblin.png|150px]],3049,28,1,,52,39,39,35,1,1,0,0,0,0,0,0,0,0,0,0,0
 Hobgoblin,4,Hobgoblin (armed),Hobgoblin,[[File:Hobgoblin (armed).png|150px]],3050,42,1,,49,33,31,36,1,1,8,10,0,0,0,0,1,1,0,0,0
-Hobgoblin,5,Hobgoblin (brown),Hobgoblin,[[File:Hobgoblin (brown).png|150px]],3286,28,1,,,,,,1,1,,,0,0,0,0,0,0,0,0,0
-Hobgoblin,6,Hobgoblin (grey),Hobgoblin,[[File:Hobgoblin (grey).png|150px]],3287,28,1,,,,,,1,1,,,0,0,0,0,0,0,0,0,0
-Hobgoblin,7,Hobgoblin (khaki),Hobgoblin,[[File:Hobgoblin (khaki).png|150px]],3288,28,1,,,,,,1,1,,,0,0,0,0,0,0,0,0,0
-Hobgoblin,8,"Hobgoblin (brown, armed)",Hobgoblin,"[[File:Hobgoblin (brown, armed).png|150px]]",3289,28,1,,,,,,1,1,,,0,0,0,0,0,0,0,0,0
+Hobgoblin,5,Hobgoblin (brown),Hobgoblin,[[File:Hobgoblin (brown).png|150px]],3286,28,1,,29,,,,1,1,,,0,0,0,0,0,0,0,0,0
+Hobgoblin,6,Hobgoblin (grey),Hobgoblin,[[File:Hobgoblin (grey).png|150px]],3287,28,1,,29,,,,1,1,,,0,0,0,0,0,0,0,0,0
+Hobgoblin,7,Hobgoblin (khaki),Hobgoblin,[[File:Hobgoblin (khaki).png|150px]],3288,28,1,,29,,,,1,1,,,0,0,0,0,0,0,0,0,0
+Hobgoblin,8,"Hobgoblin (brown, armed)",Hobgoblin,"[[File:Hobgoblin (brown, armed).png|150px]]",3289,28,1,,29,,,,1,1,,,0,0,0,0,0,0,0,0,0
 Hobgoblin,9,"Hobgoblin (brown, armed)",Hobgoblin,"[[File:Hobgoblin (brown, armed).png|150px]]",4805,28,1,,,,,,1,1,,,0,0,0,0,0,0,0,0,0
 Cave slime,,,Cave slime,[[File:Cave slime.png|200px]],480,23,1,,25,13,13,35,13,1,0,0,0,0,0,0,0,0,0,0,0
 Chaos Elemental,1,Normal,Chaos Elemental,[[File:Chaos Elemental.png|250px]],2054,305,3,,250,270,270,270,270,270,0,0,0,0,0,0,70,70,70,70,70
@@ -763,7 +763,7 @@ Pirate,1,Brimhaven,Pirate,[[File:Pirate (Brimhaven).png|120px]],"522,6994",23,1,
 Pirate,2,Port Sarim,Pirate,[[File:Pirate (Port Sarim).png|120px]],1447,23,1,,20,20,20,20,1,1,10,9,0,0,0,0,0,1,0,0,0
 Pirate,3,Pirate's Cove,Pirate,[[File:Pirate (Pirates' Cove).png|120px]],"521,6993",23,1,,20,20,20,20,1,1,10,9,0,0,0,0,0,1,0,0,0
 Pirate,4,Asgarnian Ice Dungeon,Pirate,[[File:Pirate (Asgarnian Ice Dungeon).png|120px]],523,26,1,,23,23,23,23,1,1,8,10,0,0,0,0,3,2,0,0,0
-Pirate,5,Cabin Fever,Pirate,[[File:Pirate (Cabin Fever).png|120px]],"4043,4044,4045,4046,4047,4048,4049,4050,4051,4052",57,1,,,,,,,,,,,,,,,,,,
+Pirate,5,Cabin Fever,Pirate,[[File:Pirate (Cabin Fever).png|120px]],"4043,4044,4045,4046,4047,4048,4049,4050,4051,4052",57,1,,52,49,50,50,1,1,0,0,0,0,0,0,0,0,0,0,0
 Pirate,6,Port Piscarilius,Pirate,[[File:Pirate (Port Piscarilius).png|120px]],"524,6995",23,1,,20,20,20,20,1,1,10,9,0,0,0,0,0,1,0,0,0
 Sea Snake Hatchling,,,Sea Snake Hatchling,[[File:Sea Snake Hatchling.png|220px]],1098,62,1,,50,60,55,50,1,1,0,0,0,0,0,0,0,0,0,0,0
 Sea Snake Young,,,Sea Snake Young,[[File:Sea Snake Young.png|260px]],1097,90,2,,85,90,70,70,1,1,0,0,0,0,0,0,0,0,0,0,0
@@ -2041,31 +2041,31 @@ Menaphite Shadow,,,Menaphite Shadow,[[File:Menaphite Shadow.png|250x250px]],1146
 Shadow Rift,,,Shadow Rift,[[File:Shadow Rift.png|250x250px]],11485,,1,,20,,,,,,,,,,,,,,,,
 Scarab Swarm (Beneath Cursed Sands),,,Scarab Swarm,[[File:Scarab Swarm (Beneath Cursed Sands).png|250x250px]],11484,98,1,,5,,,,,,,,,,,,,,,,
 Reanimated hellhound,,,Reanimated hellhound,[[File:Reanimated hellhound.png|230px]],11463,N/A,2,demon,35,105,104,102,1,1,0,0,0,0,0,0,0,0,0,0,0
-Ba-Ba,,,Ba-Ba,[[File:Ba-Ba.png|280px]],"11778, 11779, 11780",359,5,,380,150,160,80,100,0,0,26,0,0,0,0,???,???,???,???,???
-Zebak,,,Zebak,[[File:Zebak.png|280px]],"11730, 11732, 11733",371,9,,540,250,140,70,100,120,160,100,220,30,220,16,???,???,???,???,???
-Kephri,,,Kephri,[[File:Kephri.png|280px]],"11719, 11720, 11721, 11722",341,5,kalphite,150,0,0,80,125,0,0,0,125,50,0,0,???,???,???,???,???
-Akkha,,,Akkha,[[File:Akkha.png|250px]],"11789, 11790, 11791, 11792, 11793, 11794, 11795, 11796",337,3,,537,100,140,80,100,100,115,30,115,40,115,40,???,???,???,???,???
+Ba-Ba,,,Ba-Ba,[[File:Ba-Ba.png|280px]],"11778, 11779, 11780",359,5,,380,150,160,80,100,0,0,26,0,0,0,0,80,160,240,280,200
+Zebak,,,Zebak,[[File:Zebak.png|280px]],"11730, 11732, 11733",371,9,,580,250,140,70,100,120,160,100,215,30,220,16,160,160,260,200,110
+Kephri,,,Kephri,[[File:Kephri.png|280px]],"11719, 11720, 11721, 11722",341,5,kalphite,80,0,0,80,125,0,0,0,125,50,0,0,60,300,100,200,300
+Akkha,,,Akkha,[[File:Akkha.png|250px]],"11789, 11790, 11791, 11792, 11793, 11794, 11795, 11796",337,3,,400,100,140,80,100,100,115,30,115,40,115,40,60,120,120,10,60
 Flower (A Night at the Theatre),,,Flower,[[File:Flower (A Night at the Theatre).png|x250px]],11193,N/A,1,,10,,,,,,,,,,,,,,,,
-Baboon Brawler,1,Level 56,Baboon Brawler,[[File:Baboon Brawler (level-56).png|280px]],11709,56,1,,4,40,40,12,40,40,20,0,20,0,20,0,???,???,???,???,???
-Baboon Brawler,2,Level 68,Baboon Brawler,[[File:Baboon Brawler (level-68).png|280px]],11712,68,1,,6,60,60,20,60,40,25,0,25,0,25,0,???,???,???,???,???
-Baboon Mage,1,Level 56,Baboon Mage,[[File:Baboon Mage (level-56).png|280px]],11711,56,1,,4,40,40,12,40,40,20,0,20,0,20,0,???,???,???,???,???
-Baboon Mage,2,Level 68,Baboon Mage,[[File:Baboon Mage (level-68).png|280px]],11714,68,1,,6,60,60,20,60,40,25,0,25,0,25,0,???,???,???,???,???
-Baboon Shaman,,,Baboon Shaman,[[File:Baboon Shaman.png|280px]],11715,74,1,,16,60,60,20,60,60,25,0,25,0,25,0,???,???,???,???,???
-Baboon Thrall,,,Baboon Thrall,[[File:Baboon Thrall.png|280px]],11718,52,1,,2,40,40,12,40,40,20,0,20,0,20,0,???,???,???,???,???
-Baboon Thrower,1,Level 56,Baboon Thrower,[[File:Baboon Thrower (level-56).png|280px]],11710,56,1,,4,40,40,12,40,40,20,0,20,0,20,0,???,???,???,???,???
-Baboon Thrower,2,Level 68,Baboon Thrower,[[File:Baboon Thrower (level-68).png|280px]],11713,68,1,,6,60,60,20,60,40,25,0,25,0,25,0,???,???,???,???,???
-Cursed Baboon,,,Cursed Baboon,[[File:Cursed Baboon.png|280px]],11717,77,1,,10,60,60,20,60,60,25,0,25,0,25,0,???,???,???,???,???
-Volatile Baboon,,,Volatile Baboon,[[File:Volatile Baboon.png|280px]],11716,72,1,,8,60,60,20,60,60,25,0,25,0,25,0,???,???,???,???,???
-Spitting Scarab,,,Spitting Scarab,[[File:Spitting Scarab.png|280px]],11725,89,3,,40,1,80,80,100,95,0,55,250,65,250,0,???,???,???,???,???
-Soldier Scarab,,,Soldier Scarab,[[File:Soldier Scarab.png|280px]],11724,89,3,,40,75,80,80,100,95,100,55,250,65,350,0,???,???,???,???,???
-Scarab Swarm (Tombs of Amascut),,,Scarab Swarm,[[File:Scarab Swarm (Tombs of Amascut).png|280px]],11723,8,1,,10,1,1,0,1,1,0,0,0,0,0,0,???,???,???,???,???
-Arcane Scarab,,,Arcane Scarab,[[File:Arcane Scarab.png|280px]],11726,89,3,,40,75,80,80,100,95,0,55,250,65,350,0,???,???,???,???,???
-Agile Scarab,,,Agile Scarab,[[File:Agile Scarab.png|280px]],11727,53,1,,30,60,20,5,30,40,0,0,150,25,150,5,???,???,???,???,???
-Crocodile (Tombs of Amascut),,,Crocodile,[[File:Crocodile (Tombs of Amascut).png|280px]],11705,71,2,,30,150,60,100,30,1,0,100,0,0,0,0,???,???,???,???,???
-Akkha's Shadow,,,Akkha's Shadow,[[File:Akkha's Shadow.png|250px]],"11797, 11798, 11799",108,3,,70,100,140,30,100,100,115,30,115,40,115,40,???,???,???,???,???
-Baboon,,,Baboon,[[File:Baboon.png|280px]],11781,77,1,,35,0,0,50,50,80,0,0,0,0,80,20,???,???,???,???,???
-Scarab (Tombs of Amascut),,,Scarab,[[File:Scarab (Tombs of Amascut).png|280px]],11697,56,1,,12,20,32,28,1,50,0,0,0,0,150,0,???,???,???,???,???
-Tumeken's Warden,1,Level 489,Tumeken's Warden,[[File:Tumeken's Warden (level-489).png|250px]],"11746, 11748, 11753, 11754, 11755, 11759",489,5,,140,300,150,100,190,190,0,25,225,12,225,12,???,???,???,???,???
-Tumeken's Warden,2,Level 544,Tumeken's Warden,[[File:Tumeken's Warden (level-544).png|250px]],"11761, 11763",544,5,,800,150,150,150,150,150,0,40,300,40,300,40,???,???,???,???,???
-Elidinis' Warden,1,Level 489,Elidinis' Warden,[[File:Elidinis' Warden (level-489).png|250px]],"11746, 11748, 11753, 11754, 11755, 11759",489,5,,140,300,150,100,190,190,0,10,225,0,225,0,???,???,???,???,???
-Elidinis' Warden,2,Level 544,Elidinis' Warden,[[File:Elidinis' Warden (level-544).png|250px]],"11761, 11763",544,5,,800,150,150,150,150,150,0,40,300,40,300,40,???,???,???,???,???
+Baboon Brawler,1,Level 56,Baboon Brawler,[[File:Baboon Brawler (level-56).png|280px]],11709,56,1,,4,40,40,12,40,40,20,0,20,0,20,0,900,900,900,-60,900
+Baboon Brawler,2,Level 68,Baboon Brawler,[[File:Baboon Brawler (level-68).png|280px]],11712,68,1,,6,60,60,20,60,40,25,0,25,0,25,0,900,900,900,-60,900
+Baboon Mage,1,Level 56,Baboon Mage,[[File:Baboon Mage (level-56).png|280px]],11711,56,1,,4,40,40,12,40,40,20,0,20,0,20,0,900,900,900,900,-50
+Baboon Mage,2,Level 68,Baboon Mage,[[File:Baboon Mage (level-68).png|280px]],11714,68,1,,6,60,60,20,60,40,25,0,25,0,25,0,900,900,900,900,-50
+Baboon Shaman,,,Baboon Shaman,[[File:Baboon Shaman.png|280px]],11715,74,1,,16,60,60,20,60,60,25,0,25,0,25,0,900,900,900,900,-50
+Baboon Thrall,,,Baboon Thrall,[[File:Baboon Thrall.png|280px]],11718,52,1,,2,40,40,12,40,40,20,0,20,0,20,0,0,0,0,0,0
+Baboon Thrower,1,Level 56,Baboon Thrower,[[File:Baboon Thrower (level-56).png|280px]],11710,56,1,,4,40,40,12,40,40,20,0,20,0,20,0,-50,-50,-50,900,900
+Baboon Thrower,2,Level 68,Baboon Thrower,[[File:Baboon Thrower (level-68).png|280px]],11713,68,1,,6,60,60,20,60,40,25,0,25,0,25,0,-50,-50,-50,900,900
+Cursed Baboon,,,Cursed Baboon,[[File:Cursed Baboon.png|280px]],11717,77,1,,10,60,60,20,60,60,25,0,25,0,25,0,900,900,900,-60,-50
+Volatile Baboon,,,Volatile Baboon,[[File:Volatile Baboon.png|280px]],11716,72,1,,8,60,60,20,60,60,25,0,25,0,25,0,900,900,900,-60,-50
+Spitting Scarab,,,Spitting Scarab,[[File:Spitting Scarab.png|280px]],11725,89,3,,40,1,80,80,100,95,0,55,250,65,350,0,15,250,30,250,125
+Soldier Scarab,,,Soldier Scarab,[[File:Soldier Scarab.png|280px]],11724,89,3,,40,75,80,80,100,95,100,55,250,65,350,0,15,250,30,10,250
+Scarab Swarm (Tombs of Amascut),,,Scarab Swarm,[[File:Scarab Swarm (Tombs of Amascut).png|280px]],11723,8,1,,10,1,1,0,1,1,0,0,0,0,0,0,-100,-100,-100,-100,-100
+Arcane Scarab,,,Arcane Scarab,[[File:Arcane Scarab.png|280px]],11726,89,3,,40,75,80,80,100,95,0,55,250,65,350,0,15,250,30,75,50
+Agile Scarab,,,Agile Scarab,[[File:Agile Scarab.png|280px]],11727,53,1,,30,60,20,5,30,40,0,25,150,25,150,5,0,0,0,0,0
+Crocodile (Tombs of Amascut),,,Crocodile,[[File:Crocodile (Tombs of Amascut).png|280px]],11705,71,2,,30,150,60,100,30,1,0,100,0,0,0,0,150,350,350,5,150
+Akkha's Shadow,,,Akkha's Shadow,[[File:Akkha's Shadow.png|250px]],"11797, 11798, 11799",108,3,,70,100,140,30,100,100,115,30,115,40,115,40,60,120,120,10,60
+Baboon,,,Baboon,[[File:Baboon.png|280px]],11781,77,1,,35,0,0,50,50,80,0,0,0,0,80,20,10,50,50,50,50
+Scarab (Tombs of Amascut),,,Scarab,[[File:Scarab (Tombs of Amascut).png|280px]],11697,56,1,,12,20,32,28,1,50,0,0,0,0,150,0,0,0,0,0,0
+Tumeken's Warden,1,Level 489,Tumeken's Warden,[[File:Tumeken's Warden (level-489).png|250px]],"11746, 11748, 11753, 11754, 11755, 11759",489,5,,140,300,150,100,190,190,0,25,225,12,225,12,70,70,70,-30,70
+Tumeken's Warden,2,Level 544,Tumeken's Warden,[[File:Tumeken's Warden (level-544).png|250px]],"11761, 11763",544,5,,880,150,150,150,150,150,0,40,230,40,300,40,40,40,20,20,20
+Elidinis' Warden,1,Level 489,Elidinis' Warden,[[File:Elidinis' Warden (level-489).png|250px]],"11746, 11748, 11753, 11754, 11755, 11759",489,5,,140,300,150,100,190,190,0,10,225,0,225,0,70,70,70,-30,70
+Elidinis' Warden,2,Level 544,Elidinis' Warden,[[File:Elidinis' Warden (level-544).png|250px]],"11761, 11763",544,5,,880,150,150,150,150,150,0,40,230,40,300,40,40,40,20,20,20
