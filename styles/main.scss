@@ -264,8 +264,10 @@ input[type="number"]:focus {
     &::-moz-range-thumb {
         width: 1em; /* Set a specific slider handle width */
         height: 1em; /* Slider handle height */
-        background: #222; /* Green background */
+        background: $color1; /* Green background */
+        border:1px solid #222;
         cursor: pointer; /* Cursor on hover */
+        border-radius:0.5em;
       }
 }
 

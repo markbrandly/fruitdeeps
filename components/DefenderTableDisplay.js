@@ -155,7 +155,7 @@ export class DefenderTableDisplay extends Component {
 						<div>
 							<h3>Invocation</h3>
 							<div className="flex-valign"><input type="number" min="0" max="600" value={this.props.monster.invocation} step="5" id="invocationInput" onChange={this.changeInvocation} className="input-invisible"></input>
-							<input type="range" min="0" max="600" value={this.props.monster.invocation} step="5" id="invocationSlider" class="slider" onChange={this.changeInvocation}></input></div>
+							<input type="range" min="0" max="600" value={this.props.monster.invocation} step="5" id="invocationSlider" className="slider" onChange={this.changeInvocation}></input></div>
 						</div> : ""
 				}
 			</div>
