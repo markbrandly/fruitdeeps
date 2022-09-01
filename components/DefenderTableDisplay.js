@@ -34,6 +34,7 @@ export class DefenderTableDisplay extends Component {
     constructor(props) {
         super(props)
         this.handleChange = this.handleChange.bind(this)
+		this.changeInvocation = this.changeInvocation.bind(this)
         this.toggleAttribute = this.toggleAttribute.bind(this)
     }
 
@@ -43,6 +44,14 @@ export class DefenderTableDisplay extends Component {
         let value = e.target.value
         this.props.setMonsterStat(stat, value)
     }
+
+	changeInvocation(e){
+		e.persist()
+		let value = parseInt(e.target.value) || 0
+		let newMonster = JSON.parse(JSON.stringify(this.props.monster))
+		newMonster.invocation = value
+		this.props.setMonster(newMonster)
+	}
 
     toggleAttribute(e) {
         e.persist()
@@ -134,12 +143,21 @@ export class DefenderTableDisplay extends Component {
 						
 					</table>
 				</div>
+
 				<div>
 						<h3>Attributes</h3>
 						{attributeList.map((attribute, i) =>
 							<button key={i} value={attribute} onClick={this.toggleAttribute} className={this.props.monster.attributes.includes(attribute) ? "selected" : ""}>{attribute}</button>
 						)}
 				</div>
+				{
+					"invocation" in this.props.monster ? 
+						<div>
+							<h3>Invocation</h3>
+							<div className="flex-valign"><input type="number" min="0" max="600" value={this.props.monster.invocation} step="5" id="invocationInput" onChange={this.changeInvocation} className="input-invisible"></input>
+							<input type="range" min="0" max="600" value={this.props.monster.invocation} step="5" id="invocationSlider" class="slider" onChange={this.changeInvocation}></input></div>
+						</div> : ""
+				}
 			</div>
         )
     }

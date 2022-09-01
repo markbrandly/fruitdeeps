@@ -4,6 +4,8 @@ import { DefenderVersionSelect } from './DefenderVersionSelect.js';
 import ImageFallback from "./ImageFallback.js"
 import Image from "next/image";
 
+
+
 export class DefenderImageDisplay extends Component {
     constructor(props) {
         super(props)
@@ -17,7 +19,8 @@ export class DefenderImageDisplay extends Component {
 
     setMonList(monList) {
         this.setState({ monList: monList, monSelected: 0 })
-        this.props.setMonster(monList[0])
+        let mon = monList[0]
+        this.props.setMonster(mon)
     }
 
     render() {
