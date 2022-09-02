@@ -161,7 +161,7 @@ fs.createReadStream("./importstuff/wiki_monster_data.csv")
 		// 	let npc = npcList[i]
 		// 	await api.addNpc(npc).then(() => console.log(npc.name))
 		// }
-		fs.writeFileSync('./assets/npcs.json', JSON.stringify(npcList));
+		fs.writeFileSync('./public/assets/npcs.json', JSON.stringify(npcList));
 		console.log("all npcs complete")
 		process.exit()
 	});

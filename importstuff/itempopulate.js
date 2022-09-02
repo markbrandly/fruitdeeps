@@ -3,7 +3,7 @@
 // const ImageDataURI = require("image-data-uri");
 
 import https from "https";
-import api from '../lib/api.js'
+// import api from '../lib/api.js'
 import ImageDataURI from "image-data-uri";
 import fs from "fs";
 
@@ -89,7 +89,36 @@ const slots = [
 	"2h",
 ];
 
-const itemList = [];
+const itemList = [
+    {"name":"Osmumten's fang","slot":"weapon","bonuses":[105,75,0,0,0,0,0,0,0,0,103,0,0,0],"id":26219,"category":"Stab Sword","speed":5},
+    {"name":"Elidinis' ward","slot":"shield","bonuses":[0,0,0,0,0,5,3,9,0,6,0,0,3,0],"id":25985},
+    {"name":"Elidinis' ward (f)","slot":"shield","bonuses":[0,0,0,25,0,53,55,73,2,52,0,0,5,4],"id":27251},
+    {"name":"Tumeken's shadow","slot":"weapon","bonuses":[0,0,0,35,0,0,0,0,20,0,0,0,0,1],"id":27277,"category":"Powered Staff","speed":5},
+    {"name":"Masori mask","slot":"head","bonuses":[0,0,0,-1,12,3,4,3,6,4,0,2,0,0],"id":27226},
+    {"name":"Masori body","slot":"body","bonuses":[0,0,0,-4,43,37,35,38,25,33,0,4,0,0],"id":27229},
+    {"name":"Masori chaps","slot":"legs","bonuses":[0,0,0,-2,27,26,24,29,19,22,0,2,0,0],"id":27232},
+    {"name":"Masori chaps (f)","slot":"legs","bonuses":[0,0,0,-2,27,35,30,39,46,37,0,2,0,1],"id":27241},
+    {"name":"Masori mask (f)","slot":"head","bonuses":[0,0,0,-1,12,8,10,12,12,9,0,2,0,1],"id":27235},
+    {"name":"Masori body (f)","slot":"body","bonuses":[0,0,0,-4,43,59,52,64,74,60,0,4,0,1],"id":27238},
+
+	{"name":"Keris partisan of corruption","slot":"weapon","bonuses":[58,-2,57,2,0,0,0,0,0,0,45,0,0,3],"id":27287,"category":"Partisan","speed":4},
+	{"name":"Keris partisan of the sun","slot":"weapon","bonuses":[58,-2,57,2,0,0,0,0,0,0,45,0,0,3],"id":27291,"category":"Partisan","speed":4},
+	{"name":"Keris partisan of breaching","slot":"weapon","bonuses":[58,-2,57,2,0,0,0,0,0,0,45,0,0,3],"id":25981,"category":"Partisan","speed":4},
+	{"name":"Keris partisan","slot":"weapon","bonuses":[58,-2,57,2,0,0,0,0,0,0,45,0,0,3],"id":25979,"category":"Partisan","speed":4},
+
+	{"name":"Toxic blowpipe (Bronze)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,21,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Iron)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,22,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Steel)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,23,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Black)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,26,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Mithril)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,29,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Adamant)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,37,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Rune)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,46,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Amethyst)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,48,0,0],"id":12926,"category":"Thrown","speed":3},
+	{"name":"Toxic blowpipe (Dragon)","slot":"2h","bonuses":[0,0,0,0,30,0,0,0,0,0,0,55,0,0],"id":12926,"category":"Thrown","speed":3},
+
+]
+
+const itemNames = itemList.map((item) => item.name)
 
 const addSlot = (slot, callback) => {
 	https
@@ -122,15 +151,21 @@ const addSlot = (slot, callback) => {
 							item.speed = value.weapon.attack_speed
 						}
 
-						let dataURI =
-							"data:image/png;base64," + value.icon;
-						let path =
-							"./public/assets/item_images/" + value.id + ".png";
-						ImageDataURI.outputFile(dataURI, path).then(()=>
-							console.log("image created", value.id +".png")
-						);
+
 						// await api.addItem(item).then(()=>{console.log("added", item.name)})
-						itemList.push(item)
+						if(!itemNames.includes(item.name)){
+							itemList.push(item)
+							itemNames.push(item.name)
+
+							let dataURI =
+							"data:image/png;base64," + value.icon;
+							let path =
+								"./public/assets/item_images/" + value.id + ".png";
+							ImageDataURI.outputFile(dataURI, path).then(()=>
+								console.log("image created", value.id +".png")
+							);
+						}
+						
 					}
 					callback(slot)
 				});
@@ -145,7 +180,7 @@ const addSlot = (slot, callback) => {
 const nextSlot = (slot) => {
 	let index = slots.findIndex(s => s === slot)
 	if(index === slots.length - 1){
-		fs.writeFileSync('./assets/items.json', JSON.stringify(itemList));
+		fs.writeFileSync('./public/assets/items.json', JSON.stringify(itemList));
 		console.log("all slots complete")
 		process.exit()
 	}
