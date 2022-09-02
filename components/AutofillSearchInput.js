@@ -15,7 +15,7 @@ export class AutofillSearchInput extends Component {
             inputText: "",
             shouldScroll: false,
             data: {
-                loading: false,
+                loading: true,
                 initialLoad: false,
                 list: []
             }
