@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Image from "next/image";
 import SearchFilter from "../lib/itemFinder.js"
+import Spinner from "../public/assets/spinner.svg"
+
+
 
 //state.inputtext can prbably be class attribute
 
@@ -146,7 +149,7 @@ export class AutofillSearchInput extends Component {
             return (
                 <div className="auto-complete-container" >
                     <input className="auto-complete-input" placeholder="Loading data..." disabled />
-                    <span className='loading-spinner'><img alt="" src="../assets/spinner.svg" style={{height:"1em", width:"auto"}} /></span>
+                    <span className='loading-spinner'><Spinner /></span>
                 </div>
             )
         }

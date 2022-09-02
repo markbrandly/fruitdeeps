@@ -121,6 +121,10 @@ input[type="number"]:focus {
     top: 50%;
     margin-top: -0.5em;
     animation: spin 2s linear infinite;
+    height:1em;
+    svg {
+        height:1em;
+    }
 }
 
 //recharts stuff
@@ -199,6 +203,8 @@ input[type="number"]:focus {
     line-height: 1em;
     color: #999;
 }
+
+.st0{fill:#74C7FF;stroke:#EEEEEE;stroke-width:10;stroke-miterlimit:10;}
 
 .auto-complete-input {
     width: 100%;
