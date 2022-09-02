@@ -5,6 +5,7 @@
 import https from "https";
 import api from '../lib/api.js'
 import ImageDataURI from "image-data-uri";
+import fs from "fs";
 
 // const db = require("../server/database.js");
 
@@ -88,7 +89,7 @@ const slots = [
 	"2h",
 ];
 
-const nameList = [];
+const itemList = [];
 
 const addSlot = (slot, callback) => {
 	https
@@ -106,6 +107,7 @@ const addSlot = (slot, callback) => {
 
 				// The whole response has been received. Print out the result.
 				resp.on("end", async () => {
+					// console.log(data)
 					const wObj = JSON.parse(data, false, 2);
 					for (const [key, value] of Object.entries(wObj)) {
 						const item = {
@@ -127,7 +129,8 @@ const addSlot = (slot, callback) => {
 						ImageDataURI.outputFile(dataURI, path).then(()=>
 							console.log("image created", value.id +".png")
 						);
-						await api.addItem(item).then(()=>{console.log("added", item.name)})
+						// await api.addItem(item).then(()=>{console.log("added", item.name)})
+						itemList.push(item)
 					}
 					callback(slot)
 				});
@@ -141,7 +144,8 @@ const addSlot = (slot, callback) => {
 
 const nextSlot = (slot) => {
 	let index = slots.findIndex(s => s === slot)
-	if(index === slots.length){
+	if(index === slots.length - 1){
+		fs.writeFileSync('./assets/items.json', JSON.stringify(itemList));
 		console.log("all slots complete")
 		process.exit()
 	}

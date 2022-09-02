@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Image from "next/image";
+import SearchFilter from "../lib/itemFinder.js"
 
 //state.inputtext can prbably be class attribute
 
@@ -12,8 +13,14 @@ export class AutofillSearchInput extends Component {
             isItemFocused: false,
             highlightIndex: 0,
             inputText: "",
-            shouldScroll: false
+            shouldScroll: false,
+            data: {
+                loading: false,
+                initialLoad: false,
+                list: []
+            }
         }
+
         this.setFocus = this.setFocus.bind(this)
         this.setBlur = this.setBlur.bind(this)
         this.setItemFocus = this.setItemFocus.bind(this)
@@ -98,22 +105,26 @@ export class AutofillSearchInput extends Component {
 
 
     handleChange(e) {
-        var inputValue = e.target.value
-        this.setState({ inputText: inputValue })
-        if (inputValue.length >= 3) {
-            this.setState({ loading: true })
-            this.getList(inputValue, (res) => {
-                if (inputValue == this.state.inputText) {
-                    this.setState({
-                        searchList: [...JSON.parse(res)],
-                        highlightIndex: 0,
-                        loading: false
-                    })
-                }
-            })
-        } else {
-            this.setState({ searchList: [], highlightIndex: 0, loading: false })
-        }
+        // var inputValue = e.target.value
+        // this.setState({ inputText: inputValue })
+        // if (inputValue.length >= 3) {
+        //     SearchFilter(inputValue, this.state.data.list)
+        //     .then(({query, list}) => {
+        //         console.log(query, list)
+        //         if(query === inputValue){
+        //             console.log('list', list)
+        //             this.setState({
+        //                 searchList: list,
+        //                 highlightIndex: 0,
+        //                 loading: false
+        //             })
+        //         }
+        //     })
+        // } else {
+        //     this.setState({ searchList: [], highlightIndex: 0, loading: false })
+        // }
+
+        //stub
     }
 
     handleHover(e) {
@@ -130,6 +141,15 @@ export class AutofillSearchInput extends Component {
 				{results}
 			</ol>
         );
+
+        if(this.state.data.loading){
+            return (
+                <div className="auto-complete-container" >
+                    <input className="auto-complete-input" placeholder="Loading data..." disabled />
+                    <span className='loading-spinner'><img alt="" src="../assets/spinner.svg" style={{height:"1em", width:"auto"}} /></span>
+                </div>
+            )
+        }
 
         return (
             <div className="auto-complete-container" >

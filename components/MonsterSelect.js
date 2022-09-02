@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { AutofillSearchInput } from './AutofillSearchInput.js';
+import npcFilter from '../lib/npcFilter.js';
+import npcFinder from '../lib/npcSpecificFinder.js';
 
 export class MonsterSelect extends AutofillSearchInput {
     constructor(props) {
@@ -9,6 +11,32 @@ export class MonsterSelect extends AutofillSearchInput {
         this.selectItem = this.selectItem.bind(this)
         this.monsterUrl = '/api/getMonstersByName'
         this.monsterName = ""
+    }
+
+
+    componentDidMount(){
+        super.componentDidMount();
+        if(!this.state.data.initialLoad){
+            this.setState({
+                data: {
+                    initialLoad: true,
+                    loading: true,
+                    list: []
+                }
+            })
+            fetch('/assets/npcs.json')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                this.setState({
+                    data: {
+                        initialLoad: true,
+                        loading: false,
+                        list: data
+                    }
+                })
+            });
+        }
     }
 
     getMonsterList(name, callback) {
@@ -23,13 +51,40 @@ export class MonsterSelect extends AutofillSearchInput {
     }
 
     selectItem(item) {
-        this.monsterName = item
-        this.getMonsterList(item, (res) => {
-            if (item != this.monsterName) {
+        npcFinder(item, this.state.data.list)
+        .then(({query, list}) =>{
+            if (item != query) {
                 return
             }
-            this.props.setMonList(JSON.parse(res))
+            this.props.setMonList(list)
         })
+        // this.getMonsterList(item, (res) => {
+        //     if (item != this.monsterName) {
+        //         return
+        //     }
+            // this.props.setMonList(JSON.parse(res))
+        // })
+    }
+
+    handleChange(e) {
+        var inputValue = e.target.value
+        this.setState({ inputText: inputValue })
+        if (inputValue.length >= 3) {
+            npcFilter(inputValue, this.state.data.list)
+            .then(({query, list}) => {
+                console.log(query, list)
+                if(query === inputValue){
+                    console.log('list', list)
+                    this.setState({
+                        searchList: list,
+                        highlightIndex: 0,
+                        loading: false
+                    })
+                }
+            })
+        } else {
+            this.setState({ searchList: [], highlightIndex: 0, loading: false })
+        }
     }
 
     results() {

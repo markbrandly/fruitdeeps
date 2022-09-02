@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AutofillSearchInput } from './AutofillSearchInput.js';
+import SearchFilter from '../lib/itemFinder.js';
 import Image from "next/image";
 
 export class EquipmentSelect extends AutofillSearchInput {
@@ -9,6 +10,52 @@ export class EquipmentSelect extends AutofillSearchInput {
         this.placeholder = "Equip an item..."
         this.results = this.results.bind(this)
         this.selectItem = this.selectItem.bind(this)
+    }
+
+    componentDidMount(){
+        super.componentDidMount();
+        if(!this.state.data.initialLoad){
+            this.setState({
+                data: {
+                    initialLoad: true,
+                    loading: true,
+                    list: []
+                }
+            })
+            fetch('/assets/items.json')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                this.setState({
+                    data: {
+                        initialLoad: true,
+                        loading: false,
+                        list: data
+                    }
+                })
+            });
+        }
+    }
+
+    handleChange(e) {
+        var inputValue = e.target.value
+        this.setState({ inputText: inputValue })
+        if (inputValue.length >= 3) {
+            SearchFilter(inputValue, this.state.data.list)
+            .then(({query, list}) => {
+                console.log(query, list)
+                if(query === inputValue){
+                    console.log('list', list)
+                    this.setState({
+                        searchList: list,
+                        highlightIndex: 0,
+                        loading: false
+                    })
+                }
+            })
+        } else {
+            this.setState({ searchList: [], highlightIndex: 0, loading: false })
+        }
     }
 
     selectItem(item) {
@@ -43,7 +90,7 @@ export class EquipmentSelect extends AutofillSearchInput {
 					}}
 					onMouseOver={this.handleHover}
 					className={this.state.highlightIndex == i ? "auto-complete-selected" : ""}
-					    ref={ref}
+                    ref={ref}
 					tabIndex="0"
 				>
 					{item.name}
@@ -51,7 +98,7 @@ export class EquipmentSelect extends AutofillSearchInput {
                     <span className={this.state.highlightIndex == i ? "" : "hidden"}> ↵</span>
                     <span style={{float:"right", color:"#aaa"}}>
                         
-                        <img alt="" style={{maxHeight:"1em"}} src={'./assets/item_images/' + item.name + '.png'} />
+                        <img alt="" style={{maxHeight:"1em"}} src={'/assets/item_images/' + item.id + '.png'} />
 
                     </span>
 				</li>)
