@@ -55,7 +55,27 @@ export default function Index() {
         <>
 
             <Head>
-
+                <title>fruitdeeps</title>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+                <meta name="description" content="OSRS DPS calculator and combinatorics solver" />
+                <meta name="keywords" content="osrs,dps,dps calculator,calculator,runescape" />
+                <meta name="msapplication-TileColor" content="#33333" />
+                <meta name="msapplication-TileImage" content="/assets/strawberry thing.svg" />
+                <meta property="og:image" content="/assets/strawberry thing.svg" />
+                <meta property="og:title" content="Fruitdeeps" />
+                <meta property="og:description" content="Fruitdeeps is a precise and user friendly DPS calculator" />
+                <meta property="og:type" content="website" />
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:image" content="/assets/strawberry thing.svg" />
+                <meta name="robots" content="index, follow" />
+                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="language" content="English" />
+                <meta name="revisit-after" content="30 days" />
+                <meta name="viewport" content="width=device-width, user-scalable=no" />
+                <link rel="icon" type="image/svg+xml" href="/assets/strawberry thing.svg" />
+                <link rel="apple-touch-icon" href="/assets/strawberry thing.svg" />
+                <link rel="shortcut icon" href="/assets/strawberry thing.svg" />
             </Head>
             <header id="page-header">
                 <div className="width-control">
