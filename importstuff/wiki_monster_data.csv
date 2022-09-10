@@ -2039,7 +2039,7 @@ Head Menaphite Guard,,,Head Menaphite Guard,[[File:Head Menaphite Guard.png|140p
 Menaphite Akh,,,Menaphite Akh,[[File:Menaphite Akh.png|140px]],11492,351,1,,480,150,150,140,150,150,46,24,46,0,46,0,5,30,30,280,180
 Menaphite Shadow,,,Menaphite Shadow,[[File:Menaphite Shadow.png|250x250px]],11462,147,,,50,150,150,70,150,150,46,24,46,0,46,0,5,30,30,280,180
 Shadow Rift,,,Shadow Rift,[[File:Shadow Rift.png|250x250px]],11485,,1,,20,,,,,,,,,,,,,,,,
-Scarab Swarm (Beneath Cursed Sands),,,Scarab Swarm,[[File:Scarab Swarm (Beneath Cursed Sands).png|250x250px]],11484,98,1,,5,,,,,,,,,,,,,,,,
+Scarab Swarm (Beneath Cursed Sands),,,Scarab Swarm,[[File:Scarab Swarm (Beneath Cursed Sands).png|250x250px]],11484,98,1,,5,255,5,2,1,1,0,0,0,0,0,0,-100,-100,-100,-100,-100
 Reanimated hellhound,,,Reanimated hellhound,[[File:Reanimated hellhound.png|230px]],11463,N/A,2,demon,35,105,104,102,1,1,0,0,0,0,0,0,0,0,0,0,0
 Ba-Ba,,,Ba-Ba,[[File:Ba-Ba.png|280px]],"11778, 11779, 11780",359,5,,380,150,160,80,100,0,0,26,0,0,0,0,80,160,240,280,200
 Zebak,,,Zebak,[[File:Zebak.png|280px]],"11730, 11732, 11733",371,9,,580,250,140,70,100,120,160,100,215,30,220,16,160,160,260,200,110
@@ -2065,7 +2065,8 @@ Crocodile (Tombs of Amascut),,,Crocodile,[[File:Crocodile (Tombs of Amascut).png
 Akkha's Shadow,,,Akkha's Shadow,[[File:Akkha's Shadow.png|250px]],"11797, 11798, 11799",108,3,,70,100,140,30,100,100,115,30,115,40,115,40,60,120,120,10,60
 Baboon,,,Baboon,[[File:Baboon.png|280px]],11781,77,1,,35,0,0,50,50,80,0,0,0,0,80,20,10,50,50,50,50
 Scarab (Tombs of Amascut),,,Scarab,[[File:Scarab (Tombs of Amascut).png|280px]],11697,56,1,,12,20,32,28,1,50,0,0,0,0,150,0,0,0,0,0,0
-Tumeken's Warden,1,Level 489,Tumeken's Warden,[[File:Tumeken's Warden (level-489).png|250px]],"11746, 11748, 11753, 11754, 11755, 11759",489,5,,140,300,150,100,190,190,0,25,225,12,225,12,70,70,70,-30,70
-Tumeken's Warden,2,Level 544,Tumeken's Warden,[[File:Tumeken's Warden (level-544).png|250px]],"11761, 11763",544,5,,880,150,150,150,150,150,0,40,230,40,300,40,40,40,20,20,20
+Tumeken's Warden,1,Level 489,Tumeken's Warden,[[File:Tumeken's Warden (level-489).png|250px]],"11747, 11749, 11756, 11757, 11758, 11760",489,5,,140,300,150,100,190,190,0,25,225,12,225,12,70,70,70,-30,70
+Tumeken's Warden,2,Level 544,Tumeken's Warden,[[File:Tumeken's Warden (level-544).png|250px]],"11762, 11764",544,5,,880,150,150,150,150,150,0,40,230,40,300,40,40,40,20,20,20
 Elidinis' Warden,1,Level 489,Elidinis' Warden,[[File:Elidinis' Warden (level-489).png|250px]],"11746, 11748, 11753, 11754, 11755, 11759",489,5,,140,300,150,100,190,190,0,10,225,0,225,0,70,70,70,-30,70
 Elidinis' Warden,2,Level 544,Elidinis' Warden,[[File:Elidinis' Warden (level-544).png|250px]],"11761, 11763",544,5,,880,150,150,150,150,150,0,40,230,40,300,40,40,40,20,20,20
+Obelisk (Tombs of Amascut),,,Obelisk,"[[File:Obelisk (Tombs of Amascut, phase 1).png|140px]]",11751,N/A,,,260,200,150,100,100,100,0,0,0,0,0,0,70,70,70,50,60
