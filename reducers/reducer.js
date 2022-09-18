@@ -6,7 +6,8 @@ const toaNpcs = [
     "Baboon Brawler", "Baboon Mage", "Baboon Shaman", "Baboon Thrall", "Baboon Thrower", "Cursed Baboon", "Volatile Baboon",
     "Agile Scarab", "Arcane Scarab", "Scarab Swarm", "Soldier Scarab", "Spitting Scarab",
     "Blood Cloud", "Zebak's Tail",
-    "Elidinis' Warden"
+    "Elidinis' Warden",
+    "Obelisk", "Akkha's Shadow"
 ]
 
 
