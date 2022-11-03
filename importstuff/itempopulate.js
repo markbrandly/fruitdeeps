@@ -93,7 +93,7 @@ const itemList = [
     {"name":"Osmumten's fang","slot":"weapon","bonuses":[105,75,0,0,0,0,0,0,0,0,103,0,0,0],"id":26219,"category":"Stab Sword","speed":5},
     {"name":"Elidinis' ward","slot":"shield","bonuses":[0,0,0,0,0,5,3,9,0,6,0,0,3,0],"id":25985},
     {"name":"Elidinis' ward (f)","slot":"shield","bonuses":[0,0,0,25,0,53,55,73,2,52,0,0,5,4],"id":27251},
-    {"name":"Tumeken's shadow","slot":"weapon","bonuses":[0,0,0,35,0,0,0,0,20,0,0,0,0,1],"id":27277,"category":"Powered Staff","speed":5},
+    {"name":"Tumeken's shadow","slot":"2h","bonuses":[0,0,0,35,0,0,0,0,20,0,0,0,0,1],"id":27277,"category":"Powered Staff","speed":5},
     {"name":"Masori mask","slot":"head","bonuses":[0,0,0,-1,12,3,4,3,6,4,0,2,0,0],"id":27226},
     {"name":"Masori body","slot":"body","bonuses":[0,0,0,-4,43,37,35,38,25,33,0,4,0,0],"id":27229},
     {"name":"Masori chaps","slot":"legs","bonuses":[0,0,0,-2,27,26,24,29,19,22,0,2,0,0],"id":27232},
