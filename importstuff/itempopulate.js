@@ -9,7 +9,9 @@ import fs from "fs";
 
 // const db = require("../server/database.js");
 
-import con from "../database/connection.js";
+const boxUrl = "https://raw.githubusercontent.com/0xNeffarion/osrsreboxed-db/master/docs/items-json-slot/items-";
+
+// import con from "../database/connection.js";
 const categoryTable = {
 	chinchompas: "Chinchompas",
 	slash_sword: "Slash Sword",
@@ -123,7 +125,7 @@ const itemNames = itemList.map((item) => item.name)
 const addSlot = (slot, callback) => {
 	https
 		.get(
-			"https://raw.githubusercontent.com/Flipping-Utilities/osrsbox-db/main/docs/items-json-slot/items-" +
+			boxUrl +
 				slot +
 				".json",
 			(resp) => {
