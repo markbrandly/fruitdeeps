@@ -55,11 +55,11 @@ export class AttackerRelics extends Component {
 				<div>
 					<h3>Relics</h3>
 					<div>
-						<Tier3relic player={this.props.player} relicName="Quick Shot" setRelic={this.setT3Relic} />
-						<Tier3relic player={this.props.player} relicName="Fluid Strike" setRelic={this.setT3Relic} />
-						<Tier3relic player={this.props.player} relicName="Double Cast" setRelic={this.setT3Relic} />
+						<Tier3relic player={this.props.player} relicName="Brawler's Resolve" setRelic={this.setT3Relic} />
+						<Tier3relic player={this.props.player} relicName="Superior Sorcerer " setRelic={this.setT3Relic} />
+						<Tier3relic player={this.props.player} relicName="Archer's Embrace" setRelic={this.setT3Relic} />
 					</div>
-					<div>
+					{/* <div>
 						<input
 							type="checkbox"
 							id={"t6-select"}
@@ -67,7 +67,7 @@ export class AttackerRelics extends Component {
 							onChange={this.toggleT6Relic}
 						/>
 						<label htmlFor={"t6-select"}>Tier 6</label>
-					</div>
+					</div> */}
 				</div>
 			</div>
         )

@@ -127,6 +127,23 @@ input[type="number"]:focus {
     }
 }
 
+.page-title{
+    display:inline-block
+}
+
+.header-flex{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+}
+
+.page-subtitle{
+    font-size:1em;
+    margin-left:1em;
+    color:white;
+    line-height:1em;
+}
+
 //recharts stuff
 .recharts-layer {
 
@@ -706,6 +723,10 @@ button {
         border-bottom-left-radius: 0.25em;
         border-bottom-right-radius: 0.25em;
         border-top-right-radius: 0.25em;
+    }
+
+    .page-subtitle{
+        display:none;
     }
 }
 

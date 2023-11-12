@@ -78,8 +78,8 @@ export default function Index() {
                 <link rel="shortcut icon" href="/assets/strawberry thing.svg" />
             </Head>
             <header id="page-header">
-                <div className="width-control">
-                    <h1>
+                <div className="width-control header-flex">
+                    <h1 class='page-title'>
                         <img
                             layout='fill'
                             src="/assets/strawberry thing.svg"
@@ -88,6 +88,9 @@ export default function Index() {
                         />
                         {" "}fruitdeeps{" "}
                     </h1>
+                    <a href='https://discord.gg/XhFMcqGPrH' target="_blank" rel="noopener noreferrer"  class='page-subtitle'>
+                        <img style={{width:"1em"}} src="/assets/svg/discord.svg" />
+                    </a>
                 </div>
             </header>
             <div className="width-control dps">
