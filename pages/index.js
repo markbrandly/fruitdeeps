@@ -79,7 +79,7 @@ export default function Index() {
             </Head>
             <header id="page-header">
                 <div className="width-control header-flex">
-                    <h1 class='page-title'>
+                    <h1 className='page-title'>
                         <img
                             layout='fill'
                             src="/assets/strawberry thing.svg"
@@ -88,7 +88,7 @@ export default function Index() {
                         />
                         {" "}fruitdeeps{" "}
                     </h1>
-                    <a href='https://discord.gg/XhFMcqGPrH' target="_blank" rel="noopener noreferrer"  class='page-subtitle'>
+                    <a href='https://discord.gg/XhFMcqGPrH' target="_blank" rel="noopener noreferrer"  className='page-subtitle'>
                         <img style={{width:"1em"}} src="/assets/svg/discord.svg" />
                     </a>
                 </div>
