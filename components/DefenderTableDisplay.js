@@ -16,16 +16,6 @@ const attributeList = [
     "xerician"
 ]
 
-const invoStatList = [
-    "maxhp",
-    "hitpoints",
-    "att",
-    "str",
-    "def",
-    "mage",
-    "range"
-]
-
 const MonsterStat = (props) => {
     return (
         <input type="number" className="input-invisible" min="1" value={props.value} data-stat={props.stat} onChange={props.onChange} />
@@ -52,7 +42,6 @@ export class DefenderTableDisplay extends Component {
         e.persist()
         let stat = e.target.getAttribute("data-stat")
         let value = e.target.value
-		console.log("handing change", stat, value)
         this.props.setMonsterStat(stat, value)
     }
 
