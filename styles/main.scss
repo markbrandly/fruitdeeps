@@ -238,6 +238,14 @@ input[type="number"]:focus {
     }
 }
 
+.select-input {
+    border: none;
+    background-color: #444;
+    border-radius: $radius;
+    color: #ccc;
+    font-size: 0.75em;
+}
+
 .input-invisible {
     background-color: #555;
     border: none;
@@ -487,8 +495,17 @@ button {
         border-color: transparent;
     }
 
+    &.seamless:disabled {
+        color: #999
+    }
+
     &:hover {
         text-decoration: underline;
+    }
+
+    &.seamless:disabled:hover {
+        text-decoration: none;
+        cursor: not-allowed;
     }
 }
 

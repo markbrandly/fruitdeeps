@@ -98,7 +98,7 @@ export class CalcOutputMultiple extends Component {
             return (
                 <div key={i} className="flex-child">
                     <h2>
-                        Set {i + 1}
+                        {player.setName ? (<span>{player.setName}</span>) : (<span>Set {i + 1}</span>)}
                         <span className="sub-text">
                             {" "}
                             @ {this.props.state.monster.name}
