@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Image from "next/image";
 import { Attacker } from './Attacker.js';
 
 import Player from '../lib/Player.js';

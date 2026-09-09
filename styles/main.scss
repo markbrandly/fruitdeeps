@@ -122,7 +122,7 @@ input[type="number"]:focus {
     margin-top: -0.5em;
     animation: spin 2s linear infinite;
     height:1em;
-    svg {
+    svg, img {
         height:1em;
     }
 }
@@ -822,7 +822,7 @@ $toggle-control-ease: ease-in;
 
 // These are our computed variables
 // change at your own risk.
-$toggle-radius: $toggle-height / 2;
+$toggle-radius: $toggle-height * 0.5; // was "/ 2"; slash division is removed in Dart Sass 2
 $toggle-control-size: $toggle-height - ($toggle-gutter * 2);
 
 .toggle-control {

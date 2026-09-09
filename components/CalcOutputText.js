@@ -21,7 +21,9 @@ export class CalcOutputText extends Component{
 				<div>
 					<h3>Active effects</h3>
 					<table className="bonus-table">
+						<tbody>
 						{flagTable}
+						</tbody>
 					</table>
 				</div>
 			)

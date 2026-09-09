@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Image from 'next/image';
 import npcFinder from '../lib/npcSpecificFinder.js';
 
 const attributeList = [
@@ -86,6 +85,7 @@ export class DefenderTableDisplay extends Component {
 				<div>
 					<h3>Stats</h3>
 					<table className='stats-table'>
+						<tbody>
 						<tr>
 							<td>
 								<div className='stat-wrap'>
@@ -115,22 +115,26 @@ export class DefenderTableDisplay extends Component {
 								</div>
 							</td>
 						</tr>
+						</tbody>
 					</table>
 				</div>
 				<div>
 					<h3>Attack Bonus</h3>
 					<table className="bonus-table">
+						<tbody>
 					<tr>
 					<td>
 						Magic
 					</td>
 						<MonsterBonus value={this.props.monster.stats.amagic} stat="amagic" onChange={this.handleChange} />
 						</tr>
+						</tbody>
 					</table>
 				</div>
 				<div>
 					<h3>Defence bonus</h3>
 					<table className='bonus-table'>
+						<tbody>
 					<tr>
 						<td>Stab</td>
 						<MonsterBonus value={this.props.monster.stats.dstab} stat="dstab" onChange={this.handleChange} />
@@ -152,6 +156,7 @@ export class DefenderTableDisplay extends Component {
 						<MonsterBonus value={this.props.monster.stats.drange} stat="drange" onChange={this.handleChange} />
 					</tr>
 						
+						</tbody>
 					</table>
 				</div>
 

@@ -4,7 +4,6 @@ import { CalcOutputTtkChart } from "./CalcOutputTtkChart.js";
 import { CalcOutputOptimizationGraph } from "./CalcOutputOptimizationGraph.js";
 import { DpsOverDefenceGraph } from "./DpsOverDefenceGraph.js";
 import { Dps } from "../lib/dps/Dps.js";
-import Image from "next/image";
 
 export class CalcOutputMultiple extends Component {
     constructor(props) {

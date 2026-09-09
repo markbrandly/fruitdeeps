@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { EquipmentSelect } from "./EquipmentSelect.js";
 import ImageFallback from "./ImageFallback.js"
-import Image from "next/image";
 
 class LoadoutCell extends Component {
     constructor(props) {

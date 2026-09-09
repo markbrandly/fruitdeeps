@@ -33,7 +33,9 @@ class OutputTable extends Component {
             <div>
                 <span className='color-grey'>{this.props.name}</span>
                 <table className="bonus-table">
+                    <tbody>
                     {this.props.rows}
+                    </tbody>
                 </table>
             </div>
         )
@@ -250,10 +252,12 @@ export class CalcOutputNumbers extends Component {
             <div>
                 <span className='color-grey'>Special</span>
                 <table className='bonus-table'>
+                    <tbody>
                    {calcs.eHealing > 0 && <tr><td>Expected healing</td><td>{calcs.eHealing.toFixed(3)}</td></tr>}
                   {(calcs.ePrayer > 0) && <tr><td>Expected prayer regeneration</td><td>{calcs.ePrayer.toFixed(3)}</td></tr>}
                    {(calcs.eDefReduction > 0) && <tr><td>Expected def reduction</td><td>{calcs.eDefReduction.toFixed(3)}</td></tr>}
 
+                    </tbody>
                 </table>
             </div>
         )

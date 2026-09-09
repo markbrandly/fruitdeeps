@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { PotionDrinker } from '../lib/PotionDrinker.js';
-import Image from "next/image";
 
 class StatPicker extends Component {
     constructor(props) {
@@ -93,6 +92,7 @@ export class AttackerStats extends Component {
         return (
             <div className='highlight-section flex-container-vertical'>
 				<table className="stats-table">
+					<tbody>
 					<tr>
 						<StatPicker stat="attack" imgSrc="/assets/svg/attack_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
 						<StatPicker stat="strength" imgSrc="/assets/svg/strength_icon.svg" player={this.props.player} setPlayer={this.props.setPlayer} />
@@ -112,6 +112,7 @@ export class AttackerStats extends Component {
 						<td>Current</td>
 						<td>Base</td>
 					</tr>
+					</tbody>
 				</table>
 				<div className="center stat-wrap">
 					<img src="/assets/svg/combat_icon.svg" />

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AutofillSearchInput } from './AutofillSearchInput.js';
 import SearchFilter from '../lib/itemFinder.js';
-import Image from "next/image";
 
 export class EquipmentSelect extends AutofillSearchInput {
     constructor(props) {
@@ -68,7 +67,7 @@ export class EquipmentSelect extends AutofillSearchInput {
 
         return this.state.searchList.map((item, i) => {
             var listLen = this.state.searchList.length
-            let ref = 0
+            let ref = null // React 19 rejects non-ref values (was 0)
             if (i == this.state.highlightIndex) {
                 ref = this.highlightRef;
             } else if (i == (this.state.highlightIndex + 1) % listLen) {

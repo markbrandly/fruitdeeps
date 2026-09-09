@@ -90,7 +90,7 @@ export class MonsterSelect extends AutofillSearchInput {
     results() {
         return this.state.searchList.map((item, i) => {
             var listLen = this.state.searchList.length
-            let ref = 0
+            let ref = null // React 19 rejects non-ref values (was 0)
             if (i == this.state.highlightIndex) {
                 ref = this.highlightRef;
             } else if (i == (this.state.highlightIndex + 1) % listLen) {

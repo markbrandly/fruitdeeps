@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Image from "next/image";
 import SearchFilter from "../lib/itemFinder.js"
-import Spinner from "../public/assets/spinner.svg"
+// spinner is served as a static asset from /public (no SVGR build step needed)
 
 
 
@@ -149,7 +148,7 @@ export class AutofillSearchInput extends Component {
             return (
                 <div className="auto-complete-container" >
                     <input className="auto-complete-input" placeholder="Loading data..." disabled />
-                    <span className='loading-spinner'><Spinner /></span>
+                    <span className='loading-spinner'><img src="/assets/spinner.svg" alt="" /></span>
                 </div>
             )
         }
@@ -158,7 +157,7 @@ export class AutofillSearchInput extends Component {
             <div className="auto-complete-container" >
 				<input className="auto-complete-input" onChange={this.handleChange} onFocus={this.setFocus} placeholder={this.placeholder} onBlur={this.setBlur} ref={this.inputRef}/>
 				{ol}
-				{this.state.loading && (<span className='loading-spinner'><img alt="" src="../assets/spinner.svg" style={{height:"1em", width:"auto"}} /></span>)}
+				{this.state.loading && (<span className='loading-spinner'><img alt="" src="/assets/spinner.svg" style={{height:"1em", width:"auto"}} /></span>)}
 				{(!this.state.loading && this.state.isItemFocused) && (<span className="escape-notif">esc</span>)}
 			</div>
         )

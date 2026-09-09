@@ -59,6 +59,7 @@ const BonusSwitcher = (props) => {
         
         onClick={() => setType('def')}>Defence bonus</button>
         <table className="bonus-table">
+            <tbody>
             <BonusSelectRow
                 onChange={props.handleSetBonus}
                 bonusName="Stab"
@@ -89,6 +90,7 @@ const BonusSwitcher = (props) => {
                 bonusIndex={type === 'atk' ? 4 : 9}
                 player={props.player}
             />
+            </tbody>
         </table>
     </div>
 }
@@ -154,6 +156,7 @@ export class AttackerTableDisplay extends Component {
                 <div>
                     <h3>Other bonuses</h3>
                     <table className="bonus-table">
+                        <tbody>
                         <BonusSelectRow
                             onChange={this.handleSetBonus}
                             bonusName="Melee Strength"
@@ -179,11 +182,13 @@ export class AttackerTableDisplay extends Component {
                             bonusIndex="13"
                             player={player}
                         />
+                        </tbody>
                     </table>
                 </div>
                 <div>
                     <h3>Weapon</h3>
                     <table className="bonus-table">
+                        <tbody>
                         {player.equipment.weapon.name ? (
                             <tr>
                                 <td>Name:</td>
@@ -227,6 +232,7 @@ export class AttackerTableDisplay extends Component {
                                 />
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
                 {clearButton}

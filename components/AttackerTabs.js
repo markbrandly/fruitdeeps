@@ -5,7 +5,6 @@ import { AttackerPrayers } from './AttackerPrayers.js';
 import { AttackerSpells } from './AttackerSpells.js';
 import { AttackerImport } from './AttackerImport.js';
 import { AttackerRelics } from './AttackerRelics.js';
-import Image from "next/image";
 
 class Tab extends Component {
     constructor(props) {

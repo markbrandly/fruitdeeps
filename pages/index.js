@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 
 import AttackerSwitcher from "../components/AttackerSwitcher.js";
 import Defender from "../components/Defender.js";
@@ -81,7 +80,7 @@ export default function Index() {
                 <div className="width-control header-flex">
                     <h1 className='page-title'>
                         <img
-                            layout='fill'
+
                             src="/assets/strawberry thing.svg"
                             style={{ height: "1em", width: "auto" }}
                             alt="fruitdeeps"

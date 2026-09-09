@@ -28,6 +28,7 @@ export class AttackerMisc extends Component{
 			<div>
 				<h3>Toggles</h3>
 				<table className='bonus-table'>
+					<tbody>
 
 					<tr>
 						<td><label htmlFor="onTaskToggle">On Task</label></td>
@@ -44,6 +45,7 @@ export class AttackerMisc extends Component{
 						<td><input type="checkbox" id="kandarinHardToggle" checked={this.props.player.misc.kandarinHard} onChange={this.toggleKandarin} /></td>
 					</tr>
 				
+					</tbody>
 				</table>
 			</div>
 		)

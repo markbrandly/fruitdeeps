@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { MonsterSelect } from './MonsterSelect.js';
 import { DefenderVersionSelect } from './DefenderVersionSelect.js';
 import ImageFallback from "./ImageFallback.js"
-import Image from "next/image";
 
 
 

@@ -34,7 +34,9 @@ export class AttackerAttackStyles extends Component {
             <div>
 				<h3>Attack Styles</h3>
 				<table className="bonus-table">
+					<tbody>
 					{this.attackStyles()}
+					</tbody>
 				</table>
 			</div>
         )
