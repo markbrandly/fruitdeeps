@@ -4,8 +4,15 @@
 
 import https from "https";
 // import api from '../lib/api.js'
-import ImageDataURI from "image-data-uri";
 import fs from "fs";
+
+// Replaces the abandoned "image-data-uri" package (its transitive deps
+// carried unpatchable advisories). Decodes a base64 data URI to a file.
+const writeDataUri = (dataURI, path) =>
+	fs.promises.writeFile(
+		path,
+		Buffer.from(dataURI.slice(dataURI.indexOf(",") + 1), "base64")
+	);
 
 // const db = require("../server/database.js");
 
@@ -164,7 +171,7 @@ const addSlot = (slot, callback) => {
 							"data:image/png;base64," + value.icon;
 							let path =
 								"./public/assets/item_images/" + value.id + ".png";
-							ImageDataURI.outputFile(dataURI, path).then(()=>
+							writeDataUri(dataURI, path).then(()=>
 								console.log("image created", value.id +".png")
 							);
 						}
