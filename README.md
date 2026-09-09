@@ -75,6 +75,22 @@ npm run dev
 
 Then open http://localhost:3000.
 
+## Deployment
+
+Everything runs in the browser, so the site is built to static files and served
+from GitHub Pages. There is no server and no database.
+
+Pushing to `master` runs `.github/workflows/deploy.yml`, which builds with
+Next.js `output: "export"` and publishes `out/` to https://fruitdeeps.app.
+The custom domain lives in `public/CNAME` so it survives every redeploy.
+
+To build and preview exactly what gets deployed:
+
+```bash
+npm run build   # writes ./out
+npm run serve   # serves ./out
+```
+
 ## Updating game data
 
 Item stats come from a community-maintained OSRS database on GitHub. NPC stats
